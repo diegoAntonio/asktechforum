@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import= "asktechforum.dominio.Usuario" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html>
@@ -15,14 +16,22 @@
   <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
 </head>
 
-<body>
+<body onunload="goBack()">
   <div id="main">
   	<div id="header">
       <div id="logo">
         <div id="logo_text">
-          <!-- class="logo_colour", allows you to change the colour of the text -->
-          <h1><a href="index.jsp">Ask Tech<span class="logo_colour">Forum</span></a></h1>
-          <h2><a href="login.jsp">Entre</a>&nbsp; <a href="cadastroUsuario.jsp">Cadastre-se</a></h2>
+			<!-- class="logo_colour", allows you to change the colour of the text -->
+			<h1><a href="index.jsp">Ask Tech<span class="logo_colour">Forum</span></a></h1>
+          
+          	<%Usuario usuarioLogado = (Usuario)session.getAttribute("usuarioLogado"); %>
+			<c:if test="${usuarioLogado == null}">
+	          	<h2><a href="login.jsp">Entre</a>&nbsp; <a href="cadastroUsuario.jsp">Cadastre-se</a></h2>
+			</c:if>
+			
+			<c:if test="${usuarioLogado != null}">
+	         		<h2>Olá ${usuarioLogado.nome}!&nbsp;&nbsp; <a href="ServletAutenticacaoUsuario?logout=true">Sair</a></h2>
+			</c:if>
         </div>
         
         <!-- Parte de pesquisa de pergunta. Será implementado na versão beta -->
@@ -51,3 +60,11 @@
             <li><a href="contact.php">Pergunte</a></li>
         </ul>
       </div>
+      
+      <script>
+		function goBack() {
+    		window.history.go(-1);
+		}
+		</script>
+		
+	

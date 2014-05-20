@@ -16,7 +16,7 @@ public class ConnectionUtil {
                 String driver = "com.mysql.jdbc.Driver";
                 String url = "jdbc:mysql://localhost:3306/asktechforum";
                 String user = "root";
-                String password = "root";
+                String password = "";
                 Class.forName(driver);
                 connection = DriverManager.getConnection(url, user, password);
             } catch (ClassNotFoundException e) {

@@ -9,6 +9,17 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  
+  <filter>
+       <filter-name>Controle Acesso</filter-name>
+       <filter-class>filtro.ControleAcesso</filter-class>
+  </filter>
+  <filter-mapping>
+        <filter-name>Controle Acesso</filter-name>
+        <url-pattern>/usuarioAutenticado/*</url-pattern>
+  </filter-mapping>
+  
   <servlet>
     <description></description>
     <display-name>ServletCadastroUsuario</display-name>
@@ -49,4 +60,14 @@
     <servlet-name>ServletPerfilUsuario</servlet-name>
     <url-pattern>/ServletPerfilUsuario</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+		<servlet-name>ServletAutenticacaoUsuario</servlet-name>
+		<servlet-class>asktechforum.controller.ServletAutenticacaoUsuario</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServletAutenticacaoUsuario</servlet-name>
+		<url-pattern>/ServletAutenticacaoUsuario</url-pattern>
+	</servlet-mapping>
+  
 </web-app>

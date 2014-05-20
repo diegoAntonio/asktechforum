@@ -1,26 +1,34 @@
 <%@ include file="cabecalho.jsp"%>
+
+<form method="post" action="ServletAutenticacaoUsuario" id="formLogin">
+
 <div id="site_content">
 	<div class="content">
 		<h1>Login</h1>
 		<div class="content_item">
-
-			<div class="form_settings">
+			<div class="form_settings_login">
 				<p>
-					<span>E-mail</span><input class="contact" type="text"
-						name="your_email" value="" />
+					<span>E-mail  </span><input class="contact" type="emails"
+						name="email" value="" placeholder="nome@exemplo.com"/>
 				</p>
-				<p>
-					<span>Senha</span>
-					<input class="contact textarea" name="your_message"/>
+				<p>	<span>Senha</span>
+					<input class="contact" type="password" name="senha" placeholder="senha"/>
+					<a href="esqueciMinhaSenha.jsp" style="font-size: 10px">Esqueci minha senha</a>
 				</p>
-				<h3>
-					<a href="esqueciMinhaSenha.jsp">Esqueci minha senha</a>
-				</h3>	
-				<p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="contact_submitted" value="Entrar" /></p>
-			</div>
+				
+				<%String erro = (String)session.getAttribute("erro"); %>
+				<c:if test="${erro == null}">
+					<% session.setAttribute("erro", ""); %>
+				</c:if>
+				<p style="font-size: 12px; color: red;" id= msg><%=session.getAttribute("erro")%></p>
+				<p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="btn_entrar" value="Entrar"/>
+				<a href="cadastroUsuario.jsp"><input  class="submit" name="btn_cadastrar" type="button" value="Cadastrar"></a></p>
+				
 
-
+				</div>
 		</div>
 	</div>
 </div>
+</form>
+
 <jsp:include page="rodape.jsp"></jsp:include>
