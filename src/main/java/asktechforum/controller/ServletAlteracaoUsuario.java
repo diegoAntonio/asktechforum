@@ -20,7 +20,7 @@ import asktechforum.util.UsuarioUtil;
 @WebServlet("/ServletAlteracaoUsuario")
 public class ServletAlteracaoUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private static String ALTERAR = "/alterarUsuario.jsp";
+    private static String ALTERAR = "./usuarioAutenticado/alterarUsuario.jsp";
     private static String SUCESSOALTERACAO = "perfilUsuario.jsp";
     
 	private UsuarioDAO dao;
