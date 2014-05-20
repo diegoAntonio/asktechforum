@@ -25,11 +25,12 @@
 			<h1><a href="index.jsp">Ask Tech<span class="logo_colour">Forum</span></a></h1>
           
           	<%Usuario usuarioLogado = (Usuario)session.getAttribute("usuarioLogado"); %>
-			<c:if test="${usuarioLogado == null}">
+          	<%Boolean saudacao = (Boolean)session.getAttribute("saudacao"); %>
+			<c:if test="${saudacao != true}">
 	          	<h2><a href="login.jsp">Entre</a>&nbsp; <a href="cadastroUsuario.jsp">Cadastre-se</a></h2>
 			</c:if>
 			
-			<c:if test="${usuarioLogado != null}">
+			<c:if test="${saudacao == true}">
 	         		<h2>Olá ${usuarioLogado.nome}!&nbsp;&nbsp; <a href="ServletAutenticacaoUsuario?logout=true">Sair</a></h2>
 			</c:if>
         </div>

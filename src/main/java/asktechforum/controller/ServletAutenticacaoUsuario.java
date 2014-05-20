@@ -46,6 +46,7 @@ public class ServletAutenticacaoUsuario  extends HttpServlet {
         	Usuario user = null;
         	String email_form = request.getParameter("email"); // Pega o email vindo do formulario
         	String senha_form = request.getParameter("senha"); //Pega a senha vinda do formulario
+        	Boolean saudacao = false;
 
         	try {
         		UsuarioDAO dao = new UsuarioDAO(); //cria uma instancia do DAO usuario
@@ -62,8 +63,10 @@ public class ServletAutenticacaoUsuario  extends HttpServlet {
         		request.getRequestDispatcher("/login.jsp" ).forward(request, response);
         	}
         	else{
+        		saudacao = true;
         		//se o dao retornar um usuario, coloca o mesmo na sessao
         		session.setAttribute("usuarioLogado", user);
+        		session.setAttribute("saudacao", saudacao);
         		request.getRequestDispatcher("/index.jsp" ).forward(request, response);
         	}
         //} 
