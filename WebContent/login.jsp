@@ -23,7 +23,7 @@
 				<p style="font-size: 12px; color: red;" id= msg><%=session.getAttribute("erro")%></p>
 				<p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="btn_entrar" value="Entrar"/>
 				<a href="cadastroUsuario.jsp"><input  class="submit" name="btn_cadastrar" type="button" value="Cadastrar"></a></p>
-				
+				<% session.setAttribute("erro", ""); %>
 
 				</div>
 		</div>
