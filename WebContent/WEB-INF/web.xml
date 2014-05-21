@@ -69,5 +69,38 @@
 		<servlet-name>ServletAutenticacaoUsuario</servlet-name>
 		<url-pattern>/ServletAutenticacaoUsuario</url-pattern>
 	</servlet-mapping>
+	
+  <servlet>
+    <description></description>
+    <display-name>ServeltCadastroTag</display-name>
+    <servlet-name>ServeltCadastroTag</servlet-name>
+    <servlet-class>asktechforum.controller.ServeltCadastroTag</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServeltCadastroTag</servlet-name>
+    <url-pattern>/ServeltCadastroTag</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>ServletCadastroPergunta</display-name>
+    <servlet-name>ServletCadastroPergunta</servlet-name>
+    <servlet-class>asktechforum.controller.ServletCadastroPergunta</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletCadastroPergunta</servlet-name>
+    <url-pattern>/ServletCadastroPergunta</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>ServletCadastroResposta</display-name>
+    <servlet-name>ServletCadastroResposta</servlet-name>
+    <servlet-class>asktechforum.controller.ServletCadastroResposta</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletCadastroResposta</servlet-name>
+    <url-pattern>/ServletCadastroResposta</url-pattern>
+  </servlet-mapping>
   
 </web-app>
