@@ -1,7 +1,6 @@
 package asktechforum.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import asktechforum.dominio.Usuario;
 import asktechforum.repositorio.UsuarioDAO;
 import asktechforum.util.UsuarioUtil;
-import asktechforum.util.Util;
 
 /**
  * Implementação do Servlet de Cadastro de Usuario.
@@ -25,7 +23,7 @@ public class ServletCadastroUsuario extends HttpServlet {
     //private static String ERROCADASTRO = "cadastroUsuario.jsp";
 	
     private UsuarioDAO dao;
- 
+       
     /**
      * Construtor do Servlet de Cadastro de Usuario.
      */
