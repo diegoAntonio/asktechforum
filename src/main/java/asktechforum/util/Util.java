@@ -14,14 +14,13 @@ public class Util {
 	 * @param data data para fazer cach e formata
 	 * @return a data formata em string
 	 */
-	public String converterDataToString(String formato, Date data){
+	public static String converterDataToString(String formato, Date data){
 		String d = null;
 		
 		SimpleDateFormat sdf = new SimpleDateFormat(formato);
 		d = sdf.format(data);
 		
 		return d;
-		
 	}
 	
 	/**
@@ -31,12 +30,14 @@ public class Util {
 	 * @return retorna a data formatada e convertida para o tipo Date
 	 * @throws ParseException
 	 */
-	public Date converterStringToDate(String formato, String data) throws ParseException{
-		Date d = null;
+	public static Date converterStringToDate(String formato, String data) throws ParseException{
+		java.sql.Date d = null;
 		
 		SimpleDateFormat sdf = new SimpleDateFormat(formato);
 		
-		d = (Date) sdf.parse(data);
+		 d = new java.sql.Date(sdf.parse(data).getTime());
+		
+		//d = (Date) sdf.parse(data);
 		
 		return d;
 	}
@@ -47,7 +48,7 @@ public class Util {
 	 * @param valor valor para a verificao
 	 * @return true se o valor esta no formato de data valida
 	 */
-	public boolean ehFormatoData(String valor){
+	public static boolean ehFormatoData(String valor){
 		boolean eformatoData = false;
 		
 		return eformatoData;
@@ -59,7 +60,7 @@ public class Util {
 	 * @param valor valor para verificao
 	 * @return true se o valor esta no formato de hora valida
 	 */
-	public boolean ehFormatoHora(String valor){
+	public static boolean ehFormatoHora(String valor){
 		boolean eformatoHora = false;
 		
 		return eformatoHora;
@@ -70,7 +71,7 @@ public class Util {
 	 * @param valor valor a ser verificado
 	 * @return retorna true se sim
 	 */
-	public boolean ehNumero(String valor){
+	public static boolean ehNumero(String valor){
 		boolean numero = false;
 		
 		return numero;
@@ -81,7 +82,7 @@ public class Util {
 	 * @param valor valor a ser verificado
 	 * @return retorna true se sim
 	 */
-	public boolean ehLetra(String valor){
+	public static boolean ehLetra(String valor){
 		boolean letra = false;
 		
 		return letra;

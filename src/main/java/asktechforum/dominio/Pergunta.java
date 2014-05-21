@@ -11,12 +11,13 @@ public class Pergunta {
 	private int usuario;
 	private String strData;
 	private String strHora;
+	private String tag;
 	private Date data;
 	private Date hora;
-	private Util util;
+	
 	
 	public Pergunta() {
-		util = new Util();
+		
 	}
 	
 	//GETTERS AND SETTERS
@@ -48,14 +49,14 @@ public class Pergunta {
 	}
 
 	public String getStrData() {
-		strData = util.converterDataToString("dd/MM/yyyy", data);
+		strData = Util.converterDataToString("dd/MM/yyyy", data);
 		return strData;
 	}
 
 	public void setStrData(String strData){
 		
 		try {
-			this.data = util.converterStringToDate("dd/MM/yyyy", strData);
+			this.data = Util.converterStringToDate("dd/MM/yyyy", strData);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,13 +64,13 @@ public class Pergunta {
 	}
 
 	public String getStrHora() {
-		strHora = util.converterDataToString("hh:mm", hora);
+		strHora = Util.converterDataToString("hh:mm", hora);
 		return strHora;
 	}
 
 	public void setStrHora(String strHora)  {
 		try {
-			this.hora = util.converterStringToDate("hh:mm", strHora);
+			this.hora = Util.converterStringToDate("hh:mm", strHora);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,6 +91,14 @@ public class Pergunta {
 
 	public void setHora(Date hora) {
 		this.hora = hora;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 
 }

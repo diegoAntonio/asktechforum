@@ -23,7 +23,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 	public void adcionarPergunta(Pergunta pergunta) throws SQLException {
 
-		String sql = "insert into PERGUNTA(titulo, data, hora, descricao, idUsuario)values(?,?,?,?,?)";
+		String sql = "insert into PERGUNTA(titulo, data, hora, descricao, idUsuario, tag)values(?,?,?,?,?,?)";
 		PreparedStatement stmt = null;
 		try {
 			stmt = con.prepareStatement(sql);
@@ -33,6 +33,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			stmt.setDate(++index, pergunta.getHora());
 			stmt.setString(++index, pergunta.getDescricao());
 			stmt.setInt(++index, pergunta.getUsuario());
+			stmt.setString(++index, pergunta.getTag());
 
 			stmt.executeUpdate();
 
@@ -46,48 +47,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 	}
 	
-	public void adcionarTag(int pergunta, int tag) throws SQLException{
-		
-		String sql = "insert into TAG_PERGUNTA(idTag, idPergunta) values (?,?)";
-		
-		PreparedStatement stmt = null;
-		
-		try {
-			stmt = con.prepareStatement(sql);
-			int index=0;
-			stmt.setInt(++index, pergunta);
-			stmt.setInt(++index, tag);
-			
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			stmt.close();
-			con.close();
-		}
-		
-		
-	}
 	
-	public void removerTag(int pergunta, int tag) throws SQLException{
-		String sql = "delete from TAG_PERGUNTA where idTag = " + tag + " and idPergunta = " + pergunta;
-		
-		PreparedStatement stmt = null;
-		
-		try {
-			stmt = con.prepareStatement(sql);
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			stmt.close();
-			con.close();
-		}
-		
-		
-	}
 
 	public void deletarPergunta(int id) throws SQLException {
 
@@ -123,6 +83,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 				pergunta.setUsuario(rs.getInt("idUsuario"));
 				pergunta.setData(rs.getDate("data"));
 				pergunta.setHora(rs.getDate("hora"));
+				pergunta.setTag(rs.getString("tag"));
 			}
 
 		} catch (SQLException e) {
@@ -190,17 +151,12 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		return pergunta;
 	}
 
-	public ArrayList<Pergunta> consultarPerguntaPorTag(int id)
+	public ArrayList<Pergunta> consultarPerguntaPorData(Date data)
 			throws SQLException {
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
 
-		String sql = "select p.idPergunta,"
-				+ " p.titulo, p.descricao, p.idUsuario, " + " p.data, p.hora "
-				+ " from PERGUNTA p, TAG t, TAG_PERGUNTA tp"
-				+ " where p.idPergunta = tp.idPergunta "
-				+ " and tp.idTag = t.idTag" + " and t.idTag =  " + id
-				+ " order by data, hora";
-
+		String sql = "select * from PERGUNTA where idUsuario = " + data
+				+ " order by hora";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
@@ -222,13 +178,14 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 		return pergunta;
 	}
-
-	public ArrayList<Pergunta> consultarPerguntaPorData(Date data)
+	
+	@Override
+	public ArrayList<Pergunta> consultarPerguntaPorTag(String tag)
 			throws SQLException {
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
 
-		String sql = "select * from PERGUNTA where idUsuario = " + data
-				+ " order by hora";
+		String sql = "select * from PERGUNTA where tag like %" + tag
+				+ "% order by hora";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
@@ -262,11 +219,14 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			p.setUsuario(rs.getInt("usuario"));
 			p.setData(rs.getDate("data"));
 			p.setHora(rs.getDate("hora"));
+			p.setTag(rs.getString("tag"));
 			pergunta.add(p);
 		}
 
 		return pergunta;
 	}
+
+	
 
 }
 

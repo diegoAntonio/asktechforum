@@ -51,23 +51,13 @@ public class ServletCadastroPergunta extends HttpServlet {
 
 		Pergunta pergunta = new Pergunta();
 
-		String flag = request.getParameter("flag");
-
-		if (flag.contentEquals("pergunta")) {
-			pergunta.setStrData(request.getParameter("data"));
-			pergunta.setDescricao(request.getParameter("descricao"));
-			pergunta.setStrHora(request.getParameter("hora"));
-			pergunta.setTitulo(request.getParameter("titulo"));
-			pergunta.setUsuario(Integer.parseInt(request
-					.getParameter("usuario")));
-			cadastro.adcionarPergunta(pergunta);
-		} else {
-			Tag tag = new Tag();
-			pergunta.setIdPergunta(Integer.parseInt(request
-					.getParameter("pergunta")));
-			tag.setIdTag(Integer.parseInt(request.getParameter("tag")));
-			cadastro.adcionarTag(pergunta.getIdPergunta(), tag.getIdTag());
-		}
+		pergunta.setStrData(request.getParameter("data"));
+		pergunta.setDescricao(request.getParameter("descricao"));
+		pergunta.setStrHora(request.getParameter("hora"));
+		pergunta.setTitulo(request.getParameter("titulo"));
+		pergunta.setUsuario(Integer.parseInt(request.getParameter("usuario")));
+		pergunta.setTag(request.getParameter("tag"));
+		cadastro.adcionarPergunta(pergunta);
 
 		RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
 		request.setAttribute("pergunta", pergunta);

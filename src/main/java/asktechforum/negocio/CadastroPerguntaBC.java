@@ -42,41 +42,6 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 	}
 
 	@Override
-	public void adcionarTag(int pergunta, int tag) {
-		// TODO Auto-generated method stub
-		try {
-			if (pergunta == 0) {
-
-			} else if (tag == 0) {
-
-			} else {
-				cadastro.adcionarTag(pergunta, tag);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	@Override
-	public void removerTag(int pergunta, int tag) {
-		try {
-			if (pergunta == 0) {
-
-			} else if (tag == 0) {
-
-			} else {
-				cadastro.removerTag(pergunta, tag);
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	@Override
 	public void deletarPergunta(int id) {
 		// TODO Auto-generated method stub
 		try {
@@ -146,20 +111,18 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 	}
 
 	@Override
-	public ArrayList<Pergunta> consultarPerguntaPorTag(int id) {
+	public ArrayList<Pergunta> consultarPerguntaPorTag(String tag)
+			throws SQLException {
 		lstPergunta = new ArrayList<Pergunta>();
 		try {
-			if (id == 0) {
 
-			} else {
-				lstPergunta = cadastro.consultarPerguntaPorTag(id);
-			}
+			this.lstPergunta = cadastro.consultarPerguntaPorTag(tag);
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return lstPergunta;
-
 	}
 
 }
