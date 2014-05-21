@@ -31,7 +31,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			stmt.setInt(++index, resposta.getIdUsuario());
 			stmt.setInt(++index, resposta.getIdPergunta());
 			stmt.setDate(++index, resposta.getData());
-			stmt.setDate(++index, resposta.getHora());
+			stmt.setTime(++index, resposta.getHora());
 
 			stmt.executeUpdate();
 
@@ -73,7 +73,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			while (rs.next()) {
 				resposta.setData(rs.getDate("data"));
 				resposta.setDescricao(rs.getString("descricao"));
-				resposta.setHora(rs.getDate("hora"));
+				resposta.setHora(rs.getTime("hora"));
 				resposta.setIdPergunta(rs.getInt("idPergunta"));
 				resposta.setIdResposta(rs.getInt("idResposta"));
 				resposta.setIdUsuario(rs.getInt("idUsuario"));
@@ -181,7 +181,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			Resposta r = new Resposta();
 			r.setData(rs.getDate("data"));
 			r.setDescricao(rs.getString("descricao"));
-			r.setHora(rs.getDate("hora"));
+			r.setHora(rs.getTime("hora"));
 			r.setIdPergunta(rs.getInt("idPergunta"));
 			r.setIdResposta(rs.getInt("idResposta"));
 			r.setIdUsuario(rs.getInt("idUsuario"));

@@ -13,7 +13,7 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 	private ArrayList<Pergunta> lstPergunta;
 
 	public CadastroPerguntaBC() {
-		CadastroPerguntasDAO cadastro = new CadastroPerguntasDAO();
+		cadastro = new CadastroPerguntasDAO();
 	}
 
 	@Override

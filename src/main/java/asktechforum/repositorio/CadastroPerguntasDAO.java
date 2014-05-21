@@ -1,4 +1,5 @@
 package asktechforum.repositorio;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -14,15 +15,16 @@ import asktechforum.util.Util;
 public class CadastroPerguntasDAO implements CadastroPergunta {
 
 	private Connection con;
-	private Util util = null;
+	private Util util;
 
 	public CadastroPerguntasDAO() {
-		con = ConnectionUtil.getConnection();
+
 		util = new Util();
 	}
 
 	public void adcionarPergunta(Pergunta pergunta) throws SQLException {
 
+		con = ConnectionUtil.getConnection();
 		String sql = "insert into PERGUNTA(titulo, data, hora, descricao, idUsuario, tag)values(?,?,?,?,?,?)";
 		PreparedStatement stmt = null;
 		try {
@@ -30,7 +32,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			int index = 0;
 			stmt.setString(++index, pergunta.getTitulo());
 			stmt.setDate(++index, pergunta.getData());
-			stmt.setDate(++index, pergunta.getHora());
+			stmt.setTime(++index, pergunta.getHora());
 			stmt.setString(++index, pergunta.getDescricao());
 			stmt.setInt(++index, pergunta.getUsuario());
 			stmt.setString(++index, pergunta.getTag());
@@ -46,11 +48,10 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		}
 
 	}
-	
-	
 
 	public void deletarPergunta(int id) throws SQLException {
 
+		con = ConnectionUtil.getConnection();
 		String sql = "delete from PERGUNTA where idPergunta = " + id;
 		PreparedStatement stmt = null;
 		try {
@@ -67,6 +68,8 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 	}
 
 	public Pergunta consultarPerguntaPorIdPergunta(int id) throws SQLException {
+
+		con = ConnectionUtil.getConnection();
 		Pergunta pergunta = new Pergunta();
 
 		String sql = "select * from PERGUNTA where idPergunta = " + id;
@@ -82,7 +85,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 				pergunta.setTitulo(rs.getString("titulo"));
 				pergunta.setUsuario(rs.getInt("idUsuario"));
 				pergunta.setData(rs.getDate("data"));
-				pergunta.setHora(rs.getDate("hora"));
+				pergunta.setHora(rs.getTime("hora"));
 				pergunta.setTag(rs.getString("tag"));
 			}
 
@@ -100,6 +103,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 	public ArrayList<Pergunta> consultarPerguntaIdUsuario(int id)
 			throws SQLException {
+		con = ConnectionUtil.getConnection();
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
 
 		String sql = "select * from PERGUNTA where idUsuario = " + id
@@ -126,6 +130,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 	}
 
 	public ArrayList<Pergunta> consultarTodasPerguntas() throws SQLException {
+		con = ConnectionUtil.getConnection();
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
 
 		String sql = "select * from PERGUNTA order by data, hora";
@@ -153,6 +158,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 	public ArrayList<Pergunta> consultarPerguntaPorData(Date data)
 			throws SQLException {
+		con = ConnectionUtil.getConnection();
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
 
 		String sql = "select * from PERGUNTA where idUsuario = " + data
@@ -178,10 +184,11 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 		return pergunta;
 	}
-	
+
 	@Override
 	public ArrayList<Pergunta> consultarPerguntaPorTag(String tag)
 			throws SQLException {
+		con = ConnectionUtil.getConnection();
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
 
 		String sql = "select * from PERGUNTA where tag like %" + tag
@@ -209,6 +216,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 	}
 
 	private ArrayList<Pergunta> montarLista(ResultSet rs) throws SQLException {
+		con = ConnectionUtil.getConnection();
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
 
 		while (rs.next()) {
@@ -218,7 +226,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			p.setTitulo(rs.getString("titulo"));
 			p.setUsuario(rs.getInt("usuario"));
 			p.setData(rs.getDate("data"));
-			p.setHora(rs.getDate("hora"));
+			p.setHora(rs.getTime("hora"));
 			p.setTag(rs.getString("tag"));
 			pergunta.add(p);
 		}
@@ -226,7 +234,4 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		return pergunta;
 	}
 
-	
-
 }
-

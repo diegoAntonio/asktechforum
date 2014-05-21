@@ -58,7 +58,7 @@
             </ul>
           </li>
           <li><a href="sobre.jsp">Sobre</a></li>
-            <li><a href="contact.php">Pergunte</a></li>
+            <li><a href="CadastroPergunta.jsp">Pergunte</a></li>
         </ul>
       </div>
       
