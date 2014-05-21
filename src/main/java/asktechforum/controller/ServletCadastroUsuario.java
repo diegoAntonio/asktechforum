@@ -46,12 +46,7 @@ public class ServletCadastroUsuario extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Usuario usuario = new Usuario();
 		usuario.setNome(request.getParameter("nome"));
-		try {
-			usuario.setDataNascimento(Util.converterStringToDate("dd/MM/yyyy",request.getParameter("dataNascimento")));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		usuario.setDataNascimento(UsuarioUtil.converterStringData(request.getParameter("dataNascimento")));
 		usuario.setEmail(request.getParameter("email"));
 		usuario.setLocalizacao(request.getParameter("localizacao"));
 		usuario.setSenha(request.getParameter("senha"));
