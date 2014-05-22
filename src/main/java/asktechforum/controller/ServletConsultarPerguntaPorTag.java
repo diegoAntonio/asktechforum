@@ -1,5 +1,6 @@
 package asktechforum.controller;
 
+import java.awt.List;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ import asktechforum.util.Util;
 @WebServlet("/ServletConsultarPerguntaPorTag")
 public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	private static final String RESULTADO_CONSULTA = "consultaPerguntaPorTag.jsp";
 	private CadastroPerguntaBC cadastro;
 
@@ -62,12 +64,12 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 		
 		String tag = request.getParameter("tag");
 		this.cadastro = new CadastroPerguntaBC();
-		Pergunta pergunta = new Pergunta();
 
 		ArrayList<ResultConsultarPergunta> tags = cadastro.consultarPerguntaPorTag(tag);
 
 		RequestDispatcher view = request.getRequestDispatcher(RESULTADO_CONSULTA);
-		request.setAttribute("pergunta", pergunta);
+		request.setAttribute("pergunta", tags);
+		
 		view.forward(request, response);
 	}
 

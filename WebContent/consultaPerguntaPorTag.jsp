@@ -4,9 +4,13 @@
 <br />
 <br />
 
-<form id="formConsultarPerguntaPorTag"
-	action="ServletConsultarPerguntaPorTag" method="post">
 
+<%
+	String tag = request.getParameter("tag");
+%>
+
+
+<form id="formConsultarPerguntaPorTag" action="ServletConsultarPerguntaPorTag" method="post">
 	<div id="site_content">
 		<c:forEach items="${pergunta}" var="pergunta">
 			<div class="content">
