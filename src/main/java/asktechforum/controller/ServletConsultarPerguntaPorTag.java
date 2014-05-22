@@ -1,6 +1,7 @@
 package asktechforum.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import asktechforum.dominio.Pergunta;
+import asktechforum.dominio.ResultConsultarPergunta;
 import asktechforum.negocio.CadastroPerguntaBC;
 import asktechforum.util.Util;
 
@@ -19,7 +21,7 @@ import asktechforum.util.Util;
 @WebServlet("/ServletConsultarPerguntaPorTag")
 public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String SUCESSOCADASTRO = "cadastroPerguntaSucesso.jsp";
+	private static final String RESULTADO_CONSULTA = "consultaPerguntaPorTag.jsp";
 	private CadastroPerguntaBC cadastro;
 
     /**
@@ -29,12 +31,27 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    @Override
+    protected void service(HttpServletRequest arg0, HttpServletResponse arg1)
+    		throws ServletException, IOException {
+    	// TODO Auto-generated method stub
+    	super.service(arg0, arg1);
+    }
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String tag = request.getParameter("tag");
+		this.cadastro = new CadastroPerguntaBC();
+		Pergunta pergunta = new Pergunta();
+
+		ArrayList<ResultConsultarPergunta> tags = cadastro.consultarPerguntaPorTag(tag);
+
+		RequestDispatcher view = request.getRequestDispatcher(RESULTADO_CONSULTA);
+		request.setAttribute("pergunta", tags);
+		view.forward(request, response);
+
 	}
 
 	/**
@@ -42,12 +59,14 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		String tag = request.getParameter("tag");
 		this.cadastro = new CadastroPerguntaBC();
 		Pergunta pergunta = new Pergunta();
 
-		cadastro.cadcionarPergunta(pergunta);
+		ArrayList<ResultConsultarPergunta> tags = cadastro.consultarPerguntaPorTag(tag);
 
-		RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
+		RequestDispatcher view = request.getRequestDispatcher(RESULTADO_CONSULTA);
 		request.setAttribute("pergunta", pergunta);
 		view.forward(request, response);
 	}

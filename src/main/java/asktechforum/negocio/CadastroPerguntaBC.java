@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import asktechforum.dominio.Pergunta;
+import asktechforum.dominio.ResultConsultarPergunta;
 import asktechforum.repositorio.CadastroPerguntasDAO;
 import asktechforum.interfaces.CadastroPergunta;
 
@@ -11,6 +12,7 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 
 	private CadastroPerguntasDAO cadastro;
 	private ArrayList<Pergunta> lstPergunta;
+	private ArrayList<ResultConsultarPergunta> lstQtdPergunta;
 
 	public CadastroPerguntaBC() {
 		cadastro = new CadastroPerguntasDAO();
@@ -111,18 +113,17 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 	}
 
 	@Override
-	public ArrayList<Pergunta> consultarPerguntaPorTag(String tag)
-			throws SQLException {
-		lstPergunta = new ArrayList<Pergunta>();
+	public ArrayList<ResultConsultarPergunta> consultarPerguntaPorTag(String tag){
+		lstQtdPergunta = new ArrayList<ResultConsultarPergunta>();
 		try {
 
-			this.lstPergunta = cadastro.consultarPerguntaPorTag(tag);
+			this.lstQtdPergunta = cadastro.consultarPerguntaPorTag(tag);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return lstPergunta;
+		return lstQtdPergunta;
 	}
 
 }

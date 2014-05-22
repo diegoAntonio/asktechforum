@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import asktechforum.dominio.Pergunta;
+import asktechforum.dominio.ResultConsultarPergunta;
 
 public interface CadastroPergunta {
 	
@@ -13,7 +14,8 @@ public interface CadastroPergunta {
 	public ArrayList<Pergunta> consultarPerguntaIdUsuario(int id)
 			throws SQLException;
 	public ArrayList<Pergunta> consultarTodasPerguntas() throws SQLException;
-	public ArrayList<Pergunta> consultarPerguntaPorTag(String tag)
+	public ArrayList<ResultConsultarPergunta> consultarPerguntaPorTag(String tag)
 			throws SQLException ;
+	
 	
 }

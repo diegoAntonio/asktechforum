@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import asktechforum.dominio.Pergunta;
+import asktechforum.dominio.ResultConsultarPergunta;
 import asktechforum.interfaces.CadastroPergunta;
 import asktechforum.util.ConnectionUtil;
 import asktechforum.util.Util;
@@ -186,13 +187,17 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 	}
 
 	@Override
-	public ArrayList<Pergunta> consultarPerguntaPorTag(String tag)
+	public ArrayList<ResultConsultarPergunta> consultarPerguntaPorTag(String tag)
 			throws SQLException {
 		con = ConnectionUtil.getConnection();
-		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
+		ArrayList<ResultConsultarPergunta> pergunta = new ArrayList<ResultConsultarPergunta>();
 
-		String sql = "select * from PERGUNTA where tag like %" + tag
-				+ "% order by hora";
+		String sql = "select p.descricao, count(r.idResposta)  total, u.nome from pergunta p, resposta r, usuario u " +
+		" where u.idUsuario = p.idUsuario " +
+		" and p.idPergunta = r.idPergunta " +
+		" and p.tag like '%" + tag + "%' "+ 
+		" group by u.nome, p.idPergunta; ";
+		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
@@ -201,7 +206,16 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 			rs = stmt.executeQuery();
 
-			pergunta = montarLista(rs);
+			ResultConsultarPergunta p;
+			
+			while(rs.next()){
+				p = new ResultConsultarPergunta();
+				p.setAutor(rs.getString("nome"));
+				p.setDescricao(rs.getString("descricao"));
+				p.setQtdResposta(rs.getInt("total"));
+				pergunta.add(p);
+			}
+			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -210,6 +224,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			rs.close();
 			stmt.close();
 			con.close();
+			con = null;
 		}
 
 		return pergunta;
