@@ -4,7 +4,7 @@
 <br />
 <br />
 
-<form id="formconsultaPerguntaPorTag" action="ServletCadastroPergunta" method="post">
+<form id="formConsultarPerguntaPorTag" action="ServletConsultarPerguntaPorTag" method="post">
 
 	<div id="site_content">
 		<div class="content">
