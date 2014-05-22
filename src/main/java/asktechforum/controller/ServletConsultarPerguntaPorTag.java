@@ -1,6 +1,8 @@
 package asktechforum.controller;
 
+import java.awt.List;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +21,7 @@ import asktechforum.util.Util;
 @WebServlet("/ServletConsultarPerguntaPorTag")
 public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String SUCESSOCADASTRO = "cadastroPerguntaSucesso.jsp";
+	private static final String PESQUISA_TAG = "consultaPerguntaPorTag.jsp";
 	private CadastroPerguntaBC cadastro;
 
     /**
@@ -42,13 +44,17 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		String tag = request.getParameter("tag");
+		
+		ArrayList<Pergunta> resultado = new ArrayList<Pergunta>();
+		
 		this.cadastro = new CadastroPerguntaBC();
-		Pergunta pergunta = new Pergunta();
+		
+		resultado = cadastro.consultarPerguntaPorTag(tag);
 
-		cadastro.cadcionarPergunta(pergunta);
-
-		RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
-		request.setAttribute("pergunta", pergunta);
+		RequestDispatcher view = request.getRequestDispatcher(PESQUISA_TAG);
+		request.setAttribute("pergunta", resultado);
 		view.forward(request, response);
 	}
 

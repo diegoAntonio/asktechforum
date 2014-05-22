@@ -48,7 +48,7 @@
           <li><a href="pesquisarUsuario.jsp">Usuários</a></li>
           <li><a href="#">Tags</a>
             <ul>
-              <li><a href="#">Java</a></li>
+              <li><a href="consultaPerguntaPorTag.jsp?tag=java">Java</a></li>
               <li><a href="#">Android</a></li>
               <li><a href="#">Redes</a></li>
               <li><a href="#">JavaScript</a></li>

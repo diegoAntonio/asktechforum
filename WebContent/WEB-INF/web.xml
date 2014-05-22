@@ -85,4 +85,15 @@
     <servlet-name>ServletCadastroResposta</servlet-name>
     <url-pattern>/ServletCadastroResposta</url-pattern>
   </servlet-mapping>
+
+ <servlet>
+    <description></description>
+    <display-name>ServletConsultarPerguntaPorTag</display-name>
+    <servlet-name>ServletConsultarPerguntaPorTag</servlet-name>
+    <servlet-class>asktechforum.controller.ServletConsultarPerguntaPorTag</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletConsultarPerguntaPorTag</servlet-name>
+    <url-pattern>/ServletConsultarPerguntaPorTag</url-pattern>
+  </servlet-mapping>
 </web-app>

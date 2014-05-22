@@ -111,8 +111,7 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 	}
 
 	@Override
-	public ArrayList<Pergunta> consultarPerguntaPorTag(String tag)
-			throws SQLException {
+	public ArrayList<Pergunta> consultarPerguntaPorTag(String tag) {
 		lstPergunta = new ArrayList<Pergunta>();
 		try {
 
