@@ -15,8 +15,10 @@
 		<c:forEach items="${pergunta}" var="pergunta">
 			<div class="content">
 				<h1>
-					<input type="text" name="usuarioRadio" id="usuario"
-						value="${pergunta.descricao}" />
+				
+						
+					<a  href="ServletConsultarRespostaPergunta?id=${pergunta.idPergunta}">${pergunta.descricao}</a>
+				
 				</h1>
 				<div class="content_item">
 					<div class="form_settings_cadastro">

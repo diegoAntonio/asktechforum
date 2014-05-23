@@ -192,11 +192,10 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		con = ConnectionUtil.getConnection();
 		ArrayList<ResultConsultarPergunta> pergunta = new ArrayList<ResultConsultarPergunta>();
 
-		String sql = "select p.descricao, count(r.idResposta)  total, u.nome from pergunta p, resposta r, usuario u " +
-		" where u.idUsuario = p.idUsuario " +
-		" and p.idPergunta = r.idPergunta " +
-		" and p.tag like '%" + tag + "%' "+ 
-		" group by u.nome, p.idPergunta; ";
+		String sql = " select p.descricao, count(r.idResposta) total, u.nome, p.idPergunta " +
+			"  from usuario u left join pergunta p on u.idUsuario = p.idUsuario " +
+			"		left join resposta r on p.idPergunta = r.idPergunta " +
+			"		where p.tag like '%"+ tag +"%'  group by u.nome, p.idPergunta ; ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -213,6 +212,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 				p.setAutor(rs.getString("nome"));
 				p.setDescricao(rs.getString("descricao"));
 				p.setQtdResposta(rs.getInt("total"));
+				p.setIdPergunta(rs.getInt("idPergunta"));
 				pergunta.add(p);
 			}
 			
