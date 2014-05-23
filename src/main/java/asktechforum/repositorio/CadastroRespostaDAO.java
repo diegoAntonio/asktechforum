@@ -158,7 +158,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
-
+			
 			resposta = montarLista(rs);
 
 		} catch (SQLException e) {

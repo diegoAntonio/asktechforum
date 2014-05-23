@@ -47,16 +47,18 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String  idPergunta = request.getParameter("id");
-		//String idPerguntaString = request.get
+		String idPergunta = request.getParameter("id");
+		String descricao = request.getParameter("descricao");
+		String autor = request.getParameter("autor");
 		
 		this.cadastro = new CadastroRespostaBC();
-		Resposta resposta = new Resposta();
 
 		ArrayList<Resposta> resp = cadastro.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
 
 		RequestDispatcher view = request.getRequestDispatcher(RESULTADO_CONSULTA);
 		request.setAttribute("resposta", resp);
+		request.setAttribute("descricao", descricao);
+		request.setAttribute("autor", autor);
 		view.forward(request, response);
 	}
 

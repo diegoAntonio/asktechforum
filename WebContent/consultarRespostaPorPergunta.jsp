@@ -19,29 +19,27 @@
 
 		<div class="content">
 			<h1>
-				
+				<c:out value="${descricao}"></c:out>
+				<c:out value="${autor}"></c:out>
 			</h1>
 			<c:forEach items="${resposta}" var="resposta">
 				<div class="content_item">
 					<div class="form_settings_cadastro">
 						<p>
-							<span>Autor </span> <input type="text" "
-								id="autorResposta" value="${resposta.autor}" />
+							<c:out value="${resposta.descricao}"></c:out>
+							
 						</p>
 						<p>
-							<span>Resposta </span> <input type="text" 
-								id="descricaoResposta" value="${resposta.decricao}" />
+							<c:out value="${resposta.data}"></c:out>
+							
 						</p>
 						<p>
-							<span>Data </span> <input type="datetime"
-								id="descricaoData" value="${resposta.data}" />
-						</p>
-						<p>
-							<span>Hora </span> <input type="datetime"
-								id="descricaoHora" value="${resposta.hora}" />
+							<c:out value="${resposta.hora}"></c:out>
+							
 						</p>
 						<br /> <br /> <br />
 					</div>
+					<br /> 
 				</div>
 			</c:forEach>
 		</div>

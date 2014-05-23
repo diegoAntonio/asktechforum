@@ -15,9 +15,10 @@
 		<c:forEach items="${pergunta}" var="pergunta">
 			<div class="content">
 				<h1>
-				
-						
-					<a  href="ServletConsultarRespostaPergunta?id=${pergunta.idPergunta}">${pergunta.descricao}</a>
+					
+					<a  href="ServletConsultarRespostaPergunta?id=${pergunta.idPergunta}
+						&autor=${pergunta.autor}
+						&descricao=${pergunta.descricao}">${pergunta.descricao}</a>
 				
 				</h1>
 				<div class="content_item">
