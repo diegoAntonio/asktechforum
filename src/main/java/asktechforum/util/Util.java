@@ -1,8 +1,12 @@
 package asktechforum.util;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Util {
 	
@@ -40,6 +44,71 @@ public class Util {
 		//d = (Date) sdf.parse(data);
 		
 		return d;
+	}
+	/**
+	 * Converte Hora de string para formato Time para sql
+	 * @param formato
+	 * @param data
+	 * @return
+	 * @throws ParseException
+	 */
+	public static Time converterStringToTime(String formato, String data) throws ParseException{
+		
+		java.sql.Time t = null;
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		
+		t = new java.sql.Time(sdf.parse(data).getTime());
+		
+		return t;
+	}
+	
+	public static String converterTimeToString(String formato, Time time){
+		String t = null;
+		
+		t = time.toString();
+		
+		return t;
+	}
+	
+	/**
+	 * pega a data do sistema
+	 * @return
+	 */
+	public static String getDataSistema(){
+		// cria um StringBuilder  
+	    StringBuilder sb = new StringBuilder();  
+	  
+	    // cria um GregorianCalendar que vai conter a hora atual  
+	    GregorianCalendar d = new GregorianCalendar();  
+	      
+	    // anexa do StringBuilder os dados da hora  
+	    sb.append( d.get( GregorianCalendar.DAY_OF_MONTH ) );  
+	    sb.append( "/" );  
+	    sb.append( d.get( GregorianCalendar.MONTH ) );  
+	    sb.append( "/" );  
+	    sb.append( d.get( GregorianCalendar.YEAR ) );  
+	      
+	    // retorna a String do StringBuilder  
+	    return sb.toString();  
+	}
+	
+	public static String getHoraSistema(){
+		// cria um StringBuilder  
+	    StringBuilder sb = new StringBuilder();  
+	  
+	    // cria um GregorianCalendar que vai conter a hora atual  
+	    GregorianCalendar d = new GregorianCalendar();  
+	      
+	    // anexa do StringBuilder os dados da hora  
+	    sb.append( d.get( GregorianCalendar.HOUR ) );  
+	    sb.append( ":" );  
+	    sb.append( d.get( GregorianCalendar.MINUTE ) );  
+	    sb.append( ":" );  
+	    sb.append( d.get( GregorianCalendar.SECOND ) );  
+	      
+	    // retorna a String do StringBuilder  
+	    return sb.toString();  
 	}
 	
 	/**

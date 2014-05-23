@@ -48,17 +48,17 @@
           <li><a href="pesquisarUsuario.jsp">Usuários</a></li>
           <li><a href="#">Tags</a>
             <ul>
-              <li><a href="#">Java</a></li>
+              <li><a  href="ServletConsultarPerguntaPorTag?tag=java">Java</a></li>
               <li><a href="#">Android</a></li>
               <li><a href="#">Redes</a></li>
               <li><a href="#">JavaScript</a></li>
-              <li><a href="#">SQL</a></li>
+              <li><a href="ServletConsultarPerguntaPorTag?tag=sql">SQL</a></li>
               <li><a href="#">HTML</a></li>
               <li><a href="#">CSS</a></li>
             </ul>
           </li>
           <li><a href="sobre.jsp">Sobre</a></li>
-            <li><a href="contact.php">Pergunte</a></li>
+            <li><a href="CadastroPergunta.jsp">Pergunte</a></li>
         </ul>
       </div>
       

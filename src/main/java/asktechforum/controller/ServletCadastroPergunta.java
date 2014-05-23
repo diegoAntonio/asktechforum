@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import asktechforum.dominio.Pergunta;
-import asktechforum.dominio.Tag;
 import asktechforum.negocio.CadastroPerguntaBC;
+import asktechforum.util.Util;
 
 /**
  * Servlet implementation class ServletCadastroPergunta
@@ -30,7 +30,7 @@ public class ServletCadastroPergunta extends HttpServlet {
 	public ServletCadastroPergunta() {
 		super();
 		// TODO Auto-generated constructor stub
-		this.cadastro = new CadastroPerguntaBC();
+		
 	}
 
 	/**
@@ -49,13 +49,15 @@ public class ServletCadastroPergunta extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		this.cadastro = new CadastroPerguntaBC();
 		Pergunta pergunta = new Pergunta();
 
-		pergunta.setStrData(request.getParameter("data"));
+		pergunta.setStrData(Util.getDataSistema());
 		pergunta.setDescricao(request.getParameter("descricao"));
-		pergunta.setStrHora(request.getParameter("hora"));
+		pergunta.setStrHora(Util.getHoraSistema());
 		pergunta.setTitulo(request.getParameter("titulo"));
-		pergunta.setUsuario(Integer.parseInt(request.getParameter("usuario")));
+		pergunta.setUsuario(1);
+		//pergunta.setUsuario(Integer.parseInt(request.getParameter("1")));
 		pergunta.setTag(request.getParameter("tag"));
 		cadastro.adcionarPergunta(pergunta);
 

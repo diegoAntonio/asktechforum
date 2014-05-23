@@ -9,9 +9,9 @@ public class ConnectionUtil {
     private static Connection connection = null;
 
     public static Connection getConnection() {
-        if (connection != null)
-            return connection;
-        else {
+       // if (connection != null)
+       //     return connection;
+       // else {
             try {
                 String driver = "com.mysql.jdbc.Driver";
                 String url = "jdbc:mysql://localhost:3306/asktechforum";
@@ -25,7 +25,7 @@ public class ConnectionUtil {
                 e.printStackTrace();
             }
             return connection;
-        }
+        //}
 
     }
 }

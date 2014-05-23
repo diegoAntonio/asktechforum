@@ -1,6 +1,7 @@
 package asktechforum.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import asktechforum.dominio.Usuario;
 import asktechforum.repositorio.UsuarioDAO;
 import asktechforum.util.UsuarioUtil;
+import asktechforum.util.Util;
 
 /**
  * Implementação do Servlet de Cadastro de Usuario.
@@ -44,7 +46,12 @@ public class ServletCadastroUsuario extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Usuario usuario = new Usuario();
 		usuario.setNome(request.getParameter("nome"));
-		usuario.setDataNascimento(UsuarioUtil.converterStringData(request.getParameter("dataNascimento")));
+		try {
+			usuario.setDataNascimento(Util.converterStringToDate("dd/MM/yyyy",request.getParameter("dataNascimento")));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		usuario.setEmail(request.getParameter("email"));
 		usuario.setLocalizacao(request.getParameter("localizacao"));
 		usuario.setSenha(request.getParameter("senha"));

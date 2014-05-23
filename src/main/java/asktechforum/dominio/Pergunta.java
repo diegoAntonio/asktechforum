@@ -1,7 +1,9 @@
 package asktechforum.dominio;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.text.ParseException;
+
 import asktechforum.util.Util;
 
 public class Pergunta {
@@ -13,7 +15,7 @@ public class Pergunta {
 	private String strHora;
 	private String tag;
 	private Date data;
-	private Date hora;
+	private Time hora;
 	
 	
 	public Pergunta() {
@@ -64,13 +66,13 @@ public class Pergunta {
 	}
 
 	public String getStrHora() {
-		strHora = Util.converterDataToString("hh:mm", hora);
+		strHora = Util.converterTimeToString("hh:mm", hora);
 		return strHora;
 	}
 
 	public void setStrHora(String strHora)  {
 		try {
-			this.hora = Util.converterStringToDate("hh:mm", strHora);
+			this.hora = Util.converterStringToTime("hh:mm", strHora);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,11 +87,11 @@ public class Pergunta {
 		this.data = data;
 	}
 
-	public Date getHora() {
+	public Time getHora() {
 		return hora;
 	}
 
-	public void setHora(Date hora) {
+	public void setHora(Time hora) {
 		this.hora = hora;
 	}
 
