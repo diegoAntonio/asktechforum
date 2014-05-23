@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.ResultConsultarPergunta;
+import asktechforum.exceptions.ExceptionPergunta;
 import asktechforum.repositorio.CadastroPerguntasDAO;
 import asktechforum.interfaces.CadastroPergunta;
 
@@ -19,11 +20,11 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 	}
 
 	@Override
-	public void adcionarPergunta(Pergunta pergunta) {
+	public void adcionarPergunta(Pergunta pergunta)  {
 		// TODO Auto-generated method stub
 		try {
 			if (pergunta.getData() == null) {
-
+				
 			} else if (pergunta.getDescricao().isEmpty()) {
 
 			} else if (pergunta.getHora() == null) {

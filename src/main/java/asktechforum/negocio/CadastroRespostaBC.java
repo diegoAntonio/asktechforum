@@ -104,8 +104,7 @@ public class CadastroRespostaBC implements CadastroResposta {
 	}
 
 	@Override
-	public ArrayList<Resposta> consultarRespostaPorPergunta(int id)
-			throws SQLException {
+	public ArrayList<Resposta> consultarRespostaPorPergunta(int id) {
 		lstResposta = new ArrayList<Resposta>();
 		try {
 			if (id == 0) {

@@ -85,8 +85,7 @@
     <servlet-name>ServletCadastroResposta</servlet-name>
     <url-pattern>/ServletCadastroResposta</url-pattern>
   </servlet-mapping>
-
- <servlet>
+  <servlet>
     <description></description>
     <display-name>ServletConsultarPerguntaPorTag</display-name>
     <servlet-name>ServletConsultarPerguntaPorTag</servlet-name>
