@@ -6,40 +6,80 @@
 
 <div id="site_content">
 	<div class="content">
-		<h1>Perfil de ${usuario.nome}</h1>
+		<h1>Perfil de ${usuarioPerfil.nome}</h1>
 		<div class="content_item">
 			<div class="form_settings_perfil">
 				<form id="formPerfilUsuario" action="ServletAlteracaoUsuario" method="post">
 				
 					<p>
 						<span>Nome: </span>
-						<label>${usuario.nome}</label>
+						<label>${usuarioPerfil.nome}</label>
 					</p>
 					<p>
 						<span>Data de Nascimento: </span>
-						<label><fmt:formatDate pattern="dd/MM/yyyy" value="${usuario.dataNascimento}"/></label>
+						<label><fmt:formatDate pattern="dd/MM/yyyy" value="${usuarioPerfil.dataNascimento}"/></label>
 					</p>
 					<p>
 						<span>E-mail: </span>
-						<label>${usuario.email}</label>
-						<input type="hidden" name="pesquisaUsuarioEmail" id="pesquisaUsuarioEmail" value="${usuario.email}" checked="checked" />
+						<label>${usuarioPerfil.email}</label>
+						<input type="hidden" name="pesquisaUsuarioEmail" id="pesquisaUsuarioEmail" value="${usuarioPerfil.email}" checked="checked" />
 					</p>
 					<p>
 						<span>Localização: </span>
-						<label>${usuario.localizacao}</label>
+						<label>${usuarioPerfil.localizacao}</label>
 					</p>
 					<p>
 						<span>Administrador </span>
-						<c:if test="${usuario.admin == false}"><label>Não</label></c:if>
-						<c:if test="${usuario.admin == true}"><label>Sim</label></c:if>
+						<c:if test="${usuarioPerfil.admin == false}"><label>Não</label></c:if>
+						<c:if test="${usuarioPerfil.admin == true}"><label>Sim</label></c:if>
 					</p>
 				</form>
+				
 				<form id="formExclusaoPerfilUsuario" action="ServletExclusaoUsuario" method = "post">
+					<input type="hidden" name="exclusaoUsuarioEmail" id="exclusaoUsuarioEmail" value="${usuarioPerfil.email}" checked="checked" />
+				</form>
+				
+				<form action="index.jsp">
 					<p>
-						<input value="Editar Perfil" type="button" class="submit" onclick="alterarUsuario()" />
-						<input value="Excluir Cadastro" type="button" class="submit" onclick="excluirUsuario()" />
-						<input value="Voltar" type="button" class="submit" onclick="voltar()" />
-						<input type="hidden" name="exclusaoUsuarioEmail" id="exclusaoUsuarioEmail" value="${usuario.email}" checked="checked" />
+						<%
+						Usuario perfilUsuario = new Usuario(); 
+						Usuario perfilUsuarioLogado = new Usuario(); 
+          				perfilUsuario = (Usuario)session.getAttribute("usuarioPerfil"); 
+						perfilUsuarioLogado = (Usuario)session.getAttribute("usuarioLogado"); 
+          				Boolean saudacaoPerfil = (Boolean)session.getAttribute("saudacao"); 
+          				Boolean flag = false;
+          				
+          				
+          				if(saudacaoPerfil != null && saudacaoPerfil == true) {
+							
+							System.out.print("entrou");
+							if(perfilUsuario != null && perfilUsuarioLogado != null) {
+								flag = perfilUsuario.getEmail().equals(perfilUsuarioLogado.getEmail());
+							}else if(perfilUsuario == null) {
+								flag = true;
+							}
+
+							if(flag!= null && flag == true && perfilUsuarioLogado.isAdmin() == false) {
+							%>
+								<input value="Editar Perfil" type="button" class="submit" onclick="alterarUsuario()" />
+								<input value="Excluir Cadastro" type="button" class="submit" onclick="excluirUsuario()" />
+							<%
+							} 
+							%>
+							
+							<% 
+							if(perfilUsuarioLogado.isAdmin() == true) {
+							%>
+								<input value="Editar Perfil" type="button" class="submit" onclick="alterarUsuario()" />
+								<input value="Excluir Cadastro" type="button" class="submit" onclick="excluirUsuario()" />
+							<%
+					  		}
+					  		%>
+					  	<%
+					  	}
+					  	%>
+					  	
+						<button class="submit" >Voltar</button>
 					</p> 
 				</form>
 			</div>
@@ -65,12 +105,6 @@
 		var formulario;
 		formulario = document.getElementById("formExclusaoPerfilUsuario");
 		formulario.submit();
-	}
-</script>
-
-<script>
-	function voltar() {
-		history.back();
 	}
 </script>
 

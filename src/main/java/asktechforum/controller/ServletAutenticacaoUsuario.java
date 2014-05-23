@@ -23,9 +23,6 @@ public class ServletAutenticacaoUsuario  extends HttpServlet {
     	super.service(arg0, arg1);
     }
     
-    
-    
-    
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {         
         
         String logout = (String) request.getParameter("logout");          

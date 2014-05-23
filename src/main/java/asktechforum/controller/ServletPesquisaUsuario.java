@@ -22,14 +22,14 @@ public class ServletPesquisaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String PESQUISA = "pesquisarUsuario.jsp";
     
-    private UsuarioDAO dao;
+    private UsuarioDAO usuarioDAO;
        
     /**
      * Construtor do Servlet de Pesquisa de Usuário.
      */
     public ServletPesquisaUsuario() {
         super();
-        this.dao = new UsuarioDAO();
+        this.usuarioDAO = new UsuarioDAO();
     }
 
     /**
@@ -42,7 +42,7 @@ public class ServletPesquisaUsuario extends HttpServlet {
 	 * Implementacao do metodo doPost() Servlet de Pesquisa de Usuario.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+		List<Usuario> listaUsuarios = null;
 		String pesquisaRadio = request.getParameter("pesquisaRadio");
 		String nome, email;
 		
@@ -51,17 +51,20 @@ public class ServletPesquisaUsuario extends HttpServlet {
 			case "nomeRadio":
 				nome = request.getParameter("nome");
 				if(nome.trim() != "" && nome != null) {
-					listaUsuarios.addAll(dao.consultarUsuarioPorNome(nome));
+					listaUsuarios = new ArrayList<Usuario>();
+					listaUsuarios.addAll(usuarioDAO.consultarUsuarioPorNome(nome));
 				}
 				break;
 			case "emailRadio":
 				email = request.getParameter("email");
-				if(email.trim() != "" && email != null) {
-					listaUsuarios.add(dao.consultarUsuarioPorEmail(email));
+				if(email.trim() != "" && email != null && usuarioDAO.consultarUsuarioPorEmail(email).getIdUsuario() != 0) {
+					listaUsuarios = new ArrayList<Usuario>();
+					listaUsuarios.add(usuarioDAO.consultarUsuarioPorEmail(email));
 				}
 				break;
 			case "listartodosRadio":
-				listaUsuarios.addAll(dao.consultarTodosUsuarios());
+				listaUsuarios = new ArrayList<Usuario>();
+				listaUsuarios.addAll(usuarioDAO.consultarTodosUsuarios());
 				break;
 			case "":
 				break;

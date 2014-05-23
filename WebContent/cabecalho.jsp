@@ -7,11 +7,11 @@
 
 <html>
 <head>
-  <title>Ask Tech Fórum </title>
+  <title>Ask Tech Forum </title>
   <meta name="description" content="website description" />
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="<%=getServletContext().getContextPath()%>/css/style.css" />
   <!-- modernizr enables HTML5 elements and feature detects -->
   <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
 </head>
@@ -22,16 +22,42 @@
       <div id="logo">
         <div id="logo_text">
 			<!-- class="logo_colour", allows you to change the colour of the text -->
-			<h1><a href="index.jsp">Ask Tech<span class="logo_colour">Forum</span></a></h1>
+			<h1><a href="<%=getServletContext().getContextPath()%>/index.jsp">Ask Tech<span class="logo_colour">Forum</span></a></h1>
           
-          	<%Usuario usuarioLogado = (Usuario)session.getAttribute("usuarioLogado"); %>
-          	<%Boolean saudacao = (Boolean)session.getAttribute("saudacao"); %>
+          	<%
+          	Usuario usuarioLogado = new Usuario();
+          	Usuario usuarioPerfil = new Usuario();
+          	usuarioLogado = (Usuario)session.getAttribute("usuarioLogado");
+          	if(usuarioLogado != null) {
+	          	usuarioLogado.setSenha("");
+          	}
+          	usuarioPerfil = (Usuario)session.getAttribute("usuarioPerfil");
+          	Boolean saudacao = (Boolean)session.getAttribute("saudacao");
+          	session.setAttribute("cabecalho", true);
+          	if(usuarioPerfil == null) {
+          		request.setAttribute("usuarioPerfil", usuarioLogado);
+              	session.setAttribute("usuarioAlteracao", usuarioLogado);
+          	}
+          	%>
+			
 			<c:if test="${saudacao != true}">
 	          	<h2><a href="login.jsp">Entre</a>&nbsp; <a href="cadastroUsuario.jsp">Cadastre-se</a></h2>
 			</c:if>
 			
 			<c:if test="${saudacao == true}">
-	         		<h2>Olá ${usuarioLogado.nome}!&nbsp;&nbsp; <a href="ServletAutenticacaoUsuario?logout=true">Sair</a></h2>
+	         		<h2><span style="color: white">Olá</span>
+	         			<a style="color: white" href="<%=getServletContext().getContextPath()%>/perfilUsuario.jsp">
+	         				${usuarioLogado.nome}!
+	         			</a>&nbsp;&nbsp;
+	         			<%
+	         			if(usuarioLogado.isAdmin() == true) {
+	         			%>
+	         				<a href="<%=getServletContext().getContextPath()%>/cadastroUsuario.jsp">Cadastrar Usuário</a>&nbsp;&nbsp;
+	         			<%
+	         			}
+	         			%>
+	         			<a href="<%=getServletContext().getContextPath()%>/ServletAutenticacaoUsuario?logout=true">Sair</a>
+	         		</h2>
 			</c:if>
         </div>
         
@@ -44,21 +70,21 @@
       </div>
        
         <ul class="sf-menu" id="nav">
-         <li class="current"><a href="index.jsp">Perguntas</a></li>
-          <li><a href="pesquisarUsuario.jsp">Usuários</a></li>
-          <li><a href="#">Tags</a>
-            <ul>
-              <li><a href="#">Java</a></li>
-              <li><a href="#">Android</a></li>
-              <li><a href="#">Redes</a></li>
-              <li><a href="#">JavaScript</a></li>
-              <li><a href="#">SQL</a></li>
-              <li><a href="#">HTML</a></li>
-              <li><a href="#">CSS</a></li>
-            </ul>
-          </li>
-          <li><a href="sobre.jsp">Sobre</a></li>
-            <li><a href="contact.php">Pergunte</a></li>
+         <li><a href="<%=getServletContext().getContextPath()%>/index.jsp">Perguntas</a></li>
+          	<li><a href="<%=getServletContext().getContextPath()%>/pesquisarUsuario.jsp">Usuários</a></li>
+	          <li><a href="#">Tags</a>
+	            <ul>
+	              <li><a href="#">Java</a></li>
+	              <li><a href="#">Android</a></li>
+	              <li><a href="#">Redes</a></li>
+	              <li><a href="#">JavaScript</a></li>
+	              <li><a href="#">SQL</a></li>
+	              <li><a href="#">HTML</a></li>
+	              <li><a href="#">CSS</a></li>
+	            </ul>
+	          </li>
+          <li><a href="<%=getServletContext().getContextPath()%>/sobre.jsp">Sobre</a></li>
+          <li><a href="<%=getServletContext().getContextPath()%>/contact.php">Pergunte</a></li>
         </ul>
       </div>
       

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Usuario;
 import asktechforum.repositorio.UsuarioDAO;
@@ -20,20 +21,21 @@ public class ServletPerfilUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String PERFIL = "perfilUsuario.jsp";
        
-	private UsuarioDAO dao;
+	private UsuarioDAO usuarioDAO;
     
     /**
      * Construtor do Servlet de Perfil de Usuário.
      */
     public ServletPerfilUsuario() {
         super();
-        this.dao = new UsuarioDAO();
+        this.usuarioDAO = new UsuarioDAO();
     }
 
     /**
 	 * Implementacao do metodo doGet() Servlet de Perfil de Usuario.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		doPost(request, response);
 	}
 
 	/**
@@ -41,13 +43,15 @@ public class ServletPerfilUsuario extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Usuario usuario = new Usuario();
+		HttpSession session = request.getSession();
 		String usuarioRadio = request.getParameter("usuarioRadio");
 		
 		if(usuarioRadio != null) {
-			usuario = this.dao.consultarUsuarioPorEmail(usuarioRadio);
-			
+			usuario = this.usuarioDAO.consultarUsuarioPorEmail(usuarioRadio);
 			RequestDispatcher view = request.getRequestDispatcher(PERFIL);
-			request.setAttribute("usuario", usuario);
+			request.setAttribute("usuarioPerfil", usuario);
+			session.setAttribute("usuarioPerfil", usuario);
+
 	        view.forward(request, response);
 		}
 	}

@@ -24,14 +24,33 @@ public class UsuarioDAO {
 	public void alterarUsuario(Usuario usuario){
 		try {
             PreparedStatement preparedStatement = this.connection
-                    .prepareStatement("update usuario set nome=?,dt_nasc=?,admin=?,email=?,localizacao=? where idUsuario=?");
+                    .prepareStatement("update usuario set nome=?,dt_nasc=?,admin=?,email=?,localizacao=?,senha=? where idUsuario=?");
 
             preparedStatement.setString(1, usuario.getNome());
             preparedStatement.setDate(2, usuario.getDataNascimento());
             preparedStatement.setBoolean(3, usuario.isAdmin());
             preparedStatement.setString(4, usuario.getEmail());
             preparedStatement.setString(5, usuario.getLocalizacao());
-            preparedStatement.setInt(6, usuario.getIdUsuario());
+            preparedStatement.setString(6, usuario.getSenha());
+            preparedStatement.setInt(7, usuario.getIdUsuario());
+            
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            
+	        this.usuarioUtil.ajustarIdUsuario(this.consultarTodosUsuarios());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	public void alterarUsuarioAdmin(Usuario usuario){
+		try {
+            PreparedStatement preparedStatement = this.connection
+                    .prepareStatement("update usuario set admin=? where idUsuario=?");
+
+            preparedStatement.setBoolean(1, usuario.isAdmin());
+            preparedStatement.setInt(2, usuario.getIdUsuario());
             
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -46,13 +65,14 @@ public class UsuarioDAO {
 	public void adicionarUsuario(Usuario usuario){
 		try {
             PreparedStatement preparedStatement = this.connection
-                    .prepareStatement("insert into usuario(nome,dt_nasc,email,localizacao,senha) values ( ?, ?, ?, ?, ? )");
+                    .prepareStatement("insert into usuario(nome,dt_nasc,email,localizacao,senha,admin) values ( ?, ?, ?, ?, ?, ? )");
             
             preparedStatement.setString(1, usuario.getNome());
             preparedStatement.setDate(2, usuario.getDataNascimento());
             preparedStatement.setString(3, usuario.getEmail());
             preparedStatement.setString(4, usuario.getLocalizacao());
             preparedStatement.setString(5, usuario.getSenha());
+            preparedStatement.setBoolean(6, usuario.isAdmin());
             
             preparedStatement.executeUpdate();
             preparedStatement.close();

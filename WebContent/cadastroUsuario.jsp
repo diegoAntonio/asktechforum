@@ -8,9 +8,9 @@
 
 	<div id="site_content">
 		<div class="content">
-			<h1>Cadastre-se</h1>
+			<h1>Cadastro</h1>
 			<div class="content_item">
-				<div class="form_settings_cadastro">
+				<div style="width: 300px;" class="form_settings_cadastro">
 					<p>
 						<span>Nome* </span>
 						<input class="contact" value="${usuario.nome}" type="text" name="nome" id="nome" />
@@ -36,7 +36,13 @@
 				    	<input class="contact" value="${usuario.confSenha}" type="password" name="confsenha" id="confsenha" />
 				    </p>
 					<p style="color:red; font-size:12px;">Os campos com * são obrigatórios.</p> 
+					
+					<c:if test="${emailExistente == true}">
+						<p style="color:red; font-size:12px;">Este Email já está cadastrado no AskTechForum. Tente outro ;)</p> 
+					</c:if>
+					
 					<input class="submit" value="Cadastrar" type="submit" /> 
+					<input class="submit" value="Voltar" type="button" onclick="voltar()" />
 					<br />
 					<br />
 					<br />
@@ -45,4 +51,11 @@
 		</div>
 	</div>
 </form>
+
+<script>
+	function voltar() {
+		history.back();
+	}
+</script>
+
 <jsp:include page="rodape.jsp"></jsp:include>

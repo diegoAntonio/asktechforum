@@ -48,6 +48,7 @@
 								<td>Data de Nascimento</td>
 								<td>Email</td>
 								<td>Localização</td>
+								<td>Administrador</td>
 							</tr>
 						</thead>
 						<tbody>
@@ -59,6 +60,12 @@
 									<td><fmt:formatDate pattern="dd/MM/yyyy" value="${usuarios.dataNascimento}"/></td>
 									<td><c:out value="${usuarios.email}" /></td>
 									<td><c:out value="${usuarios.localizacao}" /></td>
+									<c:if test="${usuarios.admin == true}">
+										<td><label>Sim</label></td>
+									</c:if>
+									<c:if test="${usuarios.admin == false}">
+										<td><label>Não</label></td>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</tbody>
