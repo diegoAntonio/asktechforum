@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Usuario;
 import asktechforum.repositorio.UsuarioDAO;
@@ -19,7 +20,7 @@ import asktechforum.util.UsuarioUtil;
 @WebServlet("/ServletAlteracaoUsuario")
 public class ServletAlteracaoUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private static String ALTERAR = "alterarUsuario.jsp";
+    private static String ALTERAR = "./usuarioAutenticado/alterarUsuario.jsp";
     private static String SUCESSOALTERACAO = "perfilUsuario.jsp";
     
 	private UsuarioDAO dao;
@@ -43,6 +44,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Usuario usuario = new Usuario();
+		HttpSession session = request.getSession();
 		
 		String pesquisaUsuarioEmail = request.getParameter("pesquisaUsuarioEmail");
 		String alteracaoUsuarioId = request.getParameter("alteracaoUsuarioId");
@@ -75,6 +77,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 			
 			view = request.getRequestDispatcher(SUCESSOALTERACAO);
 			request.setAttribute("usuario", usuario);
+			session.setAttribute("usuarioLogado", usuario);
 	        view.forward(request, response);
 		}
 	}

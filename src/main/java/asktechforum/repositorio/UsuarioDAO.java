@@ -80,6 +80,36 @@ public class UsuarioDAO {
         }
     }
 	
+	
+	public Usuario consultarUsuarioPorEmail_Senha(String email,String senha) {
+		Usuario usuario = null;
+		try {
+            this.usuarioUtil.ajustarIdUsuario(this.consultarTodosUsuarios());
+            
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("select * from usuario where email=? and senha=?");
+			preparedStatement.setString(1,email);
+			preparedStatement.setString(2,senha);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			if(rs.next()) {
+				usuario = new Usuario();
+				usuario.setIdUsuario(rs.getInt("idUsuario"));
+				usuario.setNome(rs.getString("nome"));
+				usuario.setDataNascimento(rs.getDate("dt_nasc"));
+				usuario.setEmail(rs.getString("email"));
+				usuario.setLocalizacao(rs.getString("localizacao"));
+				usuario.setSenha(rs.getString("senha"));
+				usuario.setAdmin(rs.getBoolean("admin"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return usuario;
+	}
+	
 	public Usuario consultarUsuarioPorId(int idUsuario) {
 		Usuario usuario = new Usuario();
 		try {
