@@ -1,6 +1,6 @@
 package asktechforum.controller;
 
-
+import asktechforum.repositorio.UsuarioDAO;
 
 import java.io.IOException;
 
@@ -38,8 +38,29 @@ public class ServletRecuperarSenha extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Email email = new Email();
-		email.sendMail("1234", "elton.bento","eljbento@gmail.com");
-	}
+		String emailPesquisado = request.getParameter("email");
+		UsuarioDAO consultaUsuario = new UsuarioDAO();
+		Usuario usuario = consultaUsuario.consultarUsuarioPorEmail(emailPesquisado);
+		
+			try{
+				if(usuario.getEmail() == null){
+					request.getRequestDispatcher("respostaNegativaEsqueceuSenha.jsp").forward(request, response);
+					
+				}else{
+					
+					System.out.println(usuario.getSenha());
+					System.out.println(usuario.getNome());
+					System.out.println(usuario.getEmail());
+					Email email = new Email();
+					email.sendMail(usuario.getSenha(), usuario.getNome(),usuario.getEmail());
+					request.getRequestDispatcher("respostaPositivaEsqueceuSenha.jsp").forward(request, response);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}	
+		}
+		
+		
+		
 
 }

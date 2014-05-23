@@ -15,17 +15,17 @@ public class Email {
 	private static final String USR = "nti.curriculos2@gmail.com";
 	private static final String PWD = "curriculo2";
 
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
+//
+//		String senhaNova = "teste";
+//		String login = "teste";
+//		String destinatario = "eljbento@gmail.com";
+//
+//
+//		sendMail(senhaNova, login, destinatario);
+//	}
 
-		String senhaNova = "teste";
-		String login = "teste";
-		String destinatario = "eljbento@gmail.com";
-
-
-		sendMail(senhaNova, login, destinatario);
-	}
-
-	public static void sendMail(String senhaNova, String login,
+	public void sendMail(String senhaNova, String nome,
 			String destinatario) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
@@ -45,13 +45,15 @@ public class Email {
 		try {
 
 			StringBuffer buffer = new StringBuffer();
-			buffer.append("Universidade Federal De Pernambuco - UFPE.\n");
-			buffer.append("Nucleo de Tecnologia da Informação - NTI.\n");
-			buffer.append("Curriculos NTI.\n");
-			buffer.append("Sua senha no sistema foi alterada para a senha abaixo\n");
-			buffer.append("nova Senha: " + senhaNova + " .\n\n\n");
-			buffer.append("Usuario: ");
-			buffer.append(login);
+			buffer.append("Ask TecKForum.\n\n");
+			buffer.append("Prezado,"+nome+",\n\n");
+			buffer.append("Informamos abaixo os seus dados para o seu acesso(Login e Senha) ao nosso sistema.\n\n");
+			buffer.append("Login: ");
+			buffer.append(destinatario + "\n");
+			buffer.append("Senha: " + senhaNova + " .\n\n\n");
+			buffer.append("Caso não tenha solicitado seus dados, favor desconsiderar.\n\n");
+			buffer.append("Atenciosamente,\n\n");
+			buffer.append("Ask TechForum\n");
 
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("from@no-spam.com"));
@@ -60,9 +62,10 @@ public class Email {
 			message.setSubject("Email para Recuperacao De Senha");
 			message.setText(buffer.toString());
 
-			Transport.send(message);
 
 			System.out.println("Done");
+			
+			Transport.send(message);
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);

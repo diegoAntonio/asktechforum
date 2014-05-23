@@ -156,6 +156,7 @@ public class UsuarioDAO {
 				usuario.setEmail(rs.getString("email"));
 				usuario.setLocalizacao(rs.getString("localizacao"));
 				usuario.setAdmin(rs.getBoolean("admin"));
+				usuario.setSenha(rs.getString("senha"));
 			}
             preparedStatement.close();
 			
