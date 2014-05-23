@@ -7,11 +7,11 @@
 
 <html>
 <head>
-  <title>Ask Tech Fórum </title>
+  <title>Ask Tech Forum </title>
   <meta name="description" content="website description" />
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="<%=getServletContext().getContextPath() %>/css/style.css" />
   <!-- modernizr enables HTML5 elements and feature detects -->
   <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
 </head>
@@ -58,7 +58,7 @@
             </ul>
           </li>
           <li><a href="sobre.jsp">Sobre</a></li>
-            <li><a href="CadastroPergunta.jsp">Pergunte</a></li>
+            <li><a href="usuarioAutenticado/CadastroPergunta.jsp">Pergunte</a></li>
         </ul>
       </div>
       
