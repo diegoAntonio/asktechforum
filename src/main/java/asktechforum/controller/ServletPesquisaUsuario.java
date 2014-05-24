@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import asktechforum.dominio.Usuario;
-import asktechforum.repositorio.UsuarioDAO;
+import asktechforum.negocio.UsuarioBC;
 
 /**
  * Implementação do Servlet de Pesquisa de Usuario.
@@ -22,14 +22,14 @@ public class ServletPesquisaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String PESQUISA = "pesquisarUsuario.jsp";
     
-    private UsuarioDAO usuarioDAO;
+    private UsuarioBC usuarioBC;
        
     /**
      * Construtor do Servlet de Pesquisa de Usuário.
      */
     public ServletPesquisaUsuario() {
         super();
-        this.usuarioDAO = new UsuarioDAO();
+        this.usuarioBC = new UsuarioBC();
     }
 
     /**
@@ -52,19 +52,19 @@ public class ServletPesquisaUsuario extends HttpServlet {
 				nome = request.getParameter("nome");
 				if(nome.trim() != "" && nome != null) {
 					listaUsuarios = new ArrayList<Usuario>();
-					listaUsuarios.addAll(usuarioDAO.consultarUsuarioPorNome(nome));
+					listaUsuarios.addAll(this.usuarioBC.consultarUsuarioPorNome(nome));
 				}
 				break;
 			case "emailRadio":
 				email = request.getParameter("email");
-				if(email.trim() != "" && email != null && usuarioDAO.consultarUsuarioPorEmail(email).getIdUsuario() != 0) {
+				if(email.trim() != "" && email != null && this.usuarioBC.consultarUsuarioPorEmail(email).getIdUsuario() != 0) {
 					listaUsuarios = new ArrayList<Usuario>();
-					listaUsuarios.add(usuarioDAO.consultarUsuarioPorEmail(email));
+					listaUsuarios.add(this.usuarioBC.consultarUsuarioPorEmail(email));
 				}
 				break;
 			case "listartodosRadio":
 				listaUsuarios = new ArrayList<Usuario>();
-				listaUsuarios.addAll(usuarioDAO.consultarTodosUsuarios());
+				listaUsuarios.addAll(this.usuarioBC.consultarTodosUsuarios());
 				break;
 			case "":
 				break;

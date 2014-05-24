@@ -10,7 +10,10 @@
 		<div class="content_item">
 			<div class="form_settings_perfil">
 				<form id="formPerfilUsuario" action="ServletAlteracaoUsuario" method="post">
-				
+					<%
+					session.setAttribute("usuarioExcluido", (Usuario)session.getAttribute("usuarioPerfil"));
+					session.setAttribute("proprioPerfil", (Usuario)session.getAttribute("usuarioPerfil"));
+					%>
 					<p>
 						<span>Nome: </span>
 						<label>${usuarioPerfil.nome}</label>
@@ -33,29 +36,30 @@
 						<c:if test="${usuarioPerfil.admin == false}"><label>Não</label></c:if>
 						<c:if test="${usuarioPerfil.admin == true}"><label>Sim</label></c:if>
 					</p>
+					<%
+          				session.setAttribute("usuarioPerfil", null);
+					%>
 				</form>
 				
 				<form id="formExclusaoPerfilUsuario" action="ServletExclusaoUsuario" method = "post">
-					<input type="hidden" name="exclusaoUsuarioEmail" id="exclusaoUsuarioEmail" value="${usuarioPerfil.email}" checked="checked" />
+					<input type="hidden" name="exclusaoUsuarioEmail" id="exclusaoUsuarioEmail" value="${usuarioExcluido.email}" checked="checked" />
 				</form>
 				
-				<form action="index.jsp">
+				<form action="pesquisarUsuario.jsp">
 					<p>
 						<%
-						Usuario perfilUsuario = new Usuario(); 
+						Usuario proprioPerfil = new Usuario(); 
 						Usuario perfilUsuarioLogado = new Usuario(); 
-          				perfilUsuario = (Usuario)session.getAttribute("usuarioPerfil"); 
+						proprioPerfil = (Usuario)session.getAttribute("proprioPerfil"); 
 						perfilUsuarioLogado = (Usuario)session.getAttribute("usuarioLogado"); 
           				Boolean saudacaoPerfil = (Boolean)session.getAttribute("saudacao"); 
           				Boolean flag = false;
           				
           				
           				if(saudacaoPerfil != null && saudacaoPerfil == true) {
-							
-							System.out.print("entrou");
-							if(perfilUsuario != null && perfilUsuarioLogado != null) {
-								flag = perfilUsuario.getEmail().equals(perfilUsuarioLogado.getEmail());
-							}else if(perfilUsuario == null) {
+							if(proprioPerfil != null && perfilUsuarioLogado != null) {
+								flag = proprioPerfil.getEmail().equals(perfilUsuarioLogado.getEmail());
+							}else if(proprioPerfil == null) {
 								flag = true;
 							}
 
@@ -64,19 +68,15 @@
 								<input value="Editar Perfil" type="button" class="submit" onclick="alterarUsuario()" />
 								<input value="Excluir Cadastro" type="button" class="submit" onclick="excluirUsuario()" />
 							<%
-							} 
-							%>
-							
-							<% 
+							}  
 							if(perfilUsuarioLogado.isAdmin() == true) {
 							%>
 								<input value="Editar Perfil" type="button" class="submit" onclick="alterarUsuario()" />
 								<input value="Excluir Cadastro" type="button" class="submit" onclick="excluirUsuario()" />
 							<%
 					  		}
-					  		%>
-					  	<%
 					  	}
+          				session.setAttribute("usuarioPerfil", null);
 					  	%>
 					  	
 						<button class="submit" >Voltar</button>
@@ -86,7 +86,6 @@
 		</div>
 	</div>
 </div>
-
 <br />
 <br />
 <br />

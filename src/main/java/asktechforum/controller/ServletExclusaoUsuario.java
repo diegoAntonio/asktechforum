@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import asktechforum.repositorio.UsuarioDAO;
 import asktechforum.dominio.Usuario;
 import asktechforum.negocio.UsuarioBC;
 
@@ -23,7 +22,6 @@ public class ServletExclusaoUsuario extends HttpServlet {
     private static String SUCESSOEXCLUSAO = "./usuarioAutenticado/exclusaoUsuarioSucesso.jsp";
     private static String ERROEXCLUSAO = "./usuarioAutenticado/alteracaoExclusaoUsuarioErro.jsp";
     
-	private UsuarioDAO usuarioDAO;
 	private UsuarioBC usuarioBC;
 
     /**
@@ -31,7 +29,6 @@ public class ServletExclusaoUsuario extends HttpServlet {
      */
     public ServletExclusaoUsuario() {
         super();
-        this.usuarioDAO = new UsuarioDAO();
         this.usuarioBC = new UsuarioBC();
     }
 
@@ -46,23 +43,24 @@ public class ServletExclusaoUsuario extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pesquisaUsuarioEmail = request.getParameter("exclusaoUsuarioEmail");
-		Usuario usuario = this.usuarioDAO.consultarUsuarioPorEmail(pesquisaUsuarioEmail);
+		Usuario usuario = this.usuarioBC.consultarUsuarioPorEmail(pesquisaUsuarioEmail);
 		RequestDispatcher view;
 		HttpSession session = request.getSession();
 		int quantAdmin = this.usuarioBC.consultarQuantidadeAdmin(usuario);
 
-		Usuario usuarioPerfil = (Usuario) session.getAttribute("usuarioPerfil");
-		Usuario usuarioLogado =(Usuario) session.getAttribute("usuarioLogado"); 
+		Usuario usuarioExcluido = (Usuario) session.getAttribute("usuarioExcluido");
+		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); 
 		
     	session.setAttribute("erroAlteracaoExclusao", true);
 		
 		if(pesquisaUsuarioEmail != null) {
 			if(quantAdmin > 1) {
-				this.usuarioDAO.deletarUsuario(pesquisaUsuarioEmail);
+				this.usuarioBC.deletarUsuario(pesquisaUsuarioEmail);
 				
-				
-				if(usuarioPerfil.getIdUsuario() == usuarioLogado.getIdUsuario()) {
-				    session.invalidate();
+				if(usuarioExcluido != null && usuarioLogado != null) {
+					if(usuarioExcluido.getIdUsuario() == usuarioLogado.getIdUsuario()) {
+					    session.invalidate();
+					}
 				}
 				view = request.getRequestDispatcher(SUCESSOEXCLUSAO);
 				view.forward(request, response);

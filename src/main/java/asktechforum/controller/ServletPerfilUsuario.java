@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Usuario;
-import asktechforum.repositorio.UsuarioDAO;
+import asktechforum.negocio.UsuarioBC;
 
 /**
  * Implementação do Servlet de Perfil de Usuario.
@@ -21,14 +21,14 @@ public class ServletPerfilUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String PERFIL = "perfilUsuario.jsp";
        
-	private UsuarioDAO usuarioDAO;
+	private UsuarioBC usuarioBC;
     
     /**
      * Construtor do Servlet de Perfil de Usuário.
      */
     public ServletPerfilUsuario() {
         super();
-        this.usuarioDAO = new UsuarioDAO();
+        this.usuarioBC = new UsuarioBC();
     }
 
     /**
@@ -47,9 +47,8 @@ public class ServletPerfilUsuario extends HttpServlet {
 		String usuarioRadio = request.getParameter("usuarioRadio");
 		
 		if(usuarioRadio != null) {
-			usuario = this.usuarioDAO.consultarUsuarioPorEmail(usuarioRadio);
+			usuario = this.usuarioBC.consultarUsuarioPorEmail(usuarioRadio);
 			RequestDispatcher view = request.getRequestDispatcher(PERFIL);
-			request.setAttribute("usuarioPerfil", usuario);
 			session.setAttribute("usuarioPerfil", usuario);
 
 	        view.forward(request, response);

@@ -100,13 +100,12 @@ public class UsuarioDAO {
         }
     }
 	
-	
 	public Usuario consultarUsuarioPorEmail_Senha(String email,String senha) {
-		Usuario usuario = null;
+		Usuario usuario = new Usuario();
 		try {
             this.usuarioUtil.ajustarIdUsuario(this.consultarTodosUsuarios());
             
-			PreparedStatement preparedStatement = connection
+			PreparedStatement preparedStatement = this.connection
 					.prepareStatement("select * from usuario where email=? and senha=?");
 			preparedStatement.setString(1,email);
 			preparedStatement.setString(2,senha);
@@ -176,6 +175,7 @@ public class UsuarioDAO {
 				usuario.setEmail(rs.getString("email"));
 				usuario.setLocalizacao(rs.getString("localizacao"));
 				usuario.setAdmin(rs.getBoolean("admin"));
+				usuario.setSenha(rs.getString("senha"));
 			}
             preparedStatement.close();
 			

@@ -9,12 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
  
 import asktechforum.dominio.Usuario;
-import asktechforum.repositorio.UsuarioDAO;
+import asktechforum.negocio.UsuarioBC;
  
 
 public class ServletAutenticacaoUsuario  extends HttpServlet {
- 
     private static final long serialVersionUID = 7633293501883840556L;
+    
+    /**
+     * Construtor do Servlet de Autenticacao de Usuario.
+     */
+    public ServletAutenticacaoUsuario() {
+        super();
+    }
  
     @Override
     protected void service(HttpServletRequest arg0, HttpServletResponse arg1)
@@ -40,32 +46,30 @@ public class ServletAutenticacaoUsuario  extends HttpServlet {
                          throws ServletException, IOException{
  
         HttpSession session = request.getSession(); //obtem a sessao do usuario, caso exista
-        	Usuario user = null;
-        	String email_form = request.getParameter("email"); // Pega o email vindo do formulario
-        	String senha_form = request.getParameter("senha"); //Pega a senha vinda do formulario
-        	Boolean saudacao = false;
+        UsuarioBC usuarioBC = new UsuarioBC();
+    	Usuario user = null;
+    	String email_form = request.getParameter("email"); // Pega o email vindo do formulario
+    	String senha_form = request.getParameter("senha"); //Pega a senha vinda do formulario
+    	Boolean saudacao = false;
 
-        	try {
-        		UsuarioDAO dao = new UsuarioDAO(); //cria uma instancia do DAO usuario
-        		user = dao.consultarUsuarioPorEmail_Senha(email_form, senha_form);
-        	}
-        	catch ( Exception e ){
+    	try {
+    		user = usuarioBC.consultarUsuarioPorEmail_Senha(email_form, senha_form);
+    	}
+    	catch ( Exception e ){
 
-        	}
-        	
+    	}
 
-        	//se nao encontrou usuario no banco, redireciona para a pagina de login
-        	if ( user == null ) {
-        		session.setAttribute("erro","E-mail ou Senha inválidos!");
-        		request.getRequestDispatcher("/login.jsp" ).forward(request, response);
-        	}
-        	else{
-        		saudacao = true;
-        		//se o dao retornar um usuario, coloca o mesmo na sessao
-        		session.setAttribute("usuarioLogado", user);
-        		session.setAttribute("saudacao", saudacao);
-        		request.getRequestDispatcher("/index.jsp" ).forward(request, response);
-        	}
-        //} 
+    	//se nao encontrou usuario no banco, redireciona para a pagina de login
+    	if ( user == null ) {
+    		session.setAttribute("erro","E-mail ou Senha inválidos!");
+    		request.getRequestDispatcher("/login.jsp" ).forward(request, response);
+    	}
+    	else{
+    		saudacao = true;
+    		//se o dao retornar um usuario, coloca o mesmo na sessao
+    		session.setAttribute("usuarioLogado", user);
+    		session.setAttribute("saudacao", saudacao);
+    		request.getRequestDispatcher("/index.jsp" ).forward(request, response);
+    	}
     } 
 }

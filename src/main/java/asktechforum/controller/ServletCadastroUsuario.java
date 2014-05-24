@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import asktechforum.dominio.Usuario;
-import asktechforum.repositorio.UsuarioDAO;
 import asktechforum.util.UsuarioUtil;
 import asktechforum.negocio.UsuarioBC;
 
@@ -23,7 +22,6 @@ public class ServletCadastroUsuario extends HttpServlet {
     private static String SUCESSOCADASTRO = "cadastroUsuarioSucesso.jsp";
     private static String ERROCADASTRO = "cadastroUsuario.jsp";
 	
-    private UsuarioDAO usuarioDAO;
     private UsuarioBC usuarioBC;
        
     /**
@@ -31,7 +29,6 @@ public class ServletCadastroUsuario extends HttpServlet {
      */
     public ServletCadastroUsuario() {
         super();
-        this.usuarioDAO = new UsuarioDAO();
         this.usuarioBC = new UsuarioBC();
     }
 
@@ -62,7 +59,7 @@ public class ServletCadastroUsuario extends HttpServlet {
 				usuario.setAdmin(false);
 			}
 			
-			this.usuarioDAO.adicionarUsuario(usuario);
+			this.usuarioBC.adicionarUsuario(usuario);
 			
 			RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
 		    view.forward(request, response);

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Usuario;
-import asktechforum.repositorio.UsuarioDAO;
 import asktechforum.util.UsuarioUtil;
 import asktechforum.negocio.UsuarioBC;
 
@@ -26,7 +25,6 @@ public class ServletAlteracaoUsuario extends HttpServlet {
     private static String SUCESSOALTERACAO = "perfilUsuario.jsp";
     private static String ERROALTERACAO = "./usuarioAutenticado/alteracaoExclusaoUsuarioErro.jsp";
     
-	private UsuarioDAO usuarioDAO;
 	private UsuarioBC usuarioBC;
        
     /**
@@ -34,7 +32,6 @@ public class ServletAlteracaoUsuario extends HttpServlet {
      */
     public ServletAlteracaoUsuario() {
         super();
-        this.usuarioDAO = new UsuarioDAO();
         this.usuarioBC = new UsuarioBC();
     }
 
@@ -62,16 +59,17 @@ public class ServletAlteracaoUsuario extends HttpServlet {
     	session.setAttribute("erroAlteracaoExclusao", true);
 		
 		if(pesquisaUsuarioEmail != null) {
-			usuario = this.usuarioDAO.consultarUsuarioPorEmail(pesquisaUsuarioEmail);
-			
+			usuario = this.usuarioBC.consultarUsuarioPorEmail(pesquisaUsuarioEmail);
+			usuario.setSenha(null);
 			view = request.getRequestDispatcher(ALTERAR);
 			request.setAttribute("usuarioAlteracao", usuario);
+			session.setAttribute("usuarioPerfil", usuario);
 			view.forward(request, response);
 		
 		}else if(alteracaoUsuarioId != null) {
 			idUsuario = Integer.parseInt(alteracaoUsuarioId);
 			
-			usuario = this.usuarioDAO.consultarUsuarioPorId(idUsuario);
+			usuario = this.usuarioBC.consultarUsuarioPorId(idUsuario);
 			quantAdmin = this.usuarioBC.consultarQuantidadeAdmin(usuario);
 
 			if(!this.usuarioBC.verificarEmail(request.getParameter("email"), usuario)) {
@@ -84,20 +82,18 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 				if(request.getParameter("admin") != null) {
 					if(request.getParameter("admin").trim().equals("true")) { 
 						usuario.setAdmin(true);
-						this.usuarioDAO.alterarUsuario(usuario);
+						this.usuarioBC.alterarUsuario(usuario);
 						
 						view = request.getRequestDispatcher(SUCESSOALTERACAO);
-						request.setAttribute("usuarioPerfil", usuario);
 						session.setAttribute("usuarioLogado", usuario);
 				        view.forward(request, response);
 					}
 				}else {
 					if(quantAdmin > 1) {
 						usuario.setAdmin(false);
-						this.usuarioDAO.alterarUsuario(usuario);
+						this.usuarioBC.alterarUsuario(usuario);
 						
 						view = request.getRequestDispatcher(SUCESSOALTERACAO);
-						request.setAttribute("usuarioPerfil", usuario);
 						session.setAttribute("usuarioLogado", usuario);
 				        view.forward(request, response);
 			        }else {
@@ -115,7 +111,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 		}else if(alteracaoAdminId != null) {
 			idUsuario = Integer.parseInt(alteracaoAdminId);
 			
-			usuario = this.usuarioDAO.consultarUsuarioPorId(idUsuario);
+			usuario = this.usuarioBC.consultarUsuarioPorId(idUsuario);
 			
 			if(request.getParameter("admin") != null) {
 				usuario.setAdmin(true);
@@ -123,10 +119,10 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 				usuario.setAdmin(false);
 			}
 			
-			this.usuarioDAO.alterarUsuarioAdmin(usuario);
+			this.usuarioBC.alterarUsuarioAdmin(usuario);
 			
 			view = request.getRequestDispatcher(SUCESSOALTERACAO);
-			request.setAttribute("usuarioPerfil", usuario);
+			session.setAttribute("usuarioPerfil", usuario);
 	        view.forward(request, response);
 			
 		}

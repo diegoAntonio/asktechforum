@@ -80,9 +80,11 @@
 				</div>
 			</div>
 		</div>
-	<%	
+<%	
+	request.setAttribute("usuarioAlteracao", null);
+	session.setAttribute("usuarioPerfil", null);
 	} 
-	%>
+%>
 	
 </form>
 	
@@ -131,9 +133,11 @@
 		</div>
 		
 	</div>
-	<%	
+<%	
+	request.setAttribute("usuarioAlteracao", null);
+	session.setAttribute("usuarioPerfil", null);
 	}
-	%>
+%>
 	
 </form>
 <br/>

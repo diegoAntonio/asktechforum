@@ -26,18 +26,12 @@
           
           	<%
           	Usuario usuarioLogado = new Usuario();
-          	Usuario usuarioPerfil = new Usuario();
           	usuarioLogado = (Usuario)session.getAttribute("usuarioLogado");
           	if(usuarioLogado != null) {
 	          	usuarioLogado.setSenha("");
           	}
-          	usuarioPerfil = (Usuario)session.getAttribute("usuarioPerfil");
           	Boolean saudacao = (Boolean)session.getAttribute("saudacao");
           	session.setAttribute("cabecalho", true);
-          	if(usuarioPerfil == null) {
-          		request.setAttribute("usuarioPerfil", usuarioLogado);
-              	session.setAttribute("usuarioAlteracao", usuarioLogado);
-          	}
           	%>
 			
 			<c:if test="${saudacao != true}">
@@ -46,7 +40,7 @@
 			
 			<c:if test="${saudacao == true}">
 	         		<h2><span style="color: white">Olá</span>
-	         			<a style="color: white" href="<%=getServletContext().getContextPath()%>/perfilUsuario.jsp">
+	         			<a onclick="verificarUsuarioPerfil()" style="color: white" href="<%=getServletContext().getContextPath()%>/perfilUsuario.jsp">
 	         				${usuarioLogado.nome}!
 	         			</a>&nbsp;&nbsp;
 	         			<%
@@ -88,10 +82,20 @@
         </ul>
       </div>
       
-      <script>
-		function goBack() {
-    		window.history.go(-1);
-		}
-		</script>
-		
-	
+<script>
+	function goBack() {
+		window.history.go(-1);
+	}
+</script>
+
+<script>
+	function verificarUsuarioPerfil() {
+		<%
+			Usuario usuarioPerfil = (Usuario)session.getAttribute("usuarioPerfil");
+			if(usuarioPerfil == null) {
+				session.setAttribute("usuarioAlteracao", usuarioLogado);
+				session.setAttribute("usuarioPerfil", usuarioLogado);
+			}
+		%>
+	}
+</script>
