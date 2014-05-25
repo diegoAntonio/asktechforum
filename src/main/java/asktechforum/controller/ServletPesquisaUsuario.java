@@ -57,9 +57,13 @@ public class ServletPesquisaUsuario extends HttpServlet {
 				break;
 			case "emailRadio":
 				email = request.getParameter("email");
-				if(email.trim() != "" && email != null && this.usuarioBC.consultarUsuarioPorEmail(email).getIdUsuario() != 0) {
-					listaUsuarios = new ArrayList<Usuario>();
-					listaUsuarios.add(this.usuarioBC.consultarUsuarioPorEmail(email));
+				if(email.trim() != "" && email != null) {
+					if(this.usuarioBC.consultarUsuarioPorEmail(email) != null) {
+						if(this.usuarioBC.consultarUsuarioPorEmail(email).getIdUsuario() != 0) {
+							listaUsuarios = new ArrayList<Usuario>();
+							listaUsuarios.add(this.usuarioBC.consultarUsuarioPorEmail(email));
+						}
+					}
 				}
 				break;
 			case "listartodosRadio":

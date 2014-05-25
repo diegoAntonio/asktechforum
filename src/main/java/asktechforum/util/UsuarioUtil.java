@@ -65,15 +65,20 @@ public class UsuarioUtil {
      * @throws Exception Caso a String esteja no formato errado 
      */  
     public static Date converterStringData(String dataString) {   
-        if (dataString == null || dataString.equals(""))  
-            return null;  
-          
-        Date data = null;  
-        try {   
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
-            data = new Date(formatter.parse(dataString).getTime());
+        Date data = null;
+    	
+        try {  
+        	
+	        if(dataString.matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}$")) {
+	            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+	            data = new Date(formatter.parse(dataString).getTime());
+            }else if(dataString.matches("^\\d{4}-(0[1-9]|1[0,1,2])-(0[1-9]|[1,2][0-9]|3[0,1])$")) {  
+	            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+	            data = new Date(formatter.parse(dataString).getTime());
+            }
+	        
         } catch (ParseException e) {              
-            e.printStackTrace();  
+            data = null;
         }  
         return data;  
     }

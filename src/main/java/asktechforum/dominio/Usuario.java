@@ -11,6 +11,7 @@ public class Usuario {
 	private String localizacao;
 	private String senha;
 	private String confSenha;
+	private String dataString;
 	
 	public Usuario() {
 	}
@@ -63,5 +64,13 @@ public class Usuario {
 	}
 	public void setConfSenha(String confSenha) {
 		this.confSenha = confSenha;
+	}
+
+	public String getDataString() {
+		return dataString;
+	}
+
+	public void setDataString(String dataString) {
+		this.dataString = dataString;
 	}
 }

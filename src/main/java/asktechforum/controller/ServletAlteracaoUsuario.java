@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Usuario;
-import asktechforum.util.UsuarioUtil;
 import asktechforum.negocio.UsuarioBC;
 
 /**
@@ -21,9 +20,10 @@ import asktechforum.negocio.UsuarioBC;
 public class ServletAlteracaoUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String ALTERAR = "./usuarioAutenticado/alterarUsuario.jsp";
+    private static String ERROALTERACAO = "./usuarioAutenticado/alterarUsuario.jsp";
     private static String ERROALTERAREMAIL = "./usuarioAutenticado/alterarUsuario.jsp";
     private static String SUCESSOALTERACAO = "perfilUsuario.jsp";
-    private static String ERROALTERACAO = "./usuarioAutenticado/alteracaoExclusaoUsuarioErro.jsp";
+    private static String ERROALTERACAOEXCLUSAO = "./usuarioAutenticado/alteracaoExclusaoUsuarioErro.jsp";
     
 	private UsuarioBC usuarioBC;
        
@@ -48,6 +48,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 		Usuario usuario = new Usuario();
 		HttpSession session = request.getSession();
 		int quantAdmin;
+		boolean flag = true;
 		
 		String pesquisaUsuarioEmail = request.getParameter("pesquisaUsuarioEmail");
 		String alteracaoUsuarioId = request.getParameter("alteracaoUsuarioId");
@@ -74,30 +75,49 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 
 			if(!this.usuarioBC.verificarEmail(request.getParameter("email"), usuario)) {
 				usuario.setNome(request.getParameter("nome"));
-				usuario.setDataNascimento(UsuarioUtil.converterStringData(request.getParameter("dataNascimento")));
+				usuario.setDataString(request.getParameter("dataNascimento"));
 				usuario.setEmail(request.getParameter("email"));
 				usuario.setLocalizacao(request.getParameter("localizacao"));
 				usuario.setSenha(request.getParameter("senha"));
+				usuario.setConfSenha(request.getParameter("confsenha"));
 				
 				if(request.getParameter("admin") != null) {
 					if(request.getParameter("admin").trim().equals("true")) { 
 						usuario.setAdmin(true);
-						this.usuarioBC.alterarUsuario(usuario);
+
+						flag = this.usuarioBC.alterarUsuario(usuario);
 						
-						view = request.getRequestDispatcher(SUCESSOALTERACAO);
-						session.setAttribute("usuarioLogado", usuario);
-				        view.forward(request, response);
+						if(flag) {
+							view = request.getRequestDispatcher(SUCESSOALTERACAO);
+							session.setAttribute("usuarioLogado", usuario);
+					        view.forward(request, response);
+						}else {
+							view = request.getRequestDispatcher(ERROALTERACAO);
+							usuario.setSenha("");
+							usuario.setConfSenha("");
+							request.setAttribute("usuarioAlteracao", usuario);
+						    view.forward(request, response);
+						}
 					}
 				}else {
 					if(quantAdmin > 1) {
 						usuario.setAdmin(false);
-						this.usuarioBC.alterarUsuario(usuario);
+
+						flag = this.usuarioBC.alterarUsuario(usuario);
 						
-						view = request.getRequestDispatcher(SUCESSOALTERACAO);
-						session.setAttribute("usuarioLogado", usuario);
-				        view.forward(request, response);
-			        }else {
-						view = request.getRequestDispatcher(ERROALTERACAO);
+						if(flag) {
+							view = request.getRequestDispatcher(SUCESSOALTERACAO);
+							session.setAttribute("usuarioLogado", usuario);
+					        view.forward(request, response);
+						}else {
+							view = request.getRequestDispatcher(ERROALTERACAO);
+							usuario.setSenha("");
+							usuario.setConfSenha("");
+							request.setAttribute("usuarioAlteracao", usuario);
+						    view.forward(request, response);
+						}
+					}else {
+						view = request.getRequestDispatcher(ERROALTERACAOEXCLUSAO);
 				        view.forward(request, response);
 			        }
 				}
@@ -118,12 +138,20 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 			}else {
 				usuario.setAdmin(false);
 			}
+
+			flag = this.usuarioBC.alterarUsuarioAdmin(usuario);
 			
-			this.usuarioBC.alterarUsuarioAdmin(usuario);
-			
-			view = request.getRequestDispatcher(SUCESSOALTERACAO);
-			session.setAttribute("usuarioPerfil", usuario);
-	        view.forward(request, response);
+			if(flag) {
+				view = request.getRequestDispatcher(SUCESSOALTERACAO);
+				session.setAttribute("usuarioPerfil", usuario);
+		        view.forward(request, response);
+			}else {
+				view = request.getRequestDispatcher(ERROALTERACAO);
+				usuario.setSenha("");
+				usuario.setConfSenha("");
+				request.setAttribute("usuarioAlteracao", usuario);
+			    view.forward(request, response);
+			}
 			
 		}
 	}

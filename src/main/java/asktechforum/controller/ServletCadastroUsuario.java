@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import asktechforum.dominio.Usuario;
-import asktechforum.util.UsuarioUtil;
 import asktechforum.negocio.UsuarioBC;
 
 /**
@@ -44,10 +43,11 @@ public class ServletCadastroUsuario extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Usuario usuario = new Usuario();
 		int quantAdmin = this.usuarioBC.consultarQuantidadeAdmin(usuario);
+		boolean flag = true;
 
 		if(!this.usuarioBC.verificarEmail(request.getParameter("email"), usuario)) {
 			usuario.setNome(request.getParameter("nome"));
-			usuario.setDataNascimento(UsuarioUtil.converterStringData(request.getParameter("dataNascimento")));
+			usuario.setDataString(request.getParameter("dataNascimento"));
 			usuario.setEmail(request.getParameter("email"));
 			usuario.setLocalizacao(request.getParameter("localizacao"));
 			usuario.setSenha(request.getParameter("senha"));
@@ -59,13 +59,22 @@ public class ServletCadastroUsuario extends HttpServlet {
 				usuario.setAdmin(false);
 			}
 			
-			this.usuarioBC.adicionarUsuario(usuario);
+			flag = this.usuarioBC.adicionarUsuario(usuario);
 			
-			RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
-		    view.forward(request, response);
+			if(flag) {
+				RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
+			    view.forward(request, response);
+			}else {
+				RequestDispatcher view = request.getRequestDispatcher(ERROCADASTRO);
+				usuario.setSenha("");
+				usuario.setConfSenha("");
+				request.setAttribute("usuario", usuario);
+			    view.forward(request, response);
+			}
+		    
 		}else {
 			usuario.setNome(request.getParameter("nome"));
-			usuario.setDataNascimento(UsuarioUtil.converterStringData(request.getParameter("dataNascimento")));
+			usuario.setDataString(request.getParameter("dataNascimento"));
 			usuario.setLocalizacao(request.getParameter("localizacao"));
 			
 			RequestDispatcher view = request.getRequestDispatcher(ERROCADASTRO);

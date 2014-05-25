@@ -20,7 +20,12 @@
 					</p>
 					<p>
 						<span>Data de Nascimento: </span>
-						<label><fmt:formatDate pattern="dd/MM/yyyy" value="${usuarioPerfil.dataNascimento}"/></label>
+						<c:if test="${empty usuarioPerfil.dataNascimento}">
+							<label>Preferiu não informar =)</label>
+						</c:if>
+						<c:if test="${not empty usuarioPerfil.dataNascimento}">
+							<label><fmt:formatDate pattern="dd/MM/yyyy" value="${usuarioPerfil.dataNascimento}"/></label>
+						</c:if>
 					</p>
 					<p>
 						<span>E-mail: </span>

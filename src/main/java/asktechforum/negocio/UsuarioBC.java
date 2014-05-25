@@ -1,14 +1,16 @@
 package asktechforum.negocio;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 //import java.sql.Connection;
 //import java.sql.SQLException;
 
+
 import asktechforum.dominio.Usuario;
 import asktechforum.repositorio.UsuarioDAO;
 //import asktechforum.util.ConnectionUtil;
-//import asktechforum.util.UsuarioUtil;
+import asktechforum.util.UsuarioUtil;
 
 public class UsuarioBC {
 	
@@ -19,23 +21,41 @@ public class UsuarioBC {
         this.usuarioDAO = new UsuarioDAO();
 	}
 	
-	public void alterarUsuario(Usuario usuario){
-		this.usuarioDAO.alterarUsuario(usuario);
+	public boolean alterarUsuario(Usuario usuario){
+		boolean flag = validarUsuario(usuario);
+		
+		if(flag) {
+			this.usuarioDAO.alterarUsuario(usuario);
+		}
+		
+		return flag;
 	}
 
-	public void alterarUsuarioAdmin(Usuario usuario){
-		this.usuarioDAO.alterarUsuarioAdmin(usuario);
+	public boolean alterarUsuarioAdmin(Usuario usuario){
+		boolean flag = validarUsuario(usuario);
+		
+		if(flag) {
+			this.usuarioDAO.alterarUsuarioAdmin(usuario);
+		}
+		
+		return flag;
 	}
 
-	public void adicionarUsuario(Usuario usuario){
-		this.usuarioDAO.adicionarUsuario(usuario);
+	public boolean adicionarUsuario(Usuario usuario){
+		boolean flag = validarUsuario(usuario);
+		
+		if(flag) {
+			this.usuarioDAO.adicionarUsuario(usuario);
+		}
+		
+		return flag;
 	}
 
 	public void deletarUsuario(String email) {
 		this.usuarioDAO.deletarUsuario(email);
 	}
 
-	public Usuario consultarUsuarioPorEmail_Senha(String email,String senha) {
+	public Usuario consultarUsuarioPorEmail_Senha(String email, String senha) {
 		Usuario usuario = null;
 		if(this.usuarioDAO.consultarUsuarioPorEmail_Senha(email, senha).getIdUsuario() != 0) {
 			usuario = this.usuarioDAO.consultarUsuarioPorEmail_Senha(email, senha);
@@ -61,14 +81,72 @@ public class UsuarioBC {
 		return usuarios;
 	}
 	
-	public void atualizarIdUsuario(List<Usuario> usuarios, int i, int index) {
-		this.usuarioDAO.atualizarIdUsuario(usuarios, i, index);
-	}
-	
 	public List<Usuario> consultarTodosUsuarios() {
         List<Usuario> usuarios = new ArrayList<Usuario>();
         usuarios = this.usuarioDAO.consultarTodosUsuarios();
         return usuarios;
+	}
+	
+	public boolean validarUsuario(Usuario usuario) {
+		boolean flag = true;
+		Date data = null;
+		
+		if(usuario != null) {
+			if(usuario.getNome().trim() == "" || usuario.getNome() == null) {
+				flag = false;
+			}
+			
+			if(usuario.getEmail().trim() == "" || usuario.getEmail() == null) {
+				flag = false;
+			}else if(!usuario.getEmail()
+					.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$")) {
+				flag = false;
+			}
+			
+			if(usuario.getSenha().trim() == "" || usuario.getSenha() == null) {
+				flag = false;
+			}
+			if(usuario.getDataString() != null) {
+				if(usuario.getDataString().trim() != "") {
+					if(usuario.getDataString().length() == 10) {
+						data = UsuarioUtil.converterStringData(usuario.getDataString());
+					}
+					if(usuario.getDataString().length() != 10 || data == null) {
+						flag = false;
+					}else {
+						usuario.setDataNascimento(data);
+					}
+				}
+			}
+			if(usuario.getSenha().length() > 8) {
+				flag = false;
+			}
+			if(!usuario.getSenha().equals(usuario.getConfSenha())) {
+				flag = false;
+			}
+		}else {
+			flag = false;
+		}
+		
+		return flag;
+	}
+	
+	public boolean validarEmail(String email) {
+		boolean flag = true;
+		
+		return flag;
+	}
+	
+	public boolean validarIdUsuario(int idUsuario) {
+		boolean flag = true;
+		
+		return flag;
+	}
+	
+	public boolean validarNome(String nome) {
+		boolean flag = true;
+		
+		return flag;
 	}
 	
 	public int consultarQuantidadeAdmin(Usuario usuario) {
