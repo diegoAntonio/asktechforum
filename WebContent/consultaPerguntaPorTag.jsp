@@ -11,19 +11,27 @@
 
 
 <form id="formConsultarPerguntaPorTag" action="ServletConsultarPerguntaPorTag" method="post">
+<div id="site_content">
+	<h1>Perguntas</h1>
 	<div id="site_content">
 		<c:forEach items="${pergunta}" var="pergunta">
 			<div class="content">
-				<h1>
+				<!--  %><h1><div style="weight: 10px;">Título</div> <div style="weight: 30px;">Respostas</div> <div>Autor</div> <div>Criada em</div></h1> -->
 				
-						
-					<a  href="ServletConsultarRespostaPergunta?id=${pergunta.idPergunta}">${pergunta.descricao}</a>
-				
-				</h1>
+				 <ul class="sf-menu" id="nav">
+        <h1>
+          <li>Título</li>
+          <li>Respostas</li>
+          <li>Autor</li>
+            <li>Criada em</li>
+        </ul>
+			</h1> 									
 				<div class="content_item">
 					<div class="form_settings_cadastro">
+					
+					<span><a  href="ServletConsultarRespostaPergunta?id=${pergunta.idPergunta}">${pergunta.descricao}</a></span>
 						<p>
-							<span>Autor </span> <input type="text" name="usuarioRadio"
+							 <s type="text" name="usuarioRadio"
 								id="usuario" value="${pergunta.autor}" />
 						</p>
 						<p>
@@ -37,6 +45,7 @@
 				</div>
 			</div>
 		</c:forEach>
+		</div>
 	</div>
 </form>
 <jsp:include page="rodape.jsp"></jsp:include>
