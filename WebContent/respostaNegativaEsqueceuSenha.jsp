@@ -1,17 +1,26 @@
-<%@ include file="cabecalho.jsp" %>
+<%@ include file="cabecalho.jsp"%>
 
-<br/><br/>
-<div>
+<form id="formEmailInvalido" method="post">
 
-<h1>OPs! Usuário Não Encontrado!</h1>
-<p>O e-mail que você busca não está cadastrado. Por favor, clique no link abaixo para voltar e insira um e-mail válido!</p>
-<a href="esqueciMinhaSenha.jsp" >Voltar!</a>
+	<div id="site_content">
+		<div class="content">
+			<h1>Ops! Usuário Não Encontrado!</h1>
+			<div class="content_item">
+				<div style="width: 700px;" class="form_settings_cadastro">
 
-</div>
+					<h2>O e-mail informado não está cadastrado no Ask TechForum. Por favor, tente novamente com seu e-mail cadastrado!</h2>
+					<p><input class="submit" type="button" onclick="voltar()" value="Voltar" /></p>
 
+				</div>	
+			</div>
+		</div>
+	</div>
+</form>
 
-<br/><br/>
-
-
+<script>
+	function voltar() {
+		history.back();
+	}
+</script>
 
 <jsp:include page="rodape.jsp"></jsp:include>

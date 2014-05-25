@@ -61,7 +61,8 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 		
 		if(pesquisaUsuarioEmail != null) {
 			usuario = this.usuarioBC.consultarUsuarioPorEmail(pesquisaUsuarioEmail);
-			usuario.setSenha(null);
+			usuario.setSenha("");
+			usuario.setConfSenha("");
 			view = request.getRequestDispatcher(ALTERAR);
 			session.setAttribute("usuarioAlteracao", usuario);
 			session.setAttribute("usuarioPerfil", usuario);

@@ -9,7 +9,7 @@
 		<div class="content_item">
 			<div class="form_settings_perfil">
 				<form>
-					<h2>Atualmente, o AskTechForum possui somente você como
+					<h2>Atualmente, o Ask TechForum possui somente você como
 						Administrador. Então, defina outro usuário para ser um
 						Administrador do nosso sistema. Somente assim, você poderá deixar
 						de ser Administrador, ou até mesmo excluir seu cadastro.</h2>

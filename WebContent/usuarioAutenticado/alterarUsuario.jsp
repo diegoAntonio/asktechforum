@@ -35,32 +35,38 @@
 			<div class="content">
 				<h1>Editar Perfil</h1>
 				<div class="content_item">
-					<div style="width: 320px;" class="form_settings_cadastro">
+					<div style="width: 700px;" class="form_settings_cadastro">
 						<p>
 							<span>Nome* </span>
+							<br/>
 							<input class="contact" value="${usuarioAlteracao.nome}" type="text" name="nome" id="nome" />
 						</p>
 						<p>
 							<span>Data de Nascimento </span>
+							<br/>
 							<input class="contact" type="date" value="${usuarioAlteracao.dataString}" name="dataNascimento" id="dataNascimento" />
-						<span style="color:red; font-size:12px;">O campo 'Data de Nascimento' deve estar no<br/>formato: dd/MM/yyyy</span> 
+						<span style="color:red; font-size:12px;">O campo 'Data de Nascimento' deve estar no formato: dd/MM/yyyy</span> 
 						</p>
 						<p>
 							<span>E-mail* </span>
+							<br/>
 							<input class="contact" value="${usuarioAlteracao.email}" type="email" name="email" id="email" />
 							<span style="color:red; font-size:12px;">O campo 'E-mail' deve estar num formato válido</span> 
 						</p>
 						<p>
 							<span>Localização </span>
+							<br/>
 							<input class="contact" value="${usuarioAlteracao.localizacao}" type="text" name="localizacao" id="localizacao" />
 						</p>
 						<p>
 							<span>Senha* </span>
+							<br/>
 							<input class="contact" value="${usuarioAlteracao.senha}" type="password" name="senha" id="senha" />
 							<span style="color:red; font-size:12px;">O campo 'Senha' deve conter no máximo 8 caracteres</span> 
 						</p>
 					    <p>
 					    	<span>Confirmar Senha* </span>
+							<br/>
 					    	<input class="contact" value="${usuarioAlteracao.confSenha}" type="password" name="confsenha" id="confsenha" />
 							<span style="color:red; font-size:12px;">Os campos 'Senha' e 'Confirmar Senha'
 								devem ser iguais</span> 

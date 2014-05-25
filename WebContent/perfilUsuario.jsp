@@ -105,7 +105,7 @@
 
 <script>
 	function excluirUsuario() {
-		alert("=( Que pena! Você está deixando o AskTechForum. Toda nossa comunidade está de luto por 3 dias. Nós esperamos que você retorne logo.");
+		alert("=( Que pena! Você está deixando o Ask TechForum. Toda nossa comunidade está de luto por 3 dias. Nós esperamos que você retorne logo.");
 		var formulario;
 		formulario = document.getElementById("formExclusaoPerfilUsuario");
 		formulario.submit();

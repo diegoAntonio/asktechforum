@@ -1,20 +1,24 @@
-<%@ include file="cabecalho.jsp" %>
+<%@ include file="cabecalho.jsp"%>
 
-<br/><br/>
-<div>
+<form id="formRecuperarSenha" action="ServletRecuperarSenha" method="post">
 
-<h1>Esqueceu Senha?</h1>
-<form action="ServletRecuperarSenha" method="post">
-Insira seu e-mail e encaminharemos a você a sua senha:
-<input type="text" name="email" /><br />
-<input type="submit" />
+	<div id="site_content">
+		<div class="content">
+			<h1>Esqueceu sua Senha?</h1>
+			<div class="content_item">
+				<div style="width: 700px;" class="form_settings_cadastro">
+
+					<p>
+						<h2>Insira abaixo seu e-mail cadastrado, para que o Ask TechForum encaminhe sua senha:</h2>
+						<span>E-mail </span>
+						<input type="email" name="email" placeholder="nome@exemplo.com" /><br/><br/>
+						<input class="submit" type="submit" />
+					</p>
+					
+				</div>	
+			</div>
+		</div>
+	</div>
 </form>
-
-</div>
-
-
-<br/><br/>
-
-
 
 <jsp:include page="rodape.jsp"></jsp:include>

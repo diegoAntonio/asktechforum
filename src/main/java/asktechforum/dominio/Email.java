@@ -9,21 +9,11 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
- 
+
 public class Email {
 
-	private static final String USR = "nti.curriculos2@gmail.com";
-	private static final String PWD = "curriculo2";
-
-//	public static void main(String[] args) {
-//
-//		String senhaNova = "teste";
-//		String login = "teste";
-//		String destinatario = "eljbento@gmail.com";
-//
-//
-//		sendMail(senhaNova, login, destinatario);
-//	}
+	private static final String USR = "asktechforum@gmail.com";
+	private static final String PWD = "webasktech";
 
 	public void sendMail(String senhaNova, String nome,
 			String destinatario) {
@@ -37,34 +27,30 @@ public class Email {
 
 		Session session = Session.getDefaultInstance(props,
 				new javax.mail.Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(USR, PWD);
-					}
-				});
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(USR, PWD);
+			}
+		});
 
 		try {
 
 			StringBuffer buffer = new StringBuffer();
-			buffer.append("Ask TecKForum.\n\n");
-			buffer.append("Prezado,"+nome+",\n\n");
-			buffer.append("Informamos abaixo os seus dados para o seu acesso(Login e Senha) ao nosso sistema.\n\n");
+			buffer.append("Prezado(a), "+nome+",\n\n");
+			buffer.append("Informamos abaixo, os dados necessários para que você acesse o nosso sistema.\n\n");
 			buffer.append("Login: ");
 			buffer.append(destinatario + "\n");
-			buffer.append("Senha: " + senhaNova + " .\n\n\n");
-			buffer.append("Caso não tenha solicitado seus dados, favor desconsiderar.\n\n");
+			buffer.append("Senha: " + senhaNova + "\n\n\n");
+			buffer.append("Caso não tenha solicitado seus dados, favor desconsiderar.\n\n\n");
 			buffer.append("Atenciosamente,\n\n");
-			buffer.append("Ask TechForum\n");
+			buffer.append("Equipe Ask TechForum.\n");
 
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("from@no-spam.com"));
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(destinatario));
-			message.setSubject("Email para Recuperacao De Senha");
+			message.setSubject("Email para Recuperação De Senha -- Ask TechForum");
 			message.setText(buffer.toString());
 
-
-			System.out.println("Done");
-			
 			Transport.send(message);
 
 		} catch (MessagingException e) {
