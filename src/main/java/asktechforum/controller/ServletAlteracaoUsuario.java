@@ -63,7 +63,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 			usuario = this.usuarioBC.consultarUsuarioPorEmail(pesquisaUsuarioEmail);
 			usuario.setSenha(null);
 			view = request.getRequestDispatcher(ALTERAR);
-			request.setAttribute("usuarioAlteracao", usuario);
+			session.setAttribute("usuarioAlteracao", usuario);
 			session.setAttribute("usuarioPerfil", usuario);
 			view.forward(request, response);
 		
@@ -95,7 +95,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 							view = request.getRequestDispatcher(ERROALTERACAO);
 							usuario.setSenha("");
 							usuario.setConfSenha("");
-							request.setAttribute("usuarioAlteracao", usuario);
+							session.setAttribute("usuarioAlteracao", usuario);
 						    view.forward(request, response);
 						}
 					}
@@ -113,7 +113,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 							view = request.getRequestDispatcher(ERROALTERACAO);
 							usuario.setSenha("");
 							usuario.setConfSenha("");
-							request.setAttribute("usuarioAlteracao", usuario);
+							session.setAttribute("usuarioAlteracao", usuario);
 						    view.forward(request, response);
 						}
 					}else {
@@ -124,7 +124,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 			}else {
 				view = request.getRequestDispatcher(ERROALTERAREMAIL);
 				request.setAttribute("emailExistente", true);
-				request.setAttribute("usuarioAlteracao", usuario);
+				session.setAttribute("usuarioAlteracao", usuario);
 				view.forward(request, response);
 			}
 	        
@@ -149,7 +149,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 				view = request.getRequestDispatcher(ERROALTERACAO);
 				usuario.setSenha("");
 				usuario.setConfSenha("");
-				request.setAttribute("usuarioAlteracao", usuario);
+				session.setAttribute("usuarioAlteracao", usuario);
 			    view.forward(request, response);
 			}
 			

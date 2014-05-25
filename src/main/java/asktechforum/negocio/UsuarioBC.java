@@ -92,20 +92,34 @@ public class UsuarioBC {
 		Date data = null;
 		
 		if(usuario != null) {
-			if(usuario.getNome().trim() == "" || usuario.getNome() == null) {
+			
+			if(usuario.getNome() != null) {
+				if(usuario.getNome().trim() == "") {
+					flag = false;
+				}
+			}else {
 				flag = false;
 			}
 			
-			if(usuario.getEmail().trim() == "" || usuario.getEmail() == null) {
-				flag = false;
-			}else if(!usuario.getEmail()
-					.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$")) {
+			if(usuario.getEmail() != null) {
+				if(usuario.getEmail().trim() == "") {
+					flag = false;
+				}else if(!usuario.getEmail()
+						.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$")) {
+					flag = false;
+				}
+			}else {
 				flag = false;
 			}
 			
-			if(usuario.getSenha().trim() == "" || usuario.getSenha() == null) {
+			if(usuario.getSenha() != null) {
+				if(usuario.getSenha().trim() == "") {
+					flag = false;
+				}
+			}else {
 				flag = false;
 			}
+			
 			if(usuario.getDataString() != null) {
 				if(usuario.getDataString().trim() != "") {
 					if(usuario.getDataString().length() == 10) {
@@ -118,12 +132,28 @@ public class UsuarioBC {
 					}
 				}
 			}
-			if(usuario.getSenha().length() > 8) {
+			
+			if(usuario.getSenha() != null) {
+				if(usuario.getSenha().trim() != "") {
+					if(usuario.getSenha().length() > 8) {
+						flag = false;
+					}
+				}else {
+					flag = false;
+				}
+			}else {
 				flag = false;
 			}
-			if(!usuario.getSenha().equals(usuario.getConfSenha())) {
-				flag = false;
+			
+			if(usuario.getSenha() != null && usuario.getConfSenha() != null) {
+				if(usuario.getSenha().trim() == "" && usuario.getConfSenha().trim() == "") {
+					flag = false;
+				}
+				if(!usuario.getSenha().equals(usuario.getConfSenha())) {
+					flag = false;
+				}
 			}
+			
 		}else {
 			flag = false;
 		}

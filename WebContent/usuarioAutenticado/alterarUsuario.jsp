@@ -5,6 +5,9 @@
 <br/>
 
 <form id="formAlteracaoPerfilUsuario1" action="<%=getServletContext().getContextPath()%>/ServletAlteracaoUsuario" method="post">
+<%
+	session.setAttribute("usuarioAdministrador", (Usuario)session.getAttribute("usuarioAlteracao"));
+%>
 	
 	<input type="hidden" name="alteracaoUsuarioId" id="alteracaoUsuarioId" value="${usuarioAlteracao.idUsuario}" checked="checked" />
 	<%
@@ -87,7 +90,7 @@
 			</div>
 		</div>
 <%	
-	request.setAttribute("usuarioAlteracao", null);
+	session.setAttribute("usuarioAlteracao", null);
 	session.setAttribute("usuarioPerfil", null);
 	} 
 %>
@@ -104,18 +107,18 @@
 			<h1>Definir Usuário Administrador</h1>
 			<div class="content_item">
 				<p>
-					<h2>Para definir o usuário ${usuarioAlteracao.nome} como um Administrador do AskTechForum, selecione a opção abaixo e clique em Salvar:</h2>
+					<h2>Para definir o usuário ${usuarioAdministrador.nome} como um Administrador do AskTechForum, selecione a opção abaixo e clique em Salvar:</h2>
 				</p>
 				<div style="width: 300px;" class="form_settings_cadastro">
 					
-					<c:if test="${usuarioAlteracao.admin == true}">
+					<c:if test="${usuarioAdministrador.admin == true}">
 						<p>
 							<input style="width:20px;" type="checkbox" checked="checked" id="admin" name="admin" id="admin" />
 							<label for="admin" >Administrador</label>
 						</p>
 					</c:if>
 					
-					<c:if test="${usuarioAlteracao.admin == false}">
+					<c:if test="${usuarioAdministrador.admin == false}">
 						<p>
 							<input style="width:20px;" type="checkbox" id="admin" name="admin" id="admin" />
 							<label for="admin" >Administrador</label>
@@ -123,7 +126,7 @@
 					</c:if>
 					
 					<p>
-						<input type="hidden" name="alteracaoAdminId" id="alteracaoAdminId" value="${usuarioAlteracao.idUsuario}" checked="checked" />
+						<input type="hidden" name="alteracaoAdminId" id="alteracaoAdminId" value="${usuarioAdministrador.idUsuario}" checked="checked" />
 					</p>
 					 
 					<p>
@@ -140,7 +143,7 @@
 		
 	</div>
 <%	
-	request.setAttribute("usuarioAlteracao", null);
+	session.setAttribute("usuarioAlteracao", null);
 	session.setAttribute("usuarioPerfil", null);
 	}
 %>
