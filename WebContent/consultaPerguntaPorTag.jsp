@@ -16,16 +16,15 @@
 	<div id="site_content">
 		<c:forEach items="${pergunta}" var="pergunta">
 			<div class="content">
-				<!--  %><h1><div style="weight: 10px;">Título</div> <div style="weight: 30px;">Respostas</div> <div>Autor</div> <div>Criada em</div></h1> -->
+
+				<h1>
+					
+					<a  href="ServletConsultarRespostaPergunta?id=${pergunta.idPergunta}
+						&autor=${pergunta.autor}
+						&descricao=${pergunta.descricao}">${pergunta.descricao}</a>
 				
-				 <ul class="sf-menu" id="nav">
-        <h1>
-          <li>Título</li>
-          <li>Respostas</li>
-          <li>Autor</li>
-            <li>Criada em</li>
-        </ul>
-			</h1> 									
+				</h1>
+
 				<div class="content_item">
 					<div class="form_settings_cadastro">
 					

@@ -12,6 +12,7 @@ public class CadastroRespostaBC implements CadastroResposta {
 
 	private CadastroRespostaDAO cadastro;
 	private ArrayList<Resposta> lstResposta;
+	
 
 	public CadastroRespostaBC() {
 		cadastro = new CadastroRespostaDAO();
