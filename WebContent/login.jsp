@@ -8,7 +8,7 @@
 		<div class="content_item">
 			<div class="form_settings_login">
 				<p>
-					<span>E-mail  </span><input class="contact" type="emails"
+					<span>E-mail  </span><input class="contact" type="email"
 						name="email" value="" placeholder="nome@exemplo.com"/>
 				</p>
 				<p>	<span>Senha</span>

@@ -1,7 +1,6 @@
 package asktechforum.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import asktechforum.dominio.Usuario;
 import asktechforum.repositorio.UsuarioDAO;
 import asktechforum.util.UsuarioUtil;
-import asktechforum.util.Util;
+import asktechforum.negocio.UsuarioBC;
 
 /**
  * Implementação do Servlet de Cadastro de Usuario.
@@ -22,16 +21,18 @@ import asktechforum.util.Util;
 public class ServletCadastroUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String SUCESSOCADASTRO = "cadastroUsuarioSucesso.jsp";
-    //private static String ERROCADASTRO = "cadastroUsuario.jsp";
+    private static String ERROCADASTRO = "cadastroUsuario.jsp";
 	
-    private UsuarioDAO dao;
+    private UsuarioDAO usuarioDAO;
+    private UsuarioBC usuarioBC;
        
     /**
      * Construtor do Servlet de Cadastro de Usuario.
      */
     public ServletCadastroUsuario() {
         super();
-        this.dao = new UsuarioDAO();
+        this.usuarioDAO = new UsuarioDAO();
+        this.usuarioBC = new UsuarioBC();
     }
 
 	/**
@@ -46,18 +47,13 @@ public class ServletCadastroUsuario extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Usuario usuario = new Usuario();
 		usuario.setNome(request.getParameter("nome"));
-		try {
-			usuario.setDataNascimento(Util.converterStringToDate("dd/MM/yyyy",request.getParameter("dataNascimento")));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		usuario.setDataNascimento(UsuarioUtil.converterStringData(request.getParameter("dataNascimento")));
 		usuario.setEmail(request.getParameter("email"));
 		usuario.setLocalizacao(request.getParameter("localizacao"));
 		usuario.setSenha(request.getParameter("senha"));
 		usuario.setConfSenha(request.getParameter("confsenha"));
 		
-		dao.adicionarUsuario(usuario);
+		usuarioDAO.adicionarUsuario(usuario);
 		
 		RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
 		request.setAttribute("usuario", usuario);
