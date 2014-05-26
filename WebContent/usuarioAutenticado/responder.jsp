@@ -23,9 +23,7 @@
 					
 					<p style="color:red; font-size:12px;">O campo Descrição é obrigatório.</p> 
 					<input class="submit" value="Enviar" type="submit" /> 
-					<br />
-					<br />
-					<br />
+					<% session.setAttribute("erroCadastroResposta", ""); %>
 				</div>	
 			</div>
 		</div>

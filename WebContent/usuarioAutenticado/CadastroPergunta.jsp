@@ -26,22 +26,17 @@
 					</p>
 					
 					<p>
-					
-						
 						<c:if test="${empty erroCadastroPergunta}">
 						<% session.setAttribute("erroCadastroPergunta", ""); %>
 						</c:if>
 						<p style="font-size: 12px; color: red;" id= msg><%=session.getAttribute("erroCadastroPergunta")%></p>
-					
 					</p>
 					
 					
 					<p style="color:red; font-size:12px;">Os campos com * são obrigatórios.</p> 
 					<input class="submit" value="Cadastrar" type="submit" /> 
-					<br />
-					<br />
-					<br />
-				</div>	
+				     <% session.setAttribute("erroCadastroPergunta", ""); %>   
+ 				</div>	
 			</div>
 		</div>
 	</div>
