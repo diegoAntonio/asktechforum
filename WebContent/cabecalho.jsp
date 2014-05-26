@@ -74,7 +74,7 @@ if((Boolean)session.getAttribute("stop") == null) {
         	<li><a href="<%=getServletContext().getContextPath()%>/pesquisarUsuario.jsp">Usuários</a></li>
          	<li><a href="#">Tags</a>
             <ul>
-           		<li><a  href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=java">Java</a></li>
+           		<li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=java">Java</a></li>
              	<li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=android">Android</a></li>
 	           	<li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=redes">Redes</a></li>
 	           	<li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=javascript">JavaScript</a></li>
@@ -83,7 +83,7 @@ if((Boolean)session.getAttribute("stop") == null) {
 	           	<li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=css">CSS</a></li>
             </ul>
          	</li>
-        	<li><a href="sobre.jsp">Sobre</a></li>
+        	<li><a href="<%=getServletContext().getContextPath()%>/sobre.jsp">Sobre</a></li>
             <li><a href="<%=getServletContext().getContextPath()%>/usuarioAutenticado/CadastroPergunta.jsp">Pergunte</a></li>
         </ul>
       </div>

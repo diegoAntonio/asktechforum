@@ -1,5 +1,5 @@
   <footer>
-      <p><a href="index.jsp">Perguntas</a> | <a href="pesquisarUsuario.jsp">Usuários</a> | <a href="page.html">Tags</a> | <a href="sobre.jsp">Sobre</a> | <a href="contact.php">Pergunte</a></p>
+      <p><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=all">Perguntas</a> | <a href="<%=getServletContext().getContextPath()%>/pesquisarUsuario.jsp">Usuários</a> | <a href="<%=getServletContext().getContextPath()%>/sobre.jsp">Sobre</a> | <a href="<%=getServletContext().getContextPath()%>/usuarioAutenticado/CadastroPergunta.jsp">Pergunte</a></p>
       <p>Copyright &copy; Ask Tech Foum | 2014</p>
     </footer>
   </div>
