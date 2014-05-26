@@ -17,7 +17,7 @@
 					</p>
 					<p>
 						<span>Descrição* </span>
-						<textarea class="contact"  name="descricao" rows="8" cols="20" > ${pergunta.descricao} </textarea>
+						<textarea class="contact"  name="descricao" rows="8" cols="20" >${pergunta.descricao}</textarea>
 					</p>
 					<p>
 						<span>Assuntos relacionados*</span>

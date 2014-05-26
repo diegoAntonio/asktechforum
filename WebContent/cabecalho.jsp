@@ -28,7 +28,7 @@ if((Boolean)session.getAttribute("stop") == null) {
       <div id="logo">
         <div id="logo_text">
 			<!-- class="logo_colour", allows you to change the colour of the text -->
-			<h1><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=all">Ask Tech<span class="logo_colour">Forum</span></a></h1>
+			<h1><a href="<%=getServletContext().getContextPath()%>/index.jsp">Ask Tech<span class="logo_colour">Forum</span></a></h1>
           
           	<%
           	Usuario usuarioLogado = new Usuario();

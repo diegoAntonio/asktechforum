@@ -6,7 +6,7 @@
 		<h1>Yeah!</h1>
 		<div class="content_item">
 			<div class="form_settings_perfil">
-				<form action="index.jsp">
+				<form action="<%=getServletContext().getContextPath()%>/index.jsp">
 					<h2>Usuário cadastrado com sucesso!</h2>
 					<p>
 						<button class="submit" >Voltar</button>

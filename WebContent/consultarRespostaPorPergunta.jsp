@@ -34,7 +34,11 @@
 				</div>
 			</c:forEach>
 		</div>
-	<a href="usuarioAutenticado/responder.jsp">	
-	<p style="padding-top: 15px; margin-left:110px;"><span>&nbsp;</span><input class="submit" type="button" name="btn_entrar" value="Responder"/></p></a>
+		<p style="padding-top: 15px; margin-left:180px;"><span>&nbsp;</span>
+			<a href="usuarioAutenticado/responder.jsp">
+			<input class="submit" type="button" name="btn_entrar" value="Responder" />
+			</a>
+		</p>
+	</a>
 </form>
 <jsp:include page="rodape.jsp"></jsp:include>

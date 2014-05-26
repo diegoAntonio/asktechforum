@@ -10,10 +10,10 @@
 		<div class="content">
 			<h1>Responder</h1>
 			<div class="content_item">
-				<div style="width: 300px;" class="form_settings_cadastro">
+				<div style="height: 350px; width: 300px;" class="form_settings_cadastro">
 					<p>
 						<span>Descrição </span>
-						<textarea class="contact"  name="descricao" rows="8" cols="20" > ${resposta.descricao} </textarea>
+						<textarea class="contact"  name="descricao" rows="8" cols="20" >${resposta.descricao}</textarea>
 						
 						<c:if test="${empty erroCadastroResposta}">
 						<% session.setAttribute("erroCadastroResposta", ""); %>
