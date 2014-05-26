@@ -8,7 +8,7 @@
 			<div class="content_item">
 				<div style="width: 700px;" class="form_settings_cadastro">
 
-					<h2>Consulte sua caixa de entrada (ou caixa de span), recupere seus dados e realize o seu login!</h2>
+					<h2>Consulte sua caixa de entrada (ou caixa de spam), recupere seus dados e realize o seu login!</h2>
 					<p><input class="submit" type="submit" value="Voltar" /></p>
 
 				</div>	
