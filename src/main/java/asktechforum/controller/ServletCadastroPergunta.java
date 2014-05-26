@@ -62,11 +62,17 @@ public class ServletCadastroPergunta extends HttpServlet {
 		pergunta.setTitulo(request.getParameter("titulo"));
 		pergunta.setUsuario(usuario.getIdUsuario());
 		pergunta.setTag(request.getParameter("tag"));
-		cadastro.adcionarPergunta(pergunta);
-
-		RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
-		request.setAttribute("pergunta", pergunta);
-		view.forward(request, response);
+		String retornoCadastroPergunta = cadastro.adcionarPergunta(pergunta);
+		
+		if (retornoCadastroPergunta != null && !retornoCadastroPergunta.equals("cadastroSucesso")) {
+    		session.setAttribute("erroCadastroPergunta",retornoCadastroPergunta);
+    		request.setAttribute("pergunta", pergunta);
+    		request.getRequestDispatcher("usuarioAutenticado/CadastroPergunta.jsp" ).forward(request, response);
+    	}else{
+			RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
+			request.setAttribute("pergunta", pergunta);
+			view.forward(request, response);
+    	}
 
 	}
 

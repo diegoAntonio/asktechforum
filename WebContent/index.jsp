@@ -29,11 +29,12 @@ if((Boolean)session.getAttribute("stop")) {
 				</h1>
 				<div class="content_item">
 					<div class="form_settings_cadastro">
-						<p>	<span style="font-size: 16px; ">${pergunta.descricao}</span></p>
-						
-						<p><a href="ServletConsultarPerguntaPorTag?tag=${pergunta.tag}">${pergunta.tag}</a></br>
-							<span>Por: ${pergunta.autor}</span> 						
-							<span>Respostas: ${pergunta.qtdResposta}</span></p>
+													
+						<p><c:out value="${pergunta.descricao}"></c:out></p>
+					    <p><a href="ServletConsultarPerguntaPorTag?tag=${pergunta.tag}">${pergunta.tag}</a></p>
+						<output style="font-size: 11px; position: right;">Por: <c:out value="${pergunta.autor}"></c:out></output>
+						<p><output style="font-size: 9px; position: right;">Em: <c:out value="${pergunta.data}"></c:out> às <c:out value="${pergunta.hora}"></c:out></output><p>
+						Respostas:<c:out value=" ${pergunta.qtdResposta}"></c:out>
 						
 
 					</div>

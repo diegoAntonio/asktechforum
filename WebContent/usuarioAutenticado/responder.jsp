@@ -10,17 +10,20 @@
 		<div class="content">
 			<h1>Responder</h1>
 			<div class="content_item">
-				<div class="form_settings_cadastro">
+				<div style="width: 300px;" class="form_settings_cadastro">
 					<p>
 						<span>Descrição </span>
 						<textarea class="contact"  name="descricao" rows="8" cols="20" > ${resposta.descricao} </textarea>
+						
+						<c:if test="${empty erroCadastroResposta}">
+						<% session.setAttribute("erroCadastroResposta", ""); %>
+						</c:if>
+						<p style="font-size: 12px; color: red;" id= msg><%=session.getAttribute("erroCadastroResposta")%></p>
 					</p>
 					
 					<p style="color:red; font-size:12px;">O campo Descrição é obrigatório.</p> 
 					<input class="submit" value="Enviar" type="submit" /> 
-					<br />
-					<br />
-					<br />
+					<% session.setAttribute("erroCadastroResposta", ""); %>
 				</div>	
 			</div>
 		</div>

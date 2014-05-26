@@ -16,6 +16,7 @@
 					<c:out value="${titulo}"></c:out>
 					<output style="font-size: 16px; float: right;">Por: <c:out value="${autor}"></c:out> </output>
 				</h1>
+				<p style="margin-left: 5px;"><c:out value="  ${descricao}"></c:out></p>
 			</div>
 	</div>
 		<div id="site_content">		

@@ -22,8 +22,9 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 		util = new Util();
 	}
-
-	public void adcionarPergunta(Pergunta pergunta) throws SQLException {
+	
+	public String adcionarPergunta(Pergunta pergunta) throws SQLException {
+		String retorno = "cadastroSucesso";
 
 		con = ConnectionUtil.getConnection();
 		String sql = "insert into PERGUNTA(titulo, data, hora, descricao, idUsuario, tag)values(?,?,?,?,?,?)";
@@ -47,7 +48,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			stmt.close();
 			con.close();
 		}
-
+		return retorno;
 	}
 
 	public void deletarPergunta(int id) throws SQLException {
@@ -192,7 +193,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		con = ConnectionUtil.getConnection();
 		ArrayList<ResultConsultarPergunta> pergunta = new ArrayList<ResultConsultarPergunta>();
 
-		String sql = " select p.descricao, count(r.idResposta) total, u.nome, p.idPergunta, p.titulo " +
+		String sql = " select p.descricao, count(r.idResposta) total, u.nome, p.idPergunta, p.titulo, p.data, p.hora " +
 				"  from usuario u left join pergunta p on u.idUsuario = p.idUsuario " +
 				"		left join resposta r on p.idPergunta = r.idPergunta " +
 				"		where p.tag like '%"+ tag +"%'  group by u.nome, p.idPergunta ; ";
@@ -214,6 +215,8 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 				p.setQtdResposta(rs.getInt("total"));
 				p.setIdPergunta(rs.getInt("idPergunta"));
 				p.setTitulo(rs.getString("titulo"));
+				p.setData(rs.getDate("data"));
+				p.setHora(rs.getTime("hora"));
 				pergunta.add(p);
 			}
 			
@@ -238,11 +241,10 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			throws SQLException {
 		con = ConnectionUtil.getConnection();
 		ArrayList<ResultConsultarPergunta> pergunta = new ArrayList<ResultConsultarPergunta>();
-
-		String sql = " select p.descricao, count(r.idResposta) total, u.nome, p.idPergunta, p.titulo, p.tag" +
-			"  from usuario u inner join pergunta p on u.idUsuario = p.idUsuario " +
-			"		left join resposta r on p.idPergunta = r.idPergunta " +
-			"		group by u.nome, p.idPergunta limit 0,15; ";
+		
+		String sql = "SELECT p.descricao, COUNT( r.idResposta ) total, u.nome, p.idPergunta, p.titulo, p.tag, p.data, p.hora" +
+		" FROM usuario u LEFT JOIN pergunta p ON u.idUsuario = p.idUsuario 	LEFT JOIN resposta r ON p.idPergunta = r.idPergunta " +
+		" GROUP BY u.nome, p.idPergunta	ORDER BY p.data DESC LIMIT 0 , 15 ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -262,6 +264,8 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 				p.setIdPergunta(rs.getInt("idPergunta"));
 				p.setTitulo(rs.getString("titulo"));
 				p.setTag(rs.getString("tag"));
+				p.setData(rs.getDate("data"));
+				p.setHora(rs.getTime("hora"));
 				pergunta.add(p);
 			}
 			
