@@ -20,13 +20,13 @@
 						<span>Data de Nascimento </span>
 					<br/>
 						<input class="contact" type="date" value="${usuario.dataString}" name="dataNascimento" id="dataNascimento" />
-						<span style="color:red; font-size:12px;">O campo 'Data de Nascimento' deve estar no formato: dd/MM/yyyy</span> 
+						<span style="color:rgb(14,192,237); font-size:12px;">O campo 'Data de Nascimento' deve estar no formato: 01/01/2012</span> 
 					</p>
 					<p>
 						<span>E-mail* </span>
 					<br/>
 						<input class="contact" value="${usuario.email}" type="email" name="email" id="email" placeholder="nome@exemplo.com" />
-						<span style="color:red; font-size:12px;">O campo 'E-mail' deve estar num formato válido</span> 
+						<span style="color:rgb(14,192,237); font-size:12px;">O campo 'E-mail' deve estar num formato válido</span> 
 					</p>
 					<p>
 						<span>Localização </span>
@@ -37,13 +37,13 @@
 						<span>Senha* </span>
 					<br/>
 						<input class="contact" value="${usuario.senha}" type="password" name="senha" id="senha" placeholder="Senha" />
-						<span style="color:red; font-size:12px;">O campo 'Senha' deve conter no máximo 8 caracteres</span> 
+						<span style="color:rgb(14,192,237); font-size:12px;">O campo 'Senha' deve conter no máximo 8 caracteres</span> 
 					</p>
 				    <p>
 				    	<span>Confirmar Senha* </span>
 					<br/>
 				    	<input class="contact" value="${usuario.confSenha}" type="password" name="confsenha" id="confsenha" placeholder="Repetir Senha" />
-						<span style="color:red; font-size:12px;">Os campos 'Senha' e 'Confirmar Senha'
+						<span style="color:rgb(14,192,237); font-size:12px;">Os campos 'Senha' e 'Confirmar Senha'
 							devem ser iguais</span> 
 				    </p>
 					<br/>

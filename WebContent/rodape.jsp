@@ -8,4 +8,7 @@
   <script type="text/javascript" src="js/jquery.easing-sooper.js"></script>
   <script type="text/javascript" src="js/jquery.sooperfish.js"></script>
 </body>
+<%
+session.setAttribute("stop", true);
+%>
 </html>

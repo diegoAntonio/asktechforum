@@ -1,11 +1,20 @@
 <%@ include file="cabecalho.jsp"%>
 
 <%
-	String tag = request.getParameter("tag");
+String tag = request.getParameter("tag");
 %>
 
-
-
+<%
+if((Boolean)session.getAttribute("stop")) {
+%>
+	<body onload="carregarTag()" >    	
+		<form id="formTagAll" action="ServletConsultarPerguntaPorTag" method="post">
+			<input type="hidden" name="tag" id="tag" value="all" checked="checked" />
+		</form>
+	</body>
+<%
+}
+%>
 
 <form id="formConsultarPerguntaPorTodasTags" action="ServletConsultarPerguntaPorTag" method="post">
 	<div id="site_content">
@@ -33,4 +42,13 @@
 		</c:forEach>
 	</div>
 </form>
+
+<script>
+	function carregarTag() {
+		var formulario;
+		formulario = document.getElementById("formTagAll");
+		formulario.submit();
+	}
+</script>
+
 <jsp:include page="rodape.jsp"></jsp:include>

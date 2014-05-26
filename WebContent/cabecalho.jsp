@@ -16,6 +16,12 @@
   <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
 </head>
 
+<%
+if((Boolean)session.getAttribute("stop") == null) {
+	session.setAttribute("stop", true);
+}
+%>
+
 <body onunload="goBack()">
   <div id="main">
   	<div id="header">
@@ -64,7 +70,7 @@
       </div>
        
         <ul class="sf-menu" id="nav">
-       	<li class="current"><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=all">Perguntas</a></li>
+       		<li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=all">Perguntas</a></li>
         	<li><a href="<%=getServletContext().getContextPath()%>/pesquisarUsuario.jsp">Usuários</a></li>
          	<li><a href="#">Tags</a>
             <ul>
