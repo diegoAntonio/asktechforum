@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.ResultConsultarPergunta;
@@ -45,6 +46,8 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		String tag = request.getParameter("tag");
 		this.cadastro = new CadastroPerguntaBC();
 		ArrayList<ResultConsultarPergunta> tags = cadastro.consultarPerguntaPorTag(tag);
@@ -55,11 +58,11 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 		}else{
 			view = request.getRequestDispatcher(RESULTADO_CONSULTA);
 		}
-		
+	
 		request.setAttribute("pergunta", tags);
-		request.setAttribute("titulo","");
+	
 		view.forward(request, response);
-
+		
 	}
 
 	/**

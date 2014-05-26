@@ -8,10 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.Resposta;
+import asktechforum.dominio.Usuario;
 import asktechforum.negocio.CadastroPerguntaBC;
 import asktechforum.negocio.CadastroRespostaBC;
+import asktechforum.util.Util;
 
 /**
  * Servlet implementation class ServletCadastroResposta
@@ -19,7 +23,7 @@ import asktechforum.negocio.CadastroRespostaBC;
 @WebServlet("/ServletCadastroResposta")
 public class ServletCadastroResposta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String SUCESSOCADASTRO = "cadastroRespostaSucesso.jsp";
+	private static final String SUCESSOCADASTRO = "usuarioAutenticado/cadastroRespostaSucesso.jsp";
 	private CadastroRespostaBC cadastro;
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,20 +44,29 @@ public class ServletCadastroResposta extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		Resposta resposta = new Resposta();
+		HttpSession session = request.getSession();
 		
-		resposta.setStrData(request.getParameter("data"));
+		Usuario usuario = (Usuario)session.getAttribute("usuarioLogado");
+		
+		resposta.setStrData(Util.getDataSistema());
 		resposta.setDescricao(request.getParameter("descricao"));
-		resposta.setStrHora(request.getParameter("hora"));
-		resposta.setIdPergunta(Integer.parseInt(request.getParameter("pergunta")));
-		resposta.setIdUsuario(Integer.parseInt(request.getParameter("usuario")));
+		resposta.setStrHora(Util.getHoraSistema());
+		resposta.setIdPergunta(Integer.parseInt((String)session.getAttribute("idPergunta")));
+		resposta.setIdUsuario(usuario.getIdUsuario());
 		
-		cadastro.adcionarResposta(resposta);
 		
-		RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
-		request.setAttribute("resposta", resposta);
-        view.forward(request, response);
+		String retornoCadastroResposta = cadastro.adcionarResposta(resposta);
+		
+		if (retornoCadastroResposta != null && !retornoCadastroResposta.equals("cadastroSucesso")) {
+    		session.setAttribute("erroCadastroResposta",retornoCadastroResposta);
+    		request.setAttribute("resposta", resposta);
+    		request.getRequestDispatcher("usuarioAutenticado/responder.jsp" ).forward(request, response);
+    	}else{
+    		RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
+    		request.setAttribute("resposta", resposta);
+            view.forward(request, response);
+    	}
+		
 	}
-
 }

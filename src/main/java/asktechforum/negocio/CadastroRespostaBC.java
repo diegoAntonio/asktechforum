@@ -19,28 +19,28 @@ public class CadastroRespostaBC implements CadastroResposta {
 	}
 
 	@Override
-	public void adcionarResposta(Resposta resposta) {
-		// TODO Auto-generated method stub
+	public String adcionarResposta(Resposta resposta) {
+		String retorno = "";
 		try {
 			if (resposta.getData() == null) {
-
-			} else if (resposta.getDescricao().isEmpty()) {
-
+				retorno = "Erro no sistema. Tente novamente em instantes.";
+			} else if (resposta.getDescricao() == null || resposta.getDescricao().trim().equals("")) {
+				retorno = "Preencha o campo 'Descrição' com dados válidos";
 			} else if (resposta.getHora() == null) {
-
+				retorno = "Erro no sistema. Tente novamente em instantes.";
 			} else if (resposta.getIdPergunta() == 0) {
-
+				retorno = "Erro no sistema. Tente novamente em instantes.";
 			} else if (resposta.getIdUsuario() == 0) {
-
+				retorno = "Erro no sistema. Tente novamente em instantes.";
 			} else {
-
-				cadastro.adcionarResposta(resposta);
+				retorno = cadastro.adcionarResposta(resposta);
 
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return retorno;
 	}
 
 	@Override

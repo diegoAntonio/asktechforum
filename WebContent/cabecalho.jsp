@@ -44,8 +44,8 @@
       </div>
        
         <ul class="sf-menu" id="nav">
-         <li class="current"><a href="ServletConsultarPerguntaPorTag?tag=all">Perguntas</a></li>
-          <li><a href="pesquisarUsuario.jsp">Usuários</a></li>
+         <li class="current"><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=all">Perguntas</a></li>
+          <li><a href="<%=getServletContext().getContextPath()%>/pesquisarUsuario.jsp">Usuários</a></li>
           <li><a href="#">Tags</a>
             <ul>
               <li><a  href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=java">Java</a></li>
@@ -57,8 +57,8 @@
               <li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=css">CSS</a></li>
             </ul>
           </li>
-          <li><a href="sobre.jsp">Sobre</a></li>
-            <li><a href="usuarioAutenticado/CadastroPergunta.jsp">Pergunte</a></li>
+          <li><a href="<%=getServletContext().getContextPath()%>/sobre.jsp">Sobre</a></li>
+            <li><a href="<%=getServletContext().getContextPath()%>/usuarioAutenticado/CadastroPergunta.jsp">Pergunte</a></li>
         </ul>
       </div>
       

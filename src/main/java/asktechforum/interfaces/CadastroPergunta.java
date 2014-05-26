@@ -8,7 +8,7 @@ import asktechforum.dominio.ResultConsultarPergunta;
 
 public interface CadastroPergunta {
 	
-	public void adcionarPergunta(Pergunta pergunta) throws SQLException;
+	public String adcionarPergunta(Pergunta pergunta) throws SQLException;
 	public void deletarPergunta(int id) throws SQLException;
 	public Pergunta consultarPerguntaPorIdPergunta(int id) throws SQLException;
 	public ArrayList<Pergunta> consultarPerguntaIdUsuario(int id)

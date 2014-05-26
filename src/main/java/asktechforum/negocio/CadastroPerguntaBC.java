@@ -20,27 +20,32 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 	}
 
 	@Override
-	public void adcionarPergunta(Pergunta pergunta)  {
-		// TODO Auto-generated method stub
+	public String adcionarPergunta(Pergunta pergunta)  {
+		String retorno = "";
 		try {
 			if (pergunta.getData() == null) {
-				
-			} else if (pergunta.getDescricao().isEmpty()) {
-
+				retorno = "Erro no sistema. Tente novamente em instantes.";
+			} else if (pergunta.getDescricao() == null ||  pergunta.getDescricao().trim().equals("")) {
+				retorno = "Preencha o campo 'Descrição' com dados válidos";
 			} else if (pergunta.getHora() == null) {
-
-			} else if (pergunta.getTitulo().isEmpty()) {
-
+				retorno = "Erro no sistema. Tente novamente em instantes.";
+			} else if (pergunta.getTitulo() == null ||  pergunta.getTitulo().trim().equals("")) {
+				retorno = "Preencha o campo 'Pergunta' com dados válidos";
 			} else if (pergunta.getUsuario() == 0) {
-
-			} else {
-				cadastro.adcionarPergunta(pergunta);
+				retorno = "Erro no sistema. Tente novamente em instantes.";
+			} else if (pergunta.getTag() == null || pergunta.getTag().trim().equals("")) {
+				retorno = "Preencha o campo 'Assuntos relacionados' com dados válidos";
+			}else {
+				retorno= cadastro.adcionarPergunta(pergunta);
 			}
-
+			
+			          
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return retorno;
 
 	}
 

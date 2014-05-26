@@ -21,7 +21,8 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		util = new Util();
 	}
 
-	public void adcionarResposta(Resposta resposta) throws SQLException {
+	public String adcionarResposta(Resposta resposta) throws SQLException {
+		String retorno = "cadastroSucesso";
 		String sql = "insert into RESPOSTA(descricao, idUsuario, idPergunta, data, hora)values(?,?,?,?,?)";
 		PreparedStatement stmt = null;
 		try {
@@ -42,7 +43,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			stmt.close();
 			con.close();
 		}
-
+		return retorno;
 	}
 
 	public void deletarResposta(int id) throws SQLException {
