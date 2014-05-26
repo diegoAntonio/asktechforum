@@ -43,7 +43,6 @@
 						<thead>
 							<tr class="tabelaPesquisa">
 								<td></td>
-								<td>Id</td>
 								<td>Nome</td>
 								<td>Data de Nascimento</td>
 								<td>Email</td>
@@ -55,7 +54,6 @@
 							<c:forEach items="${usuarios}" var="usuarios">
 								<tr>
 									<td><input type="radio" name="usuarioRadio" id="usuario" value="${usuarios.email}" /></td>
-									<td><c:out value="${usuarios.idUsuario}" /></td>
 									<td><c:out value="${usuarios.nome}" /></td>
 									<td><fmt:formatDate pattern="dd/MM/yyyy" value="${usuarios.dataNascimento}"/></td>
 									<td><c:out value="${usuarios.email}" /></td>

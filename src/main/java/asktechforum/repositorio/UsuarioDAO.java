@@ -36,8 +36,6 @@ public class UsuarioDAO {
             
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            
-	        this.usuarioUtil.ajustarIdUsuario(this.consultarTodosUsuarios());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,8 +52,6 @@ public class UsuarioDAO {
             
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            
-	        this.usuarioUtil.ajustarIdUsuario(this.consultarTodosUsuarios());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,8 +72,6 @@ public class UsuarioDAO {
             
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            
-	        this.usuarioUtil.ajustarIdUsuario(this.consultarTodosUsuarios());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,8 +87,6 @@ public class UsuarioDAO {
             preparedStatement.executeUpdate();
             preparedStatement.close();
 
-        	this.usuarioUtil.ajustarIdUsuario(this.consultarTodosUsuarios());
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -103,7 +95,6 @@ public class UsuarioDAO {
 	public Usuario consultarUsuarioPorEmail_Senha(String email,String senha) {
 		Usuario usuario = new Usuario();
 		try {
-            this.usuarioUtil.ajustarIdUsuario(this.consultarTodosUsuarios());
             
 			PreparedStatement preparedStatement = this.connection
 					.prepareStatement("select * from usuario where email=? and senha=?");
@@ -132,7 +123,6 @@ public class UsuarioDAO {
 	public Usuario consultarUsuarioPorId(int idUsuario) {
 		Usuario usuario = new Usuario();
 		try {
-            this.usuarioUtil.ajustarIdUsuario(this.consultarTodosUsuarios());
             
 			PreparedStatement preparedStatement = this.connection
 					.prepareStatement("select * from usuario where idUsuario=?");
@@ -161,7 +151,6 @@ public class UsuarioDAO {
 	public Usuario consultarUsuarioPorEmail(String email) {
 		Usuario usuario = new Usuario();
 		try {
-            this.usuarioUtil.ajustarIdUsuario(this.consultarTodosUsuarios());
             
 			PreparedStatement preparedStatement = this.connection
 					.prepareStatement("select * from usuario where email=?");
@@ -190,7 +179,6 @@ public class UsuarioDAO {
 	public List<Usuario> consultarUsuarioPorNome(String nome) {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		try {
-            this.usuarioUtil.ajustarIdUsuario(this.consultarTodosUsuarios());
             
 			PreparedStatement preparedStatement = this.connection
 					.prepareStatement("select * from usuario where nome=?");
@@ -218,20 +206,6 @@ public class UsuarioDAO {
 		return usuarios;
 	}	
 	
-	public void atualizarIdUsuario(List<Usuario> usuarios, int i, int index) {
-        	int idUsuario = usuarios.get(i).getIdUsuario();
-        	PreparedStatement preparedStatement;
-			try {
-				preparedStatement = this.connection.prepareStatement("update usuario set idUsuario=? where idUsuario=?;");
-	            preparedStatement.setInt(1, index);
-	            preparedStatement.setInt(2, idUsuario);
-	            preparedStatement.executeUpdate();
-	            preparedStatement.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-	}
-	
 	public List<Usuario> consultarTodosUsuarios() {
         List<Usuario> usuarios = new ArrayList<Usuario>();
         try {
@@ -249,8 +223,6 @@ public class UsuarioDAO {
 				usuario.setSenha(rs.getString("senha"));
             	usuarios.add(usuario);
             }
-            
-            usuarios = this.usuarioUtil.ajustarIdUsuario(usuarios);
             
             statement.close();
             

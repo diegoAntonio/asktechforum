@@ -34,7 +34,12 @@
 					</p>
 					<p>
 						<span>Localização: </span>
-						<label>${usuarioPerfil.localizacao}</label>
+						<c:if test="${empty usuarioPerfil.localizacao}">
+							<label>Preferiu não informar =)</label>
+						</c:if>
+						<c:if test="${not empty usuarioPerfil.localizacao}">
+							<label>${usuarioPerfil.localizacao}</label>
+						</c:if>
 					</p>
 					<p>
 						<span>Administrador </span>
