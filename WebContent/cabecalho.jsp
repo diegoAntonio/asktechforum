@@ -22,7 +22,7 @@
       <div id="logo">
         <div id="logo_text">
 			<!-- class="logo_colour", allows you to change the colour of the text -->
-			<h1><a href="index.jsp">Ask Tech<span class="logo_colour">Forum</span></a></h1>
+			<h1><a href="ServletConsultarPerguntaPorTag?tag=all">Ask Tech<span class="logo_colour">Forum</span></a></h1>
           
           	<%Usuario usuarioLogado = (Usuario)session.getAttribute("usuarioLogado"); %>
           	<%Boolean saudacao = (Boolean)session.getAttribute("saudacao"); %>
@@ -44,17 +44,17 @@
       </div>
        
         <ul class="sf-menu" id="nav">
-         <li class="current"><a href="index.jsp">Perguntas</a></li>
+         <li class="current"><a href="ServletConsultarPerguntaPorTag?tag=all">Perguntas</a></li>
           <li><a href="pesquisarUsuario.jsp">Usuários</a></li>
           <li><a href="#">Tags</a>
             <ul>
-              <li><a  href="ServletConsultarPerguntaPorTag?tag=java">Java</a></li>
-              <li><a href="#">Android</a></li>
-              <li><a href="#">Redes</a></li>
-              <li><a href="#">JavaScript</a></li>
-              <li><a href="ServletConsultarPerguntaPorTag?tag=sql">SQL</a></li>
-              <li><a href="#">HTML</a></li>
-              <li><a href="#">CSS</a></li>
+              <li><a  href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=java">Java</a></li>
+              <li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=android">Android</a></li>
+              <li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=redes">Redes</a></li>
+              <li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=javascript">JavaScript</a></li>
+              <li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=sql">SQL</a></li>
+              <li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=html">HTML</a></li>
+              <li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=css">CSS</a></li>
             </ul>
           </li>
           <li><a href="sobre.jsp">Sobre</a></li>

@@ -4,7 +4,7 @@
 <br />
 <br />
 
-<form id="formconsultaPerguntaPorTag" action="ServletCadastroPergunta" method="post">
+<form id="formconsultaPerguntaPorTag" action="<%=getServletContext().getContextPath()%>/ServletCadastroResposta" method="post">
 
 	<div id="site_content">
 		<div class="content">
@@ -17,7 +17,7 @@
 					</p>
 					
 					<p style="color:red; font-size:12px;">O campo Descrição é obrigatório.</p> 
-					<input class="submit" value="Cadastrar" type="submit" /> 
+					<input class="submit" value="Enviar" type="submit" /> 
 					<br />
 					<br />
 					<br />

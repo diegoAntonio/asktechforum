@@ -10,8 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Pergunta;
+import asktechforum.dominio.Usuario;
 import asktechforum.negocio.CadastroPerguntaBC;
 import asktechforum.util.Util;
 
@@ -21,7 +23,7 @@ import asktechforum.util.Util;
 @WebServlet("/ServletCadastroPergunta")
 public class ServletCadastroPergunta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String SUCESSOCADASTRO = "cadastroPerguntaSucesso.jsp";
+	private final String SUCESSOCADASTRO = "usuarioAutenticado/cadastroPerguntaSucesso.jsp";
 	private CadastroPerguntaBC cadastro;
 
 	/**
@@ -48,7 +50,9 @@ public class ServletCadastroPergunta extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
+		Usuario usuario = (Usuario)session.getAttribute("usuarioLogado");
+		
 		this.cadastro = new CadastroPerguntaBC();
 		Pergunta pergunta = new Pergunta();
 
@@ -56,8 +60,7 @@ public class ServletCadastroPergunta extends HttpServlet {
 		pergunta.setDescricao(request.getParameter("descricao"));
 		pergunta.setStrHora(Util.getHoraSistema());
 		pergunta.setTitulo(request.getParameter("titulo"));
-		pergunta.setUsuario(1);
-		//pergunta.setUsuario(Integer.parseInt(request.getParameter("1")));
+		pergunta.setUsuario(usuario.getIdUsuario());
 		pergunta.setTag(request.getParameter("tag"));
 		cadastro.adcionarPergunta(pergunta);
 

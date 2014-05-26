@@ -24,6 +24,7 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String RESULTADO_CONSULTA = "consultaPerguntaPorTag.jsp";
+	private static final String INDEX = "index.jsp";
 	private CadastroPerguntaBC cadastro;
 
     /**
@@ -46,11 +47,17 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String tag = request.getParameter("tag");
 		this.cadastro = new CadastroPerguntaBC();
-
 		ArrayList<ResultConsultarPergunta> tags = cadastro.consultarPerguntaPorTag(tag);
-
-		RequestDispatcher view = request.getRequestDispatcher(RESULTADO_CONSULTA);
+		RequestDispatcher view ;
+		
+		if(tag.equals("all")){
+			view = request.getRequestDispatcher(INDEX);
+		}else{
+			view = request.getRequestDispatcher(RESULTADO_CONSULTA);
+		}
+		
 		request.setAttribute("pergunta", tags);
+		request.setAttribute("titulo","");
 		view.forward(request, response);
 
 	}

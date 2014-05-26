@@ -15,6 +15,7 @@ public class Resposta {
 	private Time hora;
 	private String strData;
 	private String strHora;
+	private String nomeUsuario;
 	
 	private Util util;
 
@@ -97,6 +98,14 @@ public class Resposta {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 
 }

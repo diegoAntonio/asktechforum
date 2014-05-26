@@ -117,14 +117,25 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 	public ArrayList<ResultConsultarPergunta> consultarPerguntaPorTag(String tag){
 		lstQtdPergunta = new ArrayList<ResultConsultarPergunta>();
 		try {
-
-			this.lstQtdPergunta = cadastro.consultarPerguntaPorTag(tag);
+			if(tag.equals("all")){
+				this.lstQtdPergunta = cadastro.consultarPerguntaPorTodasTags();
+			}else{
+				this.lstQtdPergunta = cadastro.consultarPerguntaPorTag(tag);
+			}
+			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return lstQtdPergunta;
+	}
+
+	@Override
+	public ArrayList<ResultConsultarPergunta> consultarPerguntaPorTodasTags()
+			throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

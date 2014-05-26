@@ -50,6 +50,7 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 		String idPergunta = request.getParameter("id");
 		String descricao = request.getParameter("descricao");
 		String autor = request.getParameter("autor");
+		String titulo = request.getParameter("titulo");
 		
 		this.cadastro = new CadastroRespostaBC();
 
@@ -59,6 +60,7 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 		request.setAttribute("resposta", resp);
 		request.setAttribute("descricao", descricao);
 		request.setAttribute("autor", autor);
+		request.setAttribute("titulo", titulo);
 		view.forward(request, response);
 	}
 

@@ -4,7 +4,7 @@
 <br />
 <br />
 
-<form id="formconsultaPerguntaPorTag" action="ServletCadastroPergunta" method="post">
+<form id="formconsultaPerguntaPorTag" action="<%=getServletContext().getContextPath()%>/ServletCadastroPergunta" method="post">
 
 	<div id="site_content">
 		<div class="content">

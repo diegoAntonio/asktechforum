@@ -149,8 +149,13 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			throws SQLException {
 		ArrayList<Resposta> resposta = new ArrayList<Resposta>();
 
-		String sql = "select * from Resposta where idPergunta = " + id
-				+ " order by data, hora";
+//		String sql = "select * from Resposta where idPergunta = " + id
+//				+ " order by data, hora";
+		
+		
+		String sql = "SELECT u.nome, r.idResposta, r.descricao, r.idUsuario, r.idPergunta, r.data, r.hora FROM usuario u, resposta r	" +
+				"WHERE idPergunta=" + id + " and u.idUsuario = r.idUsuario order by data, hora ";
+		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
@@ -185,6 +190,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			r.setIdPergunta(rs.getInt("idPergunta"));
 			r.setIdResposta(rs.getInt("idResposta"));
 			r.setIdUsuario(rs.getInt("idUsuario"));
+			r.setNomeUsuario(rs.getString("nome"));
 			resposta.add(r);
 		}
 

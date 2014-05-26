@@ -192,10 +192,10 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		con = ConnectionUtil.getConnection();
 		ArrayList<ResultConsultarPergunta> pergunta = new ArrayList<ResultConsultarPergunta>();
 
-		String sql = " select p.descricao, count(r.idResposta) total, u.nome, p.idPergunta " +
-			"  from usuario u left join pergunta p on u.idUsuario = p.idUsuario " +
-			"		left join resposta r on p.idPergunta = r.idPergunta " +
-			"		where p.tag like '%"+ tag +"%'  group by u.nome, p.idPergunta ; ";
+		String sql = " select p.descricao, count(r.idResposta) total, u.nome, p.idPergunta, p.titulo " +
+				"  from usuario u left join pergunta p on u.idUsuario = p.idUsuario " +
+				"		left join resposta r on p.idPergunta = r.idPergunta " +
+				"		where p.tag like '%"+ tag +"%'  group by u.nome, p.idPergunta ; ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -213,6 +213,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 				p.setDescricao(rs.getString("descricao"));
 				p.setQtdResposta(rs.getInt("total"));
 				p.setIdPergunta(rs.getInt("idPergunta"));
+				p.setTitulo(rs.getString("titulo"));
 				pergunta.add(p);
 			}
 			
@@ -230,6 +231,53 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		return pergunta;
 	}
 
+	
+	
+	@Override
+	public ArrayList<ResultConsultarPergunta> consultarPerguntaPorTodasTags()
+			throws SQLException {
+		con = ConnectionUtil.getConnection();
+		ArrayList<ResultConsultarPergunta> pergunta = new ArrayList<ResultConsultarPergunta>();
+
+		String sql = " select p.descricao, count(r.idResposta) total, u.nome, p.idPergunta, p.titulo, p.tag" +
+			"  from usuario u inner join pergunta p on u.idUsuario = p.idUsuario " +
+			"		left join resposta r on p.idPergunta = r.idPergunta " +
+			"		group by u.nome, p.idPergunta limit 0,15; ";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			stmt = con.prepareStatement(sql);
+
+			rs = stmt.executeQuery();
+
+			ResultConsultarPergunta p;
+			
+			while(rs.next()){
+				p = new ResultConsultarPergunta();
+				p.setAutor(rs.getString("nome"));
+				p.setDescricao(rs.getString("descricao"));
+				p.setQtdResposta(rs.getInt("total"));
+				p.setIdPergunta(rs.getInt("idPergunta"));
+				p.setTitulo(rs.getString("titulo"));
+				p.setTag(rs.getString("tag"));
+				pergunta.add(p);
+			}
+			
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			rs.close();
+			stmt.close();
+			con.close();
+			con = null;
+		}
+
+		return pergunta;
+	}
 	private ArrayList<Pergunta> montarLista(ResultSet rs) throws SQLException {
 		con = ConnectionUtil.getConnection();
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();

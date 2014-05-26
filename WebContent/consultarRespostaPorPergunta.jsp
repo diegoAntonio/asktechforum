@@ -1,10 +1,5 @@
 <%@ include file="cabecalho.jsp"%>
 
-<br />
-<br />
-<br />
-
-
 <%
 	String idPergunta = request.getParameter("id");
 	String perguntaDescricao = request.getParameter("titulo");
@@ -14,36 +9,31 @@
 
 <form id="formConsultarRespostaPorPergunta"
 	action="ServletConsultarRespostaPergunta" method="post">
-
-	<div id="site_content">
-
-		<div class="content">
-			<h1>
-				<c:out value="${descricao}"></c:out>
-				<c:out value="${autor}"></c:out>
-			</h1>
+	
+	<div id="site_content">	
+			<div class="content">	
+				<h1>
+					<c:out value="${titulo}"></c:out>
+					<output style="font-size: 16px; float: right;">Por: <c:out value="${autor}"></c:out> </output>
+				</h1>
+			</div>
+	</div>
+		<div id="site_content">		
 			<c:forEach items="${resposta}" var="resposta">
-				<div class="content_item">
-					<div class="form_settings_cadastro">
-						<p>
-							<c:out value="${resposta.descricao}"></c:out>
+				<div class="content">
+					<div class="content_item">
+						<div class="form_settings_cadastro">
+							<p><c:out value="${resposta.descricao}"></c:out></p>
+							<output style="font-size: 11px; position: right;">Por: <c:out value="${resposta.nomeUsuario}"></c:out></output>
+							<p><output style="font-size: 9px; position: right;">Em: <c:out value="${resposta.data}"></c:out> às <c:out value="${resposta.hora}"></c:out></output><p>
 							
-						</p>
-						<p>
-							<c:out value="${resposta.data}"></c:out>
-							
-						</p>
-						<p>
-							<c:out value="${resposta.hora}"></c:out>
-							
-						</p>
-						<br /> <br /> <br />
+						</div>
+						<br /> 
 					</div>
-					<br /> 
 				</div>
 			</c:forEach>
 		</div>
-
-	</div>
+	<a href="usuarioAutenticado/responder.jsp">	
+	<p style="padding-top: 15px; margin-left:110px;"><span>&nbsp;</span><input class="submit" type="button" name="btn_entrar" value="Responder"/></p></a>
 </form>
 <jsp:include page="rodape.jsp"></jsp:include>
