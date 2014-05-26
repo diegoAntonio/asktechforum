@@ -4,10 +4,7 @@
 	String tag = request.getParameter("tag");
 %>
 
-
-
-
-<form id="formConsultarPerguntaPorTodasTags" action="ServletConsultarPerguntaPorTag" method="post">
+<form id="formConsultarPerguntaPorTag" action="ServletConsultarPerguntaPorTag" method="post">
 	<div id="site_content">
 		<c:forEach items="${pergunta}" var="pergunta">
 			<div class="content">
@@ -21,11 +18,10 @@
 				<div class="content_item">
 					<div class="form_settings_cadastro">
 						<p>	<span style="font-size: 16px; ">${pergunta.descricao}</span></p>
-						
-						<p><a href="ServletConsultarPerguntaPorTag?tag=${pergunta.tag}">${pergunta.tag}</a></br>
+						<p>
 							<span>Por: ${pergunta.autor}</span> 						
-							<span>Respostas: ${pergunta.qtdResposta}</span></p>
-						
+							<span>Respostas: ${pergunta.qtdResposta}</span>
+						</p>
 
 					</div>
 				</div>

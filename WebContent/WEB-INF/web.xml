@@ -9,17 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-  
   <filter>
-       <filter-name>Controle Acesso</filter-name>
-       <filter-class>filtro.ControleAcesso</filter-class>
+    <filter-name>Controle Acesso</filter-name>
+    <filter-class>filtro.ControleAcesso</filter-class>
   </filter>
   <filter-mapping>
-        <filter-name>Controle Acesso</filter-name>
-        <url-pattern>/usuarioAutenticado/*</url-pattern>
+    <filter-name>Controle Acesso</filter-name>
+    <url-pattern>/usuarioAutenticado/*</url-pattern>
   </filter-mapping>
-  
   <servlet>
     <description></description>
     <display-name>ServletCadastroUsuario</display-name>
@@ -70,14 +67,42 @@
     <servlet-name>ServletExclusaoUsuario</servlet-name>
     <url-pattern>/ServletExclusaoUsuario</url-pattern>
   </servlet-mapping>
-  
   <servlet>
-		<servlet-name>ServletAutenticacaoUsuario</servlet-name>
-		<servlet-class>asktechforum.controller.ServletAutenticacaoUsuario</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ServletAutenticacaoUsuario</servlet-name>
-		<url-pattern>/ServletAutenticacaoUsuario</url-pattern>
-	</servlet-mapping>
-  
+    <servlet-name>ServletAutenticacaoUsuario</servlet-name>
+    <servlet-class>asktechforum.controller.ServletAutenticacaoUsuario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletAutenticacaoUsuario</servlet-name>
+    <url-pattern>/ServletAutenticacaoUsuario</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletCadastroPergunta</display-name>
+    <servlet-name>ServletCadastroPergunta</servlet-name>
+    <servlet-class>asktechforum.controller.ServletCadastroPergunta</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletCadastroPergunta</servlet-name>
+    <url-pattern>/ServletCadastroPergunta</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletCadastroResposta</display-name>
+    <servlet-name>ServletCadastroResposta</servlet-name>
+    <servlet-class>asktechforum.controller.ServletCadastroResposta</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletCadastroResposta</servlet-name>
+    <url-pattern>/ServletCadastroResposta</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletConsultarPerguntaPorTag</display-name>
+    <servlet-name>ServletConsultarPerguntaPorTag</servlet-name>
+    <servlet-class>asktechforum.controller.ServletConsultarPerguntaPorTag</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletConsultarPerguntaPorTag</servlet-name>
+    <url-pattern>/ServletConsultarPerguntaPorTag</url-pattern>
+  </servlet-mapping>
 </web-app>
