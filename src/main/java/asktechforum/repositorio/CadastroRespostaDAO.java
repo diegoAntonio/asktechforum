@@ -41,7 +41,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			con.close();
+			//con.close();
 		}
 		return retorno;
 	}
@@ -57,7 +57,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			con.close();
+			//con.close();
 		}
 	}
 
@@ -86,7 +86,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		} finally {
 			rs.close();
 			stmt.close();
-			con.close();
+			//con.close();
 		}
 
 		return resposta;
@@ -114,7 +114,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		} finally {
 			rs.close();
 			stmt.close();
-			con.close();
+			//con.close();
 		}
 
 		return resposta;
@@ -140,7 +140,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		} finally {
 			rs.close();
 			stmt.close();
-			con.close();
+			//con.close();
 		}
 
 		return resposta;
@@ -173,7 +173,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		} finally {
 			rs.close();
 			stmt.close();
-			con.close();
+			//con.close();
 		}
 
 		return resposta;

@@ -46,7 +46,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			con.close();
+			//con.close();
 		}
 		return retorno;
 	}
@@ -64,7 +64,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			con.close();
+			//con.close();
 		}
 
 	}
@@ -97,7 +97,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		} finally {
 			rs.close();
 			stmt.close();
-			con.close();
+			//con.close();
 		}
 
 		return pergunta;
@@ -125,7 +125,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		} finally {
 			rs.close();
 			stmt.close();
-			con.close();
+			//con.close();
 		}
 
 		return pergunta;
@@ -152,7 +152,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		} finally {
 			rs.close();
 			stmt.close();
-			con.close();
+			//con.close();
 		}
 
 		return pergunta;
@@ -181,7 +181,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		} finally {
 			rs.close();
 			stmt.close();
-			con.close();
+			//con.close();
 		}
 
 		return pergunta;
@@ -227,7 +227,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		} finally {
 			rs.close();
 			stmt.close();
-			con.close();
+			//con.close();
 			con = null;
 		}
 
@@ -276,7 +276,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		} finally {
 			rs.close();
 			stmt.close();
-			con.close();
+			//con.close();
 			con = null;
 		}
 
