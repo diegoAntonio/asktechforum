@@ -50,10 +50,12 @@ if((Boolean)session.getAttribute("stop") == null) {
 	         				${usuarioLogado.nome}!
 	         			</a>&nbsp;&nbsp;
 	         			<%
-	         			if(usuarioLogado.isAdmin() == true) {
-	         			%>
-	         				<a href="<%=getServletContext().getContextPath()%>/cadastroUsuario.jsp">Cadastrar Usuário</a>&nbsp;&nbsp;
-	         			<%
+	         			if(usuarioLogado != null) {
+		         			if(usuarioLogado.isAdmin() == true) {
+		         			%>
+		         				<a href="<%=getServletContext().getContextPath()%>/cadastroUsuario.jsp">Cadastrar Usuário</a>&nbsp;&nbsp;
+		         			<%
+		         			}
 	         			}
 	         			%>
 	         			<a href="<%=getServletContext().getContextPath()%>/ServletAutenticacaoUsuario?logout=true">Sair</a>
