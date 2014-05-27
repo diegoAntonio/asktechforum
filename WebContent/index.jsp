@@ -30,7 +30,7 @@ if((Boolean)session.getAttribute("stop")) {
 		
 						</h1>
 						<div class="content_item">
-							<div style="width: 700px;" class="form_settings_cadastro">
+							<div style="width: 900px;" class="form_settings_cadastro">
 															
 								<p><c:out value="${pergunta.descricao}"></c:out></p>
 							    <p><a href="ServletConsultarPerguntaPorTag?tag=${pergunta.tag}">${pergunta.tag}</a></p>

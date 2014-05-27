@@ -19,7 +19,7 @@
 
 				</h1>
 				<div class="content_item">
-					<div style="width: 700px;" class="form_settings_cadastro">
+					<div style="width: 900px;" class="form_settings_cadastro">
 										
 						<p><c:out value="${pergunta.descricao}"></c:out></p>
 						<output style="font-size: 11px; position: right;">Por: <c:out value="${pergunta.autor}"></c:out></output>
