@@ -14,6 +14,7 @@ if((Boolean)session.getAttribute("stop")) {
 	</body>
 <%
 }
+int i = 1;
 %>
 
 <form id="formConsultarPerguntaPorTodasTags" action="ServletConsultarPerguntaPorTag" method="post">
@@ -23,10 +24,17 @@ if((Boolean)session.getAttribute("stop")) {
 				<c:if test="${not empty pergunta.titulo}" >
 					<div class="content">
 						<h1>
-		
-							<a  href="ServletConsultarRespostaPergunta?id=${pergunta.idPergunta}
-								&autor=${pergunta.autor}
-								&descricao=${pergunta.descricao}&titulo=${pergunta.titulo}">${pergunta.titulo}</a>
+						<form id="formConsultarRespostaPergunta<%=i%>"></form>
+						<%i++; %>
+						<form id="formConsultarRespostaPergunta<%=i%>" action="ServletConsultarRespostaPergunta" method = "post">
+							<input type="hidden" value="${pergunta.idPergunta}" name="idPergunta" id="idPergunta" checked="checked" />
+							<input type="hidden" value="${pergunta.autor}" name="autor" id="autor" checked="checked" />
+							<input type="hidden" value="${pergunta.descricao}" name="descricao" id="descricao" checked="checked" />
+							<input type="hidden" value="${pergunta.titulo}" name="titulo" id="titulo" checked="checked" />
+							<a id="formConsultarRespostaPergunta<%=i%>" onclick="consultarRespostaPergunta(id)" >
+								${pergunta.titulo}
+							</a>
+						</form>
 		
 						</h1>
 						<div class="content_item">
@@ -52,6 +60,14 @@ if((Boolean)session.getAttribute("stop")) {
 	function carregarTag() {
 		var formulario;
 		formulario = document.getElementById("formTagAll");
+		formulario.submit();
+	}
+</script>
+
+<script>
+	function consultarRespostaPergunta(id) {
+		var formulario;
+		formulario = document.getElementById(id);
 		formulario.submit();
 	}
 </script>
