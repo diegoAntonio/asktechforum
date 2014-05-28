@@ -1,24 +1,35 @@
 package asktechforum.negocio;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 //import java.sql.Connection;
 //import java.sql.SQLException;
+
 
 
 import asktechforum.dominio.Usuario;
 import asktechforum.repositorio.UsuarioDAO;
 //import asktechforum.util.ConnectionUtil;
 import asktechforum.util.UsuarioUtil;
+import asktechforum.dominio.Pergunta;
+import asktechforum.dominio.Resposta;
+import asktechforum.negocio.CadastroPerguntaBC;
+import asktechforum.negocio.CadastroRespostaBC;
 
 public class UsuarioBC {
-	
+
 	private UsuarioDAO usuarioDAO;
+	private CadastroPerguntaBC perguntaBC;
+	private CadastroRespostaBC respostaBC;
 	
 	public UsuarioBC() {
         super();
         this.usuarioDAO = new UsuarioDAO();
+        this.perguntaBC = new CadastroPerguntaBC();
+        this.respostaBC = new CadastroRespostaBC();
 	}
 	
 	public boolean alterarUsuario(Usuario usuario){
@@ -50,9 +61,52 @@ public class UsuarioBC {
 		
 		return flag;
 	}
+	
+	public void deletarUsuarioPorId(int idUsuario) {
+		this.usuarioDAO.deletarUsuarioPorId(idUsuario);
+	}
 
 	public void deletarUsuario(String email) {
-		this.usuarioDAO.deletarUsuario(email);
+		Usuario usuario = this.usuarioDAO.consultarUsuarioPorEmail(email);
+		Usuario usuarioExcluido = new Usuario();
+		ArrayList<Pergunta> perguntas = null;
+		ArrayList<Resposta> respostas = null;
+        Random geradorRandomico = new Random();
+        int numeroRandomico = geradorRandomico.nextInt();
+        int idUsuarioExcluido;
+        
+        while(numeroRandomico < 1 || numeroRandomico > 99999999 || this.usuarioDAO.consultarUsuarioPorId(numeroRandomico).getIdUsuario() == numeroRandomico) {
+        	numeroRandomico = geradorRandomico.nextInt();
+        }
+		
+		try {
+			perguntas = this.perguntaBC.consultarPerguntaIdUsuario(usuario.getIdUsuario());
+			respostas = this.respostaBC.consultarRespostaPorIdUsuario(usuario.getIdUsuario());
+			
+			if(perguntas != null || respostas != null) {
+				if(perguntas.isEmpty() != true || respostas.isEmpty() != true) {
+					usuarioExcluido.setNome("Usuário Excluído");
+					usuarioExcluido.setDataString("");
+					usuarioExcluido.setAdmin(false);
+					usuarioExcluido.setEmail("usuarioExcluido@" + numeroRandomico + ".com");
+					usuarioExcluido.setLocalizacao("");
+					usuarioExcluido.setSenha(numeroRandomico+"");
+					usuarioExcluido.setConfSenha(numeroRandomico+"");
+					this.adicionarUsuario(usuarioExcluido);
+					idUsuarioExcluido = this.usuarioDAO.consultarUsuarioPorEmail("usuarioExcluido@" + numeroRandomico + ".com").getIdUsuario();
+					usuarioExcluido.setIdUsuario(usuario.getIdUsuario());
+					this.alterarUsuario(usuarioExcluido);
+					this.deletarUsuarioPorId(idUsuarioExcluido);
+				}else {
+					this.usuarioDAO.deletarUsuario(email);
+				}
+			}else {
+				this.usuarioDAO.deletarUsuario(email);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Usuario consultarUsuarioPorEmail_Senha(String email, String senha) {
@@ -105,7 +159,7 @@ public class UsuarioBC {
 				if(usuario.getEmail().trim().equals("")) {
 					flag = false;
 				}else if(!usuario.getEmail()
-						.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$")) {
+						.matches("^([0-9a-zA-Z]+([_.-]?[0-9a-zA-Z]+)*@[0-9a-zA-Z]+[0-9,a-z,A-Z,.,-]*(.){1}[a-zA-Z]{2,4})+$")) {
 					flag = false;
 				}
 			}else {

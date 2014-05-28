@@ -60,7 +60,7 @@ public class ServletCadastroPergunta extends HttpServlet {
 		pergunta.setDescricao(request.getParameter("descricao"));
 		pergunta.setStrHora(Util.getHoraSistema());
 		pergunta.setTitulo(request.getParameter("titulo"));
-		pergunta.setUsuario(usuario.getIdUsuario());
+		pergunta.setIdUsuario(usuario.getIdUsuario());
 		pergunta.setTag(request.getParameter("tag"));
 		String retornoCadastroPergunta = cadastro.adcionarPergunta(pergunta);
 		

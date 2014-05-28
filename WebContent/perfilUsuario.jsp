@@ -16,7 +16,12 @@
 					%>
 					<p>
 						<span>Nome: </span>
-						<label>${usuarioPerfil.nome}</label>
+						<c:if test="${not empty usuarioPerfil.nome}">
+							<label>${usuarioPerfil.nome}</label>
+						</c:if>
+						<c:if test="${empty usuarioPerfil.nome}">
+							<label>Não encontrado</label>
+						</c:if>
 					</p>
 					<p>
 						<span>Data de Nascimento: </span>
@@ -29,7 +34,12 @@
 					</p>
 					<p>
 						<span>E-mail: </span>
-						<label>${usuarioPerfil.email}</label>
+						<c:if test="${not empty usuarioPerfil.email}">
+							<label>${usuarioPerfil.email}</label>
+						</c:if>
+						<c:if test="${empty usuarioPerfil.email}">
+							<label>Não encontrado</label>
+						</c:if>
 						<input type="hidden" name="pesquisaUsuarioEmail" id="pesquisaUsuarioEmail" value="${usuarioPerfil.email}" checked="checked" />
 					</p>
 					<p>
@@ -43,8 +53,13 @@
 					</p>
 					<p>
 						<span>Administrador </span>
-						<c:if test="${usuarioPerfil.admin == false}"><label>Não</label></c:if>
-						<c:if test="${usuarioPerfil.admin == true}"><label>Sim</label></c:if>
+						<c:if test="${not empty usuarioPerfil.admin}">
+							<c:if test="${usuarioPerfil.admin == false}"><label>Não</label></c:if>
+							<c:if test="${usuarioPerfil.admin == true}"><label>Sim</label></c:if>
+						</c:if>
+						<c:if test="${empty usuarioPerfil.admin}">
+							<label>Não encontrado</label>
+						</c:if>
 					</p>
 					<%
           				session.setAttribute("usuarioPerfil", null);

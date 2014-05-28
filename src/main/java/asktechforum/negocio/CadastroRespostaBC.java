@@ -19,7 +19,7 @@ public class CadastroRespostaBC implements CadastroResposta {
 	}
 
 	@Override
-	public String adcionarResposta(Resposta resposta) {
+	public String adicionarResposta(Resposta resposta) {
 		String retorno = "";
 		try {
 			if (resposta.getData() == null) {
@@ -33,7 +33,7 @@ public class CadastroRespostaBC implements CadastroResposta {
 			} else if (resposta.getIdUsuario() == 0) {
 				retorno = "Erro no sistema. Tente novamente em instantes.";
 			} else {
-				retorno = cadastro.adcionarResposta(resposta);
+				retorno = cadastro.adicionarResposta(resposta);
 
 			}
 		} catch (SQLException e) {
@@ -92,11 +92,11 @@ public class CadastroRespostaBC implements CadastroResposta {
 	}
 
 	@Override
-	public ArrayList<Resposta> consultarTodasResposta() throws SQLException {
+	public ArrayList<Resposta> consultarTodasRespostas() throws SQLException {
 		// TODO Auto-generated method stub
 		lstResposta = new ArrayList<Resposta>();
 		try {
-			lstResposta = cadastro.consultarTodasResposta();
+			lstResposta = cadastro.consultarTodasRespostas();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

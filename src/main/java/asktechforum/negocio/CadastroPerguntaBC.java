@@ -31,7 +31,7 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 				retorno = "Erro no sistema. Tente novamente em instantes.";
 			} else if (pergunta.getTitulo() == null ||  pergunta.getTitulo().trim().equals("")) {
 				retorno = "Preencha o campo 'Pergunta' com dados válidos";
-			} else if (pergunta.getUsuario() == 0) {
+			} else if (pergunta.getIdUsuario() == 0) {
 				retorno = "Erro no sistema. Tente novamente em instantes.";
 			} else if (pergunta.getTag() == null || pergunta.getTag().trim().equals("")) {
 				retorno = "Preencha o campo 'Assuntos relacionados' com dados válidos";

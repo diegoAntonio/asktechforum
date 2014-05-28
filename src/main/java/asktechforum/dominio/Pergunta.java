@@ -10,7 +10,7 @@ public class Pergunta {
 	private int idPergunta;
 	private String titulo;
 	private String descricao;
-	private int usuario;
+	private int idUsuario;
 	private String strData;
 	private String strHora;
 	private String tag;
@@ -42,12 +42,12 @@ public class Pergunta {
 		this.descricao = descricao;
 	}
 
-	public int getUsuario() {
-		return usuario;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setUsuario(int usuario) {
-		this.usuario = usuario;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getStrData() {

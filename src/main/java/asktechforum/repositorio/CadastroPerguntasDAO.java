@@ -36,7 +36,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			stmt.setDate(++index, pergunta.getData());
 			stmt.setTime(++index, pergunta.getHora());
 			stmt.setString(++index, pergunta.getDescricao());
-			stmt.setInt(++index, pergunta.getUsuario());
+			stmt.setInt(++index, pergunta.getIdUsuario());
 			stmt.setString(++index, pergunta.getTag());
 
 			stmt.executeUpdate();
@@ -85,7 +85,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 				pergunta.setDescricao(rs.getString("descricao"));
 				pergunta.setIdPergunta(rs.getInt("idPergunta"));
 				pergunta.setTitulo(rs.getString("titulo"));
-				pergunta.setUsuario(rs.getInt("idUsuario"));
+				pergunta.setIdUsuario(rs.getInt("idUsuario"));
 				pergunta.setData(rs.getDate("data"));
 				pergunta.setHora(rs.getTime("hora"));
 				pergunta.setTag(rs.getString("tag"));
@@ -291,7 +291,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			p.setDescricao(rs.getString("descricao"));
 			p.setIdPergunta(rs.getInt("idPergunta"));
 			p.setTitulo(rs.getString("titulo"));
-			p.setUsuario(rs.getInt("usuario"));
+			p.setIdUsuario(rs.getInt("idUsuario"));
 			p.setData(rs.getDate("data"));
 			p.setHora(rs.getTime("hora"));
 			p.setTag(rs.getString("tag"));

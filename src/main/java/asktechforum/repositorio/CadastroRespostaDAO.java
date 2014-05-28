@@ -21,7 +21,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		util = new Util();
 	}
 
-	public String adcionarResposta(Resposta resposta) throws SQLException {
+	public String adicionarResposta(Resposta resposta) throws SQLException {
 		String retorno = "cadastroSucesso";
 		String sql = "insert into RESPOSTA(descricao, idUsuario, idPergunta, data, hora)values(?,?,?,?,?)";
 		PreparedStatement stmt = null;
@@ -106,7 +106,16 @@ public class CadastroRespostaDAO implements CadastroResposta {
 
 			rs = stmt.executeQuery();
 
-			resposta = montarLista(rs);
+			while (rs.next()) {
+				Resposta r = new Resposta();
+				r.setData(rs.getDate("data"));
+				r.setDescricao(rs.getString("descricao"));
+				r.setHora(rs.getTime("hora"));
+				r.setIdPergunta(rs.getInt("idPergunta"));
+				r.setIdResposta(rs.getInt("idResposta"));
+				r.setIdUsuario(rs.getInt("idUsuario"));
+				resposta.add(r);
+			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -120,7 +129,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		return resposta;
 	}
 
-	public ArrayList<Resposta> consultarTodasResposta() throws SQLException {
+	public ArrayList<Resposta> consultarTodasRespostas() throws SQLException {
 		ArrayList<Resposta> resposta = new ArrayList<Resposta>();
 
 		String sql = "select * from Resposta order by data, hora";
@@ -132,7 +141,16 @@ public class CadastroRespostaDAO implements CadastroResposta {
 
 			rs = stmt.executeQuery();
 
-			resposta = montarLista(rs);
+			while (rs.next()) {
+				Resposta r = new Resposta();
+				r.setData(rs.getDate("data"));
+				r.setDescricao(rs.getString("descricao"));
+				r.setHora(rs.getTime("hora"));
+				r.setIdPergunta(rs.getInt("idPergunta"));
+				r.setIdResposta(rs.getInt("idResposta"));
+				r.setIdUsuario(rs.getInt("idUsuario"));
+				resposta.add(r);
+			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -165,7 +183,17 @@ public class CadastroRespostaDAO implements CadastroResposta {
 
 			rs = stmt.executeQuery();
 			
-			resposta = montarLista(rs);
+			while (rs.next()) {
+				Resposta r = new Resposta();
+				r.setData(rs.getDate("data"));
+				r.setDescricao(rs.getString("descricao"));
+				r.setHora(rs.getTime("hora"));
+				r.setIdPergunta(rs.getInt("idPergunta"));
+				r.setIdResposta(rs.getInt("idResposta"));
+				r.setIdUsuario(rs.getInt("idUsuario"));
+				r.setNomeUsuario(rs.getString("nome"));
+				resposta.add(r);
+			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -177,26 +205,6 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		}
 
 		return resposta;
-	}
-
-	private ArrayList<Resposta> montarLista(ResultSet rs) throws SQLException {
-
-		ArrayList<Resposta> resposta = new ArrayList<Resposta>();
-
-		while (rs.next()) {
-			Resposta r = new Resposta();
-			r.setData(rs.getDate("data"));
-			r.setDescricao(rs.getString("descricao"));
-			r.setHora(rs.getTime("hora"));
-			r.setIdPergunta(rs.getInt("idPergunta"));
-			r.setIdResposta(rs.getInt("idResposta"));
-			r.setIdUsuario(rs.getInt("idUsuario"));
-			r.setNomeUsuario(rs.getString("nome"));
-			resposta.add(r);
-		}
-
-		return resposta;
-
 	}
 
 }

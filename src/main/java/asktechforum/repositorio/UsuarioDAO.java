@@ -92,6 +92,20 @@ public class UsuarioDAO {
         }
     }
 	
+	public void deletarUsuarioPorId(int idUsuario) {
+        try {
+            PreparedStatement preparedStatement = this.connection
+                    .prepareStatement("delete from usuario where idUsuario=?");
+            
+            preparedStatement.setInt(1, idUsuario);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+	
 	public Usuario consultarUsuarioPorEmail_Senha(String email,String senha) {
 		Usuario usuario = new Usuario();
 		try {

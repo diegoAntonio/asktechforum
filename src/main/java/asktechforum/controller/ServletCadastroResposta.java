@@ -56,7 +56,7 @@ public class ServletCadastroResposta extends HttpServlet {
 		resposta.setIdUsuario(usuario.getIdUsuario());
 		
 		
-		String retornoCadastroResposta = cadastro.adcionarResposta(resposta);
+		String retornoCadastroResposta = cadastro.adicionarResposta(resposta);
 		
 		if (retornoCadastroResposta != null && !retornoCadastroResposta.equals("cadastroSucesso")) {
     		session.setAttribute("erroCadastroResposta",retornoCadastroResposta);
