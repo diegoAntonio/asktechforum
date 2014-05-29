@@ -17,11 +17,7 @@ public class Resposta {
 	private String strHora;
 	private String nomeUsuario;
 	
-	private Util util;
-
-	
 	public Resposta() {
-		util = new Util();
 	}
 	
 	//GETTERS AND SETTERS
@@ -71,31 +67,29 @@ public class Resposta {
 	}
 
 	public String getStrData() {
-		strData = util.converterDataToString("dd/MM/yyyy", this.data);
+		strData = Util.converterDataToString("dd/MM/yyyy", this.data);
 		return strData;
 	}
 
 	public void setStrData(String strData) {
 		
 	  try {
-		this.data = util.converterStringToDate("dd/MM/yyyy", strData);
+		this.data = Util.converterStringToDate("dd/MM/yyyy", strData);
 	} catch (ParseException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	  
 	}
 
 	public String getStrHora() {
-		strHora = util.converterTimeToString("dd/MM/yyyy", hora);
+		strHora = Util.converterTimeToString("dd/MM/yyyy", hora);
 		return strHora;
 	}
 
 	public void setStrHora(String strHora) {
 		try {
-			this.hora = util.converterStringToTime("dd/MM/yyyy", strHora);
+			this.hora = Util.converterStringToTime("dd/MM/yyyy", strHora);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

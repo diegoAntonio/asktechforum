@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.Resposta;
-import asktechforum.dominio.ResultConsultarPergunta;
-import asktechforum.negocio.CadastroPerguntaBC;
 import asktechforum.negocio.CadastroRespostaBC;
 
 /**
@@ -31,15 +28,12 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
      */
     public ServletConsultarRespostaPergunta() {
         super();
-        // TODO Auto-generated constructor stub
-        
     }
 
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest arg0, HttpServletResponse arg1) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		super.service(arg0, arg1);
 	}
 

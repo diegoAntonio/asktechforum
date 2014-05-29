@@ -2,10 +2,8 @@ package asktechforum.util;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Util {
@@ -40,8 +38,6 @@ public class Util {
 		SimpleDateFormat sdf = new SimpleDateFormat(formato);
 		
 		 d = new java.sql.Date(sdf.parse(data).getTime());
-		
-		//d = (Date) sdf.parse(data);
 		
 		return d;
 	}

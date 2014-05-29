@@ -9,23 +9,21 @@ import java.util.ArrayList;
 import asktechforum.dominio.Resposta;
 import asktechforum.interfaces.CadastroResposta;
 import asktechforum.util.ConnectionUtil;
-import asktechforum.util.Util;
 
 public class CadastroRespostaDAO implements CadastroResposta {
 
 	private Connection con = null;
-	private Util util = null;
 
 	public CadastroRespostaDAO() {
-		con = ConnectionUtil.getConnection();
-		util = new Util();
 	}
 
 	public String adicionarResposta(Resposta resposta) throws SQLException {
 		String retorno = "cadastroSucesso";
 		String sql = "insert into RESPOSTA(descricao, idUsuario, idPergunta, data, hora)values(?,?,?,?,?)";
 		PreparedStatement stmt = null;
+		
 		try {
+			this.con = ConnectionUtil.getConnection();
 			stmt = con.prepareStatement(sql);
 			int index = 0;
 			stmt.setString(++index, resposta.getDescricao());
@@ -37,11 +35,10 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			//con.close();
+			this.con.close();
 		}
 		return retorno;
 	}
@@ -49,15 +46,16 @@ public class CadastroRespostaDAO implements CadastroResposta {
 	public void deletarResposta(int id) throws SQLException {
 		String sql = "delete from RESPOSTA where idResposta = " + id;
 		PreparedStatement stmt = null;
+		
 		try {
+			this.con = ConnectionUtil.getConnection();
 			stmt = con.prepareStatement(sql);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			//con.close();
+			this.con.close();
 		}
 	}
 
@@ -69,6 +67,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		ResultSet rs = null;
 
 		try {
+			this.con = ConnectionUtil.getConnection();
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -81,12 +80,11 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			rs.close();
 			stmt.close();
-			//con.close();
+			this.con.close();
 		}
 
 		return resposta;
@@ -101,7 +99,9 @@ public class CadastroRespostaDAO implements CadastroResposta {
 				+ " order by data, hora";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		
 		try {
+			this.con = ConnectionUtil.getConnection();
 			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
@@ -118,12 +118,11 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			rs.close();
 			stmt.close();
-			//con.close();
+			this.con.close();
 		}
 
 		return resposta;
@@ -137,6 +136,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		ResultSet rs = null;
 
 		try {
+			this.con = ConnectionUtil.getConnection();
 			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
@@ -153,12 +153,11 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			rs.close();
 			stmt.close();
-			//con.close();
+			this.con.close();
 		}
 
 		return resposta;
@@ -166,11 +165,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 
 	public ArrayList<Resposta> consultarRespostaPorPergunta(int id)
 			throws SQLException {
-		ArrayList<Resposta> resposta = new ArrayList<Resposta>();
-
-//		String sql = "select * from Resposta where idPergunta = " + id
-//				+ " order by data, hora";
-		
+		ArrayList<Resposta> resposta = new ArrayList<Resposta>();		
 		
 		String sql = "SELECT u.nome, r.idResposta, r.descricao, r.idUsuario, r.idPergunta, r.data, r.hora FROM usuario u, resposta r	" +
 				"WHERE idPergunta=" + id + " and u.idUsuario = r.idUsuario order by data, hora ";
@@ -179,6 +174,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		ResultSet rs = null;
 
 		try {
+			this.con = ConnectionUtil.getConnection();
 			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
@@ -196,12 +192,11 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			rs.close();
 			stmt.close();
-			//con.close();
+			this.con.close();
 		}
 
 		return resposta;

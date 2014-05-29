@@ -1,8 +1,6 @@
 package asktechforum.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,8 +29,6 @@ public class ServletCadastroPergunta extends HttpServlet {
 	 */
 	public ServletCadastroPergunta() {
 		super();
-		// TODO Auto-generated constructor stub
-		
 	}
 
 	/**
@@ -41,7 +37,6 @@ public class ServletCadastroPergunta extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 	/**

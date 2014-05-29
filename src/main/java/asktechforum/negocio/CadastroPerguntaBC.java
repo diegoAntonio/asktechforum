@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.ResultConsultarPergunta;
-import asktechforum.exceptions.ExceptionPergunta;
 import asktechforum.repositorio.CadastroPerguntasDAO;
 import asktechforum.interfaces.CadastroPergunta;
 
@@ -41,7 +40,6 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 			
 			          
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -51,7 +49,6 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 
 	@Override
 	public void deletarPergunta(int id) {
-		// TODO Auto-generated method stub
 		try {
 			if (id == 0) {
 
@@ -60,7 +57,6 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -77,7 +73,6 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 				pergunta = cadastro.consultarPerguntaPorIdPergunta(id);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -97,7 +92,6 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -112,7 +106,6 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 			this.lstPergunta = cadastro.consultarTodasPerguntas();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return lstPergunta;
@@ -130,7 +123,6 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 			
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return lstQtdPergunta;
@@ -139,7 +131,6 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 	@Override
 	public ArrayList<ResultConsultarPergunta> consultarPerguntaPorTodasTags()
 			throws SQLException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

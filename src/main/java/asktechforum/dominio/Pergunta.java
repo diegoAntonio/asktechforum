@@ -60,7 +60,6 @@ public class Pergunta {
 		try {
 			this.data = Util.converterStringToDate("dd/MM/yyyy", strData);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -74,7 +73,6 @@ public class Pergunta {
 		try {
 			this.hora = Util.converterStringToTime("hh:mm", strHora);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

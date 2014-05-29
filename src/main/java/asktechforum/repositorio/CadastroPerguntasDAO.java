@@ -11,26 +11,22 @@ import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.ResultConsultarPergunta;
 import asktechforum.interfaces.CadastroPergunta;
 import asktechforum.util.ConnectionUtil;
-import asktechforum.util.Util;
 
 public class CadastroPerguntasDAO implements CadastroPergunta {
 
-	private Connection con;
-	private Util util;
+	private Connection con = null;
 
 	public CadastroPerguntasDAO() {
-
-		util = new Util();
 	}
 	
 	public String adcionarPergunta(Pergunta pergunta) throws SQLException {
 		String retorno = "cadastroSucesso";
 
-		con = ConnectionUtil.getConnection();
 		String sql = "insert into PERGUNTA(titulo, data, hora, descricao, idUsuario, tag)values(?,?,?,?,?,?)";
 		PreparedStatement stmt = null;
+		this.con = ConnectionUtil.getConnection();
 		try {
-			stmt = con.prepareStatement(sql);
+			stmt = this.con.prepareStatement(sql);
 			int index = 0;
 			stmt.setString(++index, pergunta.getTitulo());
 			stmt.setDate(++index, pergunta.getData());
@@ -42,36 +38,33 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			//con.close();
+			this.con.close();
 		}
 		return retorno;
 	}
 
 	public void deletarPergunta(int id) throws SQLException {
 
-		con = ConnectionUtil.getConnection();
 		String sql = "delete from PERGUNTA where idPergunta = " + id;
 		PreparedStatement stmt = null;
 		try {
-			stmt = con.prepareStatement(sql);
+			this.con = ConnectionUtil.getConnection();
+			stmt = this.con.prepareStatement(sql);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			//con.close();
+			this.con.close();
 		}
 
 	}
 
 	public Pergunta consultarPerguntaPorIdPergunta(int id) throws SQLException {
 
-		con = ConnectionUtil.getConnection();
 		Pergunta pergunta = new Pergunta();
 
 		String sql = "select * from PERGUNTA where idPergunta = " + id;
@@ -79,7 +72,8 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		ResultSet rs = null;
 
 		try {
-			stmt = con.prepareStatement(sql);
+			this.con = ConnectionUtil.getConnection();
+			stmt = this.con.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				pergunta.setDescricao(rs.getString("descricao"));
@@ -92,12 +86,11 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			rs.close();
 			stmt.close();
-			//con.close();
+			this.con.close();
 		}
 
 		return pergunta;
@@ -105,34 +98,32 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 	public ArrayList<Pergunta> consultarPerguntaIdUsuario(int id)
 			throws SQLException {
-		con = ConnectionUtil.getConnection();
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
 
 		String sql = "select * from PERGUNTA where idUsuario = " + id
 				+ " order by data, hora";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		this.con = ConnectionUtil.getConnection();
 		try {
-			stmt = con.prepareStatement(sql);
+			stmt = this.con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
 
 			pergunta = montarLista(rs);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			rs.close();
 			stmt.close();
-			//con.close();
+			this.con.close();
 		}
 
 		return pergunta;
 	}
 
 	public ArrayList<Pergunta> consultarTodasPerguntas() throws SQLException {
-		con = ConnectionUtil.getConnection();
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
 
 		String sql = "select * from PERGUNTA order by data, hora";
@@ -140,19 +131,19 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		ResultSet rs = null;
 
 		try {
-			stmt = con.prepareStatement(sql);
+			this.con = ConnectionUtil.getConnection();
+			stmt = this.con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
 
 			pergunta = montarLista(rs);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			rs.close();
 			stmt.close();
-			//con.close();
+			this.con.close();
 		}
 
 		return pergunta;
@@ -160,7 +151,6 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 	public ArrayList<Pergunta> consultarPerguntaPorData(Date data)
 			throws SQLException {
-		con = ConnectionUtil.getConnection();
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
 
 		String sql = "select * from PERGUNTA where idUsuario = " + data
@@ -169,19 +159,19 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		ResultSet rs = null;
 
 		try {
-			stmt = con.prepareStatement(sql);
+			this.con = ConnectionUtil.getConnection();
+			stmt = this.con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
 
 			pergunta = montarLista(rs);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			rs.close();
 			stmt.close();
-			//con.close();
+			this.con.close();
 		}
 
 		return pergunta;
@@ -190,7 +180,6 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 	@Override
 	public ArrayList<ResultConsultarPergunta> consultarPerguntaPorTag(String tag)
 			throws SQLException {
-		con = ConnectionUtil.getConnection();
 		ArrayList<ResultConsultarPergunta> pergunta = new ArrayList<ResultConsultarPergunta>();
 
 		String sql = " select p.descricao, count(r.idResposta) total, u.nome, p.idPergunta, p.titulo, p.data, p.hora " +
@@ -202,7 +191,8 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		ResultSet rs = null;
 
 		try {
-			stmt = con.prepareStatement(sql);
+			this.con = ConnectionUtil.getConnection();
+			stmt = this.con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
 
@@ -219,16 +209,12 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 				p.setHora(rs.getTime("hora"));
 				pergunta.add(p);
 			}
-			
-
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			rs.close();
 			stmt.close();
-			//con.close();
-			con = null;
+			this.con.close();
 		}
 
 		return pergunta;
@@ -239,7 +225,6 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 	@Override
 	public ArrayList<ResultConsultarPergunta> consultarPerguntaPorTodasTags()
 			throws SQLException {
-		con = ConnectionUtil.getConnection();
 		ArrayList<ResultConsultarPergunta> pergunta = new ArrayList<ResultConsultarPergunta>();
 		
 		String sql = "SELECT p.descricao, COUNT( r.idResposta ) total, u.nome, p.idPergunta, p.titulo, p.tag, p.data, p.hora" +
@@ -250,7 +235,8 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		ResultSet rs = null;
 
 		try {
-			stmt = con.prepareStatement(sql);
+			this.con = ConnectionUtil.getConnection();
+			stmt = this.con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
 
@@ -271,31 +257,37 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			rs.close();
 			stmt.close();
-			//con.close();
-			con = null;
+			this.con.close();
 		}
 
 		return pergunta;
 	}
-	private ArrayList<Pergunta> montarLista(ResultSet rs) throws SQLException {
-		con = ConnectionUtil.getConnection();
+	private ArrayList<Pergunta> montarLista(ResultSet rs)
+			throws SQLException {
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
 
-		while (rs.next()) {
-			Pergunta p = new Pergunta();
-			p.setDescricao(rs.getString("descricao"));
-			p.setIdPergunta(rs.getInt("idPergunta"));
-			p.setTitulo(rs.getString("titulo"));
-			p.setIdUsuario(rs.getInt("idUsuario"));
-			p.setData(rs.getDate("data"));
-			p.setHora(rs.getTime("hora"));
-			p.setTag(rs.getString("tag"));
-			pergunta.add(p);
+		try {
+			this.con = ConnectionUtil.getConnection();
+			while (rs.next()) {
+				Pergunta p = new Pergunta();
+				p.setDescricao(rs.getString("descricao"));
+				p.setIdPergunta(rs.getInt("idPergunta"));
+				p.setTitulo(rs.getString("titulo"));
+				p.setIdUsuario(rs.getInt("idUsuario"));
+				p.setData(rs.getDate("data"));
+				p.setHora(rs.getTime("hora"));
+				p.setTag(rs.getString("tag"));
+				pergunta.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			rs.close();
+			this.con.close();
 		}
 
 		return pergunta;

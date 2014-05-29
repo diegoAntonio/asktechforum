@@ -37,7 +37,6 @@ public class CadastroRespostaBC implements CadastroResposta {
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return retorno;
@@ -45,7 +44,6 @@ public class CadastroRespostaBC implements CadastroResposta {
 
 	@Override
 	public void deletarResposta(int id) throws SQLException {
-		// TODO Auto-generated method stub
 		try {
 			if (id == 0) {
 
@@ -53,7 +51,6 @@ public class CadastroRespostaBC implements CadastroResposta {
 				cadastro.deletarResposta(id);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -68,7 +65,6 @@ public class CadastroRespostaBC implements CadastroResposta {
 				resposta = cadastro.consultarRespostaPorIdResposta(id);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resposta;
@@ -85,7 +81,6 @@ public class CadastroRespostaBC implements CadastroResposta {
 				lstResposta = cadastro.consultarRespostaPorIdUsuario(id);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return lstResposta;
@@ -93,12 +88,10 @@ public class CadastroRespostaBC implements CadastroResposta {
 
 	@Override
 	public ArrayList<Resposta> consultarTodasRespostas() throws SQLException {
-		// TODO Auto-generated method stub
 		lstResposta = new ArrayList<Resposta>();
 		try {
 			lstResposta = cadastro.consultarTodasRespostas();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return lstResposta;
@@ -114,7 +107,6 @@ public class CadastroRespostaBC implements CadastroResposta {
 				lstResposta = cadastro.consultarRespostaPorPergunta(id);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return lstResposta;

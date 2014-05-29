@@ -5,14 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-//import java.sql.Connection;
-//import java.sql.SQLException;
-
-
 
 import asktechforum.dominio.Usuario;
 import asktechforum.repositorio.UsuarioDAO;
-//import asktechforum.util.ConnectionUtil;
 import asktechforum.util.UsuarioUtil;
 import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.Resposta;
@@ -36,7 +31,11 @@ public class UsuarioBC {
 		boolean flag = validarUsuario(usuario);
 		
 		if(flag) {
-			this.usuarioDAO.alterarUsuario(usuario);
+			try {
+				this.usuarioDAO.alterarUsuario(usuario);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return flag;
@@ -46,7 +45,11 @@ public class UsuarioBC {
 		boolean flag = validarUsuario(usuario);
 		
 		if(flag) {
-			this.usuarioDAO.alterarUsuarioAdmin(usuario);
+			try {
+				this.usuarioDAO.alterarUsuarioAdmin(usuario);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return flag;
@@ -56,18 +59,31 @@ public class UsuarioBC {
 		boolean flag = validarUsuario(usuario);
 		
 		if(flag) {
-			this.usuarioDAO.adicionarUsuario(usuario);
+			try {
+				this.usuarioDAO.adicionarUsuario(usuario);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return flag;
 	}
 	
 	public void deletarUsuarioPorId(int idUsuario) {
-		this.usuarioDAO.deletarUsuarioPorId(idUsuario);
+		try {
+			this.usuarioDAO.deletarUsuarioPorId(idUsuario);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void deletarUsuario(String email) {
-		Usuario usuario = this.usuarioDAO.consultarUsuarioPorEmail(email);
+		Usuario usuario = new Usuario();
+		try {
+			usuario = this.usuarioDAO.consultarUsuarioPorEmail(email);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 		Usuario usuarioExcluido = new Usuario();
 		ArrayList<Pergunta> perguntas = null;
 		ArrayList<Resposta> respostas = null;
@@ -75,9 +91,13 @@ public class UsuarioBC {
         int numeroRandomico = geradorRandomico.nextInt();
         int idUsuarioExcluido;
         
-        while(numeroRandomico < 1 || numeroRandomico > 99999999 || this.usuarioDAO.consultarUsuarioPorId(numeroRandomico).getIdUsuario() == numeroRandomico) {
-        	numeroRandomico = geradorRandomico.nextInt();
-        }
+        try {
+			while(numeroRandomico < 1 || numeroRandomico > 99999999 || this.usuarioDAO.consultarUsuarioPorId(numeroRandomico).getIdUsuario() == numeroRandomico) {
+				numeroRandomico = geradorRandomico.nextInt();
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 		
 		try {
 			perguntas = this.perguntaBC.consultarPerguntaIdUsuario(usuario.getIdUsuario());
@@ -111,33 +131,53 @@ public class UsuarioBC {
 
 	public Usuario consultarUsuarioPorEmail_Senha(String email, String senha) {
 		Usuario usuario = null;
-		if(this.usuarioDAO.consultarUsuarioPorEmail_Senha(email, senha).getIdUsuario() != 0) {
-			usuario = this.usuarioDAO.consultarUsuarioPorEmail_Senha(email, senha);
+		try {
+			if(this.usuarioDAO.consultarUsuarioPorEmail_Senha(email, senha).getIdUsuario() != 0) {
+				usuario = this.usuarioDAO.consultarUsuarioPorEmail_Senha(email, senha);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return usuario;
 	}
 
 	public Usuario consultarUsuarioPorId(int idUsuario) {
 		Usuario usuario = new Usuario();
-		usuario = this.usuarioDAO.consultarUsuarioPorId(idUsuario);
+		try {
+			usuario = this.usuarioDAO.consultarUsuarioPorId(idUsuario);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return usuario;
 	}
 
 	public Usuario consultarUsuarioPorEmail(String email) {
 		Usuario usuario = new Usuario();
-		usuario = this.usuarioDAO.consultarUsuarioPorEmail(email);
+		try {
+			usuario = this.usuarioDAO.consultarUsuarioPorEmail(email);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return usuario;
 	}
 
 	public List<Usuario> consultarUsuarioPorNome(String nome) {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
-		usuarios = this.usuarioDAO.consultarUsuarioPorNome(nome);
+		try {
+			usuarios = this.usuarioDAO.consultarUsuarioPorNome(nome);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return usuarios;
 	}
 	
 	public List<Usuario> consultarTodosUsuarios() {
         List<Usuario> usuarios = new ArrayList<Usuario>();
-        usuarios = this.usuarioDAO.consultarTodosUsuarios();
+        try {
+			usuarios = this.usuarioDAO.consultarTodosUsuarios();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         return usuarios;
 	}
 	
@@ -237,7 +277,11 @@ public class UsuarioBC {
 		int quantAdmin = 0;
 		Boolean flag = false;
 		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
-		listaUsuarios = this.usuarioDAO.consultarTodosUsuarios();
+		try {
+			listaUsuarios = this.usuarioDAO.consultarTodosUsuarios();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		if(listaUsuarios != null) {
 			for(Usuario u : listaUsuarios) {
@@ -259,7 +303,11 @@ public class UsuarioBC {
 	public boolean verificarEmail(String email, Usuario usuario) {
 		boolean flag = false;
 		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
-		listaUsuarios = this.usuarioDAO.consultarTodosUsuarios();
+		try {
+			listaUsuarios = this.usuarioDAO.consultarTodosUsuarios();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		if(listaUsuarios != null) {
 			for(Usuario u : listaUsuarios) {
