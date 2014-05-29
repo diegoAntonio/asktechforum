@@ -323,5 +323,19 @@ public class UsuarioBC {
 		
 		return flag;
 	}
+	
+	public String formatarDataSQL(String dataString) {
+		String arrayDataString[] = dataString.split("-");
+		dataString = "";
+		
+		for(int i = arrayDataString.length-1; i > -1; i--) {
+			dataString = dataString + arrayDataString[i];
+			if(i != 0) {
+				dataString = dataString + "/";
+			}
+		}
+		
+		return dataString;
+	}
 		
 }
