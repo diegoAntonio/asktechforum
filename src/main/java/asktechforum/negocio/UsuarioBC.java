@@ -224,7 +224,17 @@ public class UsuarioBC {
 					}else {
 						usuario.setDataNascimento(data);
 					}
+				}else {
+					usuario.setDataNascimento(null);
 				}
+			}else {
+				usuario.setDataNascimento(null);
+			}
+			
+			if(usuario.getLocalizacao() == null) {
+				usuario.setLocalizacao("");
+			}else if(usuario.getLocalizacao().trim().equals("")) {
+				usuario.setLocalizacao("");
 			}
 			
 			if(usuario.getSenha() != null) {

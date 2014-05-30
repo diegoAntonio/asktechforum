@@ -25,9 +25,6 @@ public class UsuarioUtil {
 	        if(dataString.matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}$")) {
 	            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
 	            data = new Date(formatter.parse(dataString).getTime());
-            }else if(dataString.matches("^\\d{4}-(0[1-9]|1[0,1,2])-(0[1-9]|[1,2][0-9]|3[0,1])$")) {  
-	            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
-	            data = new Date(formatter.parse(dataString).getTime());
             }
 	        
         } catch (ParseException e) {              
