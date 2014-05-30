@@ -19,7 +19,7 @@
 					<p>
 						<span>Data de Nascimento </span>
 						<br/>
-						<input class="contact" type="date" value="${usuario.dataString}" name="dataNascimento" id="dataNascimento" placeholder="dd/mm/aaaa" />
+						<input class="contact" type="text" value="${usuario.dataString}" name="dataNascimento" id="dataNascimento" placeholder="dd/mm/aaaa" />
 					</p>
 					<p>
 						<span>E-mail* </span>
