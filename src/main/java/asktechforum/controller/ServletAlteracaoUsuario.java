@@ -119,7 +119,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 							
 							usuario.setSenha("");
 							usuario.setConfSenha("");
-							session.setAttribute("usuarioAlteracao", usuario);
+							request.setAttribute("usuarioAlteracao", usuario);
 						    view.forward(request, response);
 						}
 					}else {
@@ -130,7 +130,12 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 			}else {
 				view = request.getRequestDispatcher(ERROALTERAREMAIL);
 				request.setAttribute("emailExistente", true);
-				session.setAttribute("usuarioAlteracao", usuario);
+				usuario.setNome(request.getParameter("nome"));
+				usuario.setDataString(request.getParameter("dataNascimento"));
+				usuario.setLocalizacao(request.getParameter("localizacao"));
+				usuario.setSenha("");
+				usuario.setConfSenha("");
+				request.setAttribute("usuarioAlteracao", usuario);
 				view.forward(request, response);
 			}
 	        
