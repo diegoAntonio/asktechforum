@@ -41,7 +41,11 @@ int i = 1;
 							<div style="width: 900px;" class="form_settings_cadastro">
 															
 								<p><c:out value="${pergunta.descricao}"></c:out></p>
-							    <p><a href="ServletConsultarPerguntaPorTag?tag=${pergunta.tag}">${pergunta.tag}</a></p>
+							 	<c:forEach var="tag" items="${pergunta.listTags}">
+							    	<a class="tags-list" href="ServletConsultarPerguntaPorTag?tag=${tag}">${tag}</a>&nbsp;
+							    </c:forEach>
+							    <br>
+							    <br>
 								<output style="font-size: 11px; position: right;">Por: <c:out value="${pergunta.autor}"></c:out></output>
 								<p><output style="font-size: 9px; position: right;">Em: <c:out value="${pergunta.data}"></c:out> às <c:out value="${pergunta.hora}"></c:out></output><p>
 								Respostas:<c:out value=" ${pergunta.qtdResposta}"></c:out>

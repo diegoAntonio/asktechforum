@@ -148,7 +148,55 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 		return pergunta;
 	}
+	
+	
+	public ArrayList<String> consultaTodasAsTags() throws SQLException {
+		ArrayList<String> tags = new ArrayList<String>();
+		
+		String sql = "SELECT DISTINCT tag FROM pergunta order by tag";
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 
+		try {
+			this.con = ConnectionUtil.getConnection();
+			stmt = this.con.prepareStatement(sql);
+
+			rs = stmt.executeQuery();
+			tags = this.separaTags(rs);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			rs.close();
+			stmt.close();
+			this.con.close();
+		}
+
+		return tags;
+		
+	}
+	
+	public ArrayList<String> separaTags(ResultSet rs){
+		ArrayList<String> listTags = new ArrayList<String>();
+		String [] resultTag ;
+		
+		try {
+			while (rs.next()) {
+				resultTag = rs.getString("tag").split(" ");
+				
+				for(int i=0; i<resultTag.length; i++ ){
+					listTags.add(resultTag[i].toUpperCase());
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return listTags;
+	}
+	
 	public ArrayList<Pergunta> consultarPerguntaPorData(Date data)
 			throws SQLException {
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
@@ -164,7 +212,19 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 			rs = stmt.executeQuery();
 
-			pergunta = montarLista(rs);
+			
+			
+			while (rs.next()) {
+				Pergunta p = new Pergunta();
+				p.setDescricao(rs.getString("descricao"));
+				p.setIdPergunta(rs.getInt("idPergunta"));
+				p.setTitulo(rs.getString("titulo"));
+				p.setIdUsuario(rs.getInt("idUsuario"));
+				p.setData(rs.getDate("data"));
+				p.setHora(rs.getTime("hora"));
+				p.setTag(rs.getString("tag"));
+				pergunta.add(p);
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -97,7 +97,35 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 
 		return lstPergunta;
 	}
+	
+	
+	public ArrayList<String> consultaTodasAsTags() {
+		ArrayList<String> tags = new ArrayList<String>();
+		ArrayList<String> tagFiltradas = new ArrayList<String>();
+		try {
 
+		   tags = cadastro.consultaTodasAsTags();
+		   
+		   tagFiltradas.add(tags.get(0));
+		   boolean ehIgual = false;
+		   for(int i=1; i < tags.size(); i++){
+			   for(int j=0; j < tagFiltradas.size(); j++){
+				   if(tagFiltradas.get(j).equals(tags.get(i))){
+					   ehIgual = true;
+				   }
+			   }	
+			   if(!ehIgual){
+				   tagFiltradas.add(tags.get(i));
+			   }
+			   ehIgual = false;
+		   }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tagFiltradas;
+		
+	}
+	
 	@Override
 	public ArrayList<Pergunta> consultarTodasPerguntas() {
 		lstPergunta = new ArrayList<Pergunta>();

@@ -23,6 +23,7 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 
 	private static final String RESULTADO_CONSULTA = "consultaPerguntaPorTag.jsp";
 	private static final String INDEX = "index.jsp";
+	private static final String TODAS_AS_TAGS = "consultaTodas_asTags.jsp";
 	private CadastroPerguntaBC cadastro;
 
     /**
@@ -45,16 +46,28 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 		
 		String tag = request.getParameter("tag");
 		this.cadastro = new CadastroPerguntaBC();
-		ArrayList<ResultConsultarPergunta> tags = cadastro.consultarPerguntaPorTag(tag);
+		ArrayList<ResultConsultarPergunta> perguntas;
+		ArrayList<String> tags;
 		RequestDispatcher view ; 
 		
-		if(tag.equals("all")){
-			view = request.getRequestDispatcher(INDEX);
+		if(tag.equals("allTags")){
+			tags = cadastro.consultaTodasAsTags();
+			view = request.getRequestDispatcher(TODAS_AS_TAGS);
+			request.setAttribute("tags", tags);
 		}else{
-			view = request.getRequestDispatcher(RESULTADO_CONSULTA);
+			perguntas = cadastro.consultarPerguntaPorTag(tag);
+				
+			if(tag.equals("all")){
+				view = request.getRequestDispatcher(INDEX);
+			}else{
+				view = request.getRequestDispatcher(RESULTADO_CONSULTA);
+			}
+		
+			request.setAttribute("pergunta", perguntas);
+			
 		}
-	
-		request.setAttribute("pergunta", tags);
+		
+		
 		view.forward(request, response);
 	}
 

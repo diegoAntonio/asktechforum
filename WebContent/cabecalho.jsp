@@ -83,6 +83,7 @@ if((Boolean)session.getAttribute("stop") == null) {
 	           	<li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=sql">SQL</a></li>
 	           	<li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=html">HTML</a></li>
 	           	<li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=css">CSS</a></li>
+	           	<li><a href="<%=getServletContext().getContextPath()%>/ServletConsultarPerguntaPorTag?tag=allTags">Todas</a></li>
             </ul>
          	</li>
         	<li><a href="<%=getServletContext().getContextPath()%>/sobre.jsp">Sobre</a></li>

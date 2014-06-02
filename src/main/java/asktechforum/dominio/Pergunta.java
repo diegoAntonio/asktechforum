@@ -3,6 +3,7 @@ package asktechforum.dominio;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import asktechforum.util.Util;
 
@@ -14,6 +15,7 @@ public class Pergunta {
 	private String strData;
 	private String strHora;
 	private String tag;
+	private ArrayList<String> listTags;
 	private Date data;
 	private Time hora;
 	
@@ -99,6 +101,29 @@ public class Pergunta {
 
 	public void setTag(String tag) {
 		this.tag = tag;
+		this.listTags = this.separaTags(tag);
+	}
+
+	public ArrayList<String> getListTags() {
+		return listTags;
+	}
+
+	public void setListTags(ArrayList<String> listTags) {
+		this.listTags = listTags;
+	}
+	
+	/**
+	 * Tratamento específico para separar as tags numa lista de tags.
+	 * @param tag
+	 * @return
+	 */
+	private ArrayList<String> separaTags(String tag){
+		ArrayList<String> retorno = new ArrayList<String>();
+		String[] tagArray = tag.split(" ");
+		for(int i=0; i<tagArray.length; i++){
+			retorno.add(tagArray[i]);
+		}
+		return retorno;
 	}
 
 }
