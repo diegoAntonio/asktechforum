@@ -119,9 +119,11 @@ public class Pergunta {
 	 */
 	private ArrayList<String> separaTags(String tag){
 		ArrayList<String> retorno = new ArrayList<String>();
-		String[] tagArray = tag.split(" ");
-		for(int i=0; i<tagArray.length; i++){
-			retorno.add(tagArray[i]);
+		if(tag != null) {
+			String[] tagArray = tag.split(" ");
+			for(int i=0; i<tagArray.length; i++){
+				retorno.add(tagArray[i]);
+			}
 		}
 		return retorno;
 	}
