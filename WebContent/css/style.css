@@ -312,16 +312,16 @@ footer a:hover {
 }
 
 
-.content_item .tags-list{	
-	background-color: #f8f8f8;
-	border: 1px solid #adc2d0;
-	color: #03D1FD;
-	display: inline-block;
-	font-size: .9em;
-	padding: 0 0.4em;
-	line-height: 1.45em;
-	border-radius: 5px;
-	list-style-type: none;
+.tags-list{	
+	background-color: #f8f8f8 !important;
+	border: 1px solid #adc2d0 !important;
+	color: #03D1FD !important;
+	display: inline-block !important;
+	font-size: .9em !important;
+	padding: 0 0.4em !important;
+	line-height: 1.45em !important;
+	border-radius: 5px !important;
+	list-style-type: none !important;
 }
 
 .form_settings_cadastro, .form_settings_perfil span {
