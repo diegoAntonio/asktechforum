@@ -11,6 +11,7 @@ public class Resposta {
 	private String descricao;
 	private int idUsuario;
 	private int idPergunta;
+	private int votos;
 	private Date data;
 	private Time hora;
 	private String strData;
@@ -100,6 +101,14 @@ public class Resposta {
 
 	public void setNomeUsuario(String nomeUsuario) {
 		this.nomeUsuario = nomeUsuario;
+	}
+
+	public int getVotos() {
+		return votos;
+	}
+
+	public void setVotos(int votos) {
+		this.votos = votos;
 	}
 
 }

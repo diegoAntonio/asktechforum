@@ -289,7 +289,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		
 		String sql = "SELECT p.descricao, COUNT( r.idResposta ) total, u.nome, p.idPergunta, p.titulo, p.tag, p.data, p.hora" +
 		" FROM usuario u LEFT JOIN pergunta p ON u.idUsuario = p.idUsuario 	LEFT JOIN resposta r ON p.idPergunta = r.idPergunta " +
-		" GROUP BY u.nome, p.idPergunta	ORDER BY p.data DESC LIMIT 0 , 15 ";
+		" GROUP BY u.nome, p.idPergunta	ORDER BY p.data DESC, p.hora DESC LIMIT 0 , 15 ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;

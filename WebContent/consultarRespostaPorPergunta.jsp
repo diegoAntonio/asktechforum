@@ -28,6 +28,11 @@
 						<output style="font-size: 11px; position: right;">Por: <c:out value="${resposta.nomeUsuario}"></c:out></output>
 						<p><output style="font-size: 9px; position: right;">Em: <c:out value="${resposta.data}"></c:out> às <c:out value="${resposta.hora}"></c:out></output><p>
 						
+						<form id= "formVotarResposta" action="ServletCadastroResposta">						 
+ 							<p><button id="like" onsubmit=""><img style="width:40px;" src="images/like.gif"></button>
+						</form>
+						
+ 						</br>Votos: ${resposta.votos}</p> 
 					</div>
 					<br /> 
 				</div>
