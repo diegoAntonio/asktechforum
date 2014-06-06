@@ -202,5 +202,26 @@ public class CadastroRespostaDAO implements CadastroResposta {
 
 		return resposta;
 	}
+	
+	public void adcionarVotoResposta(int id) throws SQLException{
+		String sql = "update resposta set votos = votos + 1 where idResposta = ?";
+		PreparedStatement stmt = null;
+		
+		try {
+			this.con = ConnectionUtil.getConnection();
+			stmt = con.prepareStatement(sql);
+			
+			int index = 0;
+			stmt.setInt(++index, id);	
+
+			stmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			stmt.close();
+			this.con.close();
+		}
+	}
 
 }

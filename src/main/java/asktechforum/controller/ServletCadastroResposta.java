@@ -1,6 +1,7 @@
 package asktechforum.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,6 +23,8 @@ import asktechforum.util.Util;
 public class ServletCadastroResposta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String SUCESSOCADASTRO = "usuarioAutenticado/cadastroRespostaSucesso.jsp";
+	private static final String PAGECONSULTARESPOSTAS = "consultarRespostaPorPergunta.jsp";
+	
 	private CadastroRespostaBC cadastro;
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,6 +38,25 @@ public class ServletCadastroResposta extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String idPergunta = (String)session.getAttribute("idPergunta");
+		request.setAttribute("descricao", session.getAttribute("descricao"));
+		request.setAttribute("autor", session.getAttribute("autor"));
+		request.setAttribute("titulo", session.getAttribute("titulo"));
+		
+		boolean isVotar = (boolean)session.getAttribute("isVotar");
+		String idResposta = request.getParameter("idR");
+		if(isVotar){
+			cadastro.adicionarVotoResposta(Integer.parseInt(idResposta));
+			
+			this.cadastro = new CadastroRespostaBC();
+
+			ArrayList<Resposta> resp = this.cadastro.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
+
+			RequestDispatcher view = request.getRequestDispatcher(PAGECONSULTARESPOSTAS);
+			request.setAttribute("resposta", resp);
+			view.forward(request, response);
+		}
 	}
 
 	/**
@@ -51,19 +73,18 @@ public class ServletCadastroResposta extends HttpServlet {
 		resposta.setStrHora(Util.getHoraSistema());
 		resposta.setIdPergunta(Integer.parseInt((String)session.getAttribute("idPergunta")));
 		resposta.setIdUsuario(usuario.getIdUsuario());
-		
-		
+
+
 		String retornoCadastroResposta = cadastro.adicionarResposta(resposta);
-		
+
 		if (retornoCadastroResposta != null && !retornoCadastroResposta.equals("cadastroSucesso")) {
-    		session.setAttribute("erroCadastroResposta",retornoCadastroResposta);
-    		request.setAttribute("resposta", resposta);
-    		request.getRequestDispatcher("usuarioAutenticado/responder.jsp" ).forward(request, response);
-    	}else{
-    		RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
-    		request.setAttribute("resposta", resposta);
-            view.forward(request, response);
-    	}
-		
+			session.setAttribute("erroCadastroResposta",retornoCadastroResposta);
+			request.setAttribute("resposta", resposta);
+			request.getRequestDispatcher("usuarioAutenticado/responder.jsp" ).forward(request, response);
+		}else{
+			RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
+			request.setAttribute("resposta", resposta);
+			view.forward(request, response);
+		}
 	}
 }
