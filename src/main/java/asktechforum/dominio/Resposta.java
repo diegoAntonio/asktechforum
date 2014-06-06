@@ -16,6 +16,7 @@ public class Resposta {
 	private String strData;
 	private String strHora;
 	private String nomeUsuario;
+	private String email;
 	
 	public Resposta() {
 	}
@@ -100,6 +101,14 @@ public class Resposta {
 
 	public void setNomeUsuario(String nomeUsuario) {
 		this.nomeUsuario = nomeUsuario;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

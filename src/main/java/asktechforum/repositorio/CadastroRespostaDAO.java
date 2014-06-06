@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.Resposta;
+import asktechforum.dominio.Usuario;
 import asktechforum.interfaces.CadastroResposta;
 import asktechforum.util.ConnectionUtil;
 
@@ -202,4 +204,101 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		return resposta;
 	}
 
+	/**
+	 * Método para consultar todos os usuários que contribuíram com alguma resposta 
+	 * @param id da pergunta
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<Usuario> consultarContribuintesPergunta(int id)
+			throws SQLException {
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();		
+		
+//		String sql = "SELECT distinct u.email, u.nome, r.idUsuario FROM usuario u, resposta r "+
+//				"WHERE idPergunta= "+ id + " and u.idUsuario = r.idUsuario ";
+//		
+		String sql =  "SELECT distinct u.email, u.nome, r.idUsuario, p.titulo FROM usuario u, resposta r, pergunta p " +
+		"WHERE p.idPergunta = r.idPergunta 	and p.idPergunta= "+ id +" and u.idUsuario = r.idUsuario ;";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			this.con = ConnectionUtil.getConnection();
+			stmt = con.prepareStatement(sql);
+
+			rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				Usuario u = new Usuario();
+				Pergunta p = new Pergunta();
+				
+				u.setIdUsuario(rs.getInt("idUsuario"));
+				u.setNome(rs.getString("nome"));
+				u.setEmail(rs.getString("email"));
+				p.setTitulo(rs.getString("titulo"));
+				
+				u.setPergunta(p);
+				usuarios.add(u);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			rs.close();
+			stmt.close();
+			this.con.close();
+		}
+
+		return usuarios;
+	}
+
+	
+	/**
+	 * Método para consultar todos os usuários que contribuíram com alguma resposta 
+	 * @param id da pergunta
+	 * @return
+	 * @throws SQLException
+	 */
+	public Usuario consultarAutorPergunta(int id)
+			throws SQLException {
+		Usuario usuario = new Usuario();
+		Pergunta pergunta = new Pergunta();
+		
+		String sql = "SELECT  u.email, u.nome, u.idUsuario,p.titulo FROM usuario u, pergunta p " +
+				"WHERE p.idUsuario = u.idUsuario and p.idPergunta = " + id;
+	
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			this.con = ConnectionUtil.getConnection();
+			stmt = con.prepareStatement(sql);
+
+			rs = stmt.executeQuery();
+			
+			if(rs.next()){
+				
+				usuario.setIdUsuario(rs.getInt("idUsuario"));
+				usuario.setEmail(rs.getString("email"));
+				usuario.setNome(rs.getString("nome"));
+				pergunta.setTitulo(rs.getString("titulo"));
+				usuario.setPergunta(pergunta);
+				
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			rs.close();
+			stmt.close();
+			this.con.close();
+		}
+
+		return usuario;
+	}
+	
+	
+	
 }

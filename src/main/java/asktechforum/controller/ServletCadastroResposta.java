@@ -18,11 +18,13 @@ import asktechforum.util.Util;
 /**
  * Servlet implementation class ServletCadastroResposta
  */
+
 @WebServlet("/ServletCadastroResposta")
 public class ServletCadastroResposta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String SUCESSOCADASTRO = "usuarioAutenticado/cadastroRespostaSucesso.jsp";
 	private CadastroRespostaBC cadastro;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -62,7 +64,8 @@ public class ServletCadastroResposta extends HttpServlet {
     	}else{
     		RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
     		request.setAttribute("resposta", resposta);
-            view.forward(request, response);
+        	cadastro.notificarContribuintesPerg(resposta.getIdPergunta(), resposta.getIdUsuario());
+    		view.forward(request, response);
     	}
 		
 	}

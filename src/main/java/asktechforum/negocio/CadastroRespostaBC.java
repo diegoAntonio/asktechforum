@@ -3,7 +3,9 @@ package asktechforum.negocio;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import asktechforum.dominio.Email;
 import asktechforum.dominio.Resposta;
+import asktechforum.dominio.Usuario;
 import asktechforum.interfaces.CadastroResposta;
 import asktechforum.repositorio.CadastroRespostaDAO;
 
@@ -42,6 +44,46 @@ public class CadastroRespostaBC implements CadastroResposta {
 		return retorno;
 	}
 
+	/** Método que envia email para todos os usuários que responderam uma pergunta e para o autor dessa pergunta.
+	 * Isso acontece quando uma nova resposta é cadastrada.
+	 * 
+	 * 
+	 * idUsuario é o id do usuário que acabou de responder. Fazer com isso o controle de não enviar ao última pessoa q respondeu a pergunta.
+	 * @param idPergunta
+	 */
+	public void notificarContribuintesPerg(int idPergunta, int idUsuario){
+		
+		try {
+			Usuario autorPergunta = cadastro.consultarAutorPergunta(idPergunta);
+			ArrayList<Usuario> usuarios = cadastro.consultarContribuintesPergunta(idPergunta);
+			
+			Email email = new Email();
+			
+			if(idUsuario != autorPergunta.getIdUsuario()){
+				email.sendEmailAutor(autorPergunta.getNome(), autorPergunta.getEmail(), autorPergunta.getPergunta().getTitulo());
+			}
+			
+		 for(int i = 0; i < usuarios.size(); i++){
+			 if(idUsuario != usuarios.get(i).getIdUsuario()){
+				 email.sendEmailAutor(usuarios.get(i).getNome(), usuarios.get(i).getEmail(), usuarios.get(i).getPergunta().getTitulo());
+			 }
+			 
+		 }
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
+	
+	
+	
+	
 	@Override
 	public void deletarResposta(int id) throws SQLException {
 		try {
