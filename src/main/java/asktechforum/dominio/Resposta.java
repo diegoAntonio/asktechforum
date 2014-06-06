@@ -11,6 +11,7 @@ public class Resposta {
 	private String descricao;
 	private int idUsuario;
 	private int idPergunta;
+	private int votos;
 	private Date data;
 	private Time hora;
 	private String strData;
@@ -103,12 +104,22 @@ public class Resposta {
 		this.nomeUsuario = nomeUsuario;
 	}
 
+
 	public String getEmail() {
 		return email;
 	}
-
+	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public int getVotos() {
+		return votos;
+	}
+
+	public void setVotos(int votos) {
+		this.votos = votos;
+
 	}
 
 }

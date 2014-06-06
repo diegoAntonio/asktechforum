@@ -67,11 +67,10 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.setAttribute("idPergunta", request.getParameter("idPergunta"));
-		String idPergunta = request.getParameter("idPergunta");
+		String idPergunta = (String)session.getAttribute("idPergunta");
 		String descricao = request.getParameter("descricao");
 		String autor = request.getParameter("autor");
 		String titulo = request.getParameter("titulo");
-		
 		
 		this.cadastro = new CadastroRespostaBC();
 

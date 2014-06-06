@@ -169,7 +169,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			throws SQLException {
 		ArrayList<Resposta> resposta = new ArrayList<Resposta>();		
 		
-		String sql = "SELECT u.nome, r.idResposta, r.descricao, r.idUsuario, r.idPergunta, r.data, r.hora FROM usuario u, resposta r	" +
+		String sql = "SELECT u.nome, r.idResposta, r.descricao, r.idUsuario, r.idPergunta, r.data, r.hora , r.votos FROM usuario u, resposta r	" +
 				"WHERE idPergunta=" + id + " and u.idUsuario = r.idUsuario order by data, hora ";
 		
 		PreparedStatement stmt = null;
@@ -190,6 +190,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 				r.setIdResposta(rs.getInt("idResposta"));
 				r.setIdUsuario(rs.getInt("idUsuario"));
 				r.setNomeUsuario(rs.getString("nome"));
+				r.setVotos(rs.getInt("votos"));
 				resposta.add(r);
 			}
 
@@ -202,6 +203,27 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		}
 
 		return resposta;
+	}
+	
+	public void adcionarVotoResposta(int id) throws SQLException{
+		String sql = "update resposta set votos = votos + 1 where idResposta = ?";
+		PreparedStatement stmt = null;
+		
+		try {
+			this.con = ConnectionUtil.getConnection();
+			stmt = con.prepareStatement(sql);
+			
+			int index = 0;
+			stmt.setInt(++index, id);	
+
+			stmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			stmt.close();
+			this.con.close();
+		}
 	}
 
 	/**

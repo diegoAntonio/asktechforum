@@ -153,5 +153,13 @@ public class CadastroRespostaBC implements CadastroResposta {
 		}
 		return lstResposta;
 	}
+	
+	public void adicionarVotoResposta(int id){
+		try {
+			cadastro.adcionarVotoResposta(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

@@ -7,7 +7,6 @@
 			<div class="content">	
         		<h1>Tags do Ask TechForum</h1>			
 				<div class="content_item">
-					<!--<ul>-->
 					<%
 							ArrayList<String> tags = (ArrayList<String>) request.getAttribute("tags"); 
 							for(String nomeTag : tags){
@@ -18,8 +17,7 @@
 						<br>
 						<br>
 					<% } %>
-					
-					<!--</ul>-->
+									
 				</div>
 			</div>
 		
