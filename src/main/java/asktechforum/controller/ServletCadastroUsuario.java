@@ -13,7 +13,7 @@ import asktechforum.dominio.Usuario;
 import asktechforum.negocio.UsuarioBC;
 
 /**
- * Implementação do Servlet de Cadastro de Usuario.
+ * Implementacao do Servlet de Cadastro de Usuario.
  */
 @WebServlet("/ServletCadastroUsuario")
 public class ServletCadastroUsuario extends HttpServlet {

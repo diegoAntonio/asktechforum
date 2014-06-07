@@ -14,7 +14,7 @@ public class CadastroRespostaBC implements CadastroResposta {
 
 	private CadastroRespostaDAO cadastro;
 	private ArrayList<Resposta> lstResposta;
-	
+
 
 	public CadastroRespostaBC() {
 		cadastro = new CadastroRespostaDAO();
@@ -52,38 +52,28 @@ public class CadastroRespostaBC implements CadastroResposta {
 	 * @param idPergunta
 	 */
 	public void notificarContribuintesPerg(int idPergunta, int idUsuario){
-		
+
 		try {
 			Usuario autorPergunta = cadastro.consultarAutorPergunta(idPergunta);
 			ArrayList<Usuario> usuarios = cadastro.consultarContribuintesPergunta(idPergunta);
-			
+
 			Email email = new Email();
-			
+
 			if(idUsuario != autorPergunta.getIdUsuario()){
 				email.sendEmailAutor(autorPergunta.getNome(), autorPergunta.getEmail(), autorPergunta.getPergunta().getTitulo());
 			}
-			
-		 for(int i = 0; i < usuarios.size(); i++){
-			 if(idUsuario != usuarios.get(i).getIdUsuario()){
-				 email.sendEmailAutor(usuarios.get(i).getNome(), usuarios.get(i).getEmail(), usuarios.get(i).getPergunta().getTitulo());
-			 }
-			 
-		 }
-			
-			
+
+			for(int i = 0; i < usuarios.size(); i++){
+				if(idUsuario != usuarios.get(i).getIdUsuario()){
+					email.sendEmailAutor(usuarios.get(i).getNome(), usuarios.get(i).getEmail(), usuarios.get(i).getPergunta().getTitulo());
+				}
+
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
 	}
-	
-	
-	
-	
-	
+
 	@Override
 	public void deletarResposta(int id) throws SQLException {
 		try {
@@ -153,7 +143,7 @@ public class CadastroRespostaBC implements CadastroResposta {
 		}
 		return lstResposta;
 	}
-	
+
 	public void adicionarVotoResposta(int id){
 		try {
 			cadastro.adcionarVotoResposta(id);

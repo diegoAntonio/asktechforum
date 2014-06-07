@@ -17,9 +17,8 @@ import asktechforum.negocio.CadastroRespostaBC;
 import asktechforum.util.Util;
 
 /**
- * Servlet implementation class ServletCadastroResposta
+ * Implementacao do Servlet de Cadastro de Resposta.
  */
-
 @WebServlet("/ServletCadastroResposta")
 public class ServletCadastroResposta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,16 +27,16 @@ public class ServletCadastroResposta extends HttpServlet {
 	
 	private CadastroRespostaBC cadastro;
 	
-    /**
-     * @see HttpServlet#HttpServlet()
+	/**
+     * Construtor do Servlet de Cadastro de Resposta.
      */
     public ServletCadastroResposta() {
         super();
         this.cadastro = new CadastroRespostaBC();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+	 * Implementacao do metodo doGet() Servlet de Cadastro de Resposta.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -62,7 +61,7 @@ public class ServletCadastroResposta extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Implementacao do metodo doPost() Servlet de Cadastro de Resposta.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Resposta resposta = new Resposta();

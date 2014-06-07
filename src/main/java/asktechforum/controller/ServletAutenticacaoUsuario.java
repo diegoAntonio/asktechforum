@@ -11,7 +11,9 @@ import javax.servlet.http.HttpSession;
 import asktechforum.dominio.Usuario;
 import asktechforum.negocio.UsuarioBC;
  
-
+/**
+ * Implementacao do Servlet de Autenticacao de Usuario.
+ */
 public class ServletAutenticacaoUsuario  extends HttpServlet {
     private static final long serialVersionUID = 7633293501883840556L;
     
@@ -21,13 +23,19 @@ public class ServletAutenticacaoUsuario  extends HttpServlet {
     public ServletAutenticacaoUsuario() {
         super();
     }
- 
+    
+    /**
+	 * Implementacao do metodo service() Servlet de Autenticacao de Usuario.
+	 */
     @Override
     protected void service(HttpServletRequest arg0, HttpServletResponse arg1)
     		throws ServletException, IOException {
     	super.service(arg0, arg1);
     }
     
+    /**
+	 * Implementacao do metodo doGet() Servlet de Autenticacao de Usuario.
+	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {         
         
         String logout = (String) request.getParameter("logout");          
@@ -40,7 +48,9 @@ public class ServletAutenticacaoUsuario  extends HttpServlet {
         }            
     }  
     
-    
+	/**
+	 * Implementacao do metodo doPost() Servlet de Autenticacao de Usuario.
+	 */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
                          throws ServletException, IOException{
  

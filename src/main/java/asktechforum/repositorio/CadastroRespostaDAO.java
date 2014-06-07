@@ -235,10 +235,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 	public ArrayList<Usuario> consultarContribuintesPergunta(int id)
 			throws SQLException {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();		
-		
-//		String sql = "SELECT distinct u.email, u.nome, r.idUsuario FROM usuario u, resposta r "+
-//				"WHERE idPergunta= "+ id + " and u.idUsuario = r.idUsuario ";
-//		
+				
 		String sql =  "SELECT distinct u.email, u.nome, r.idUsuario, p.titulo FROM usuario u, resposta r, pergunta p " +
 		"WHERE p.idPergunta = r.idPergunta 	and p.idPergunta= "+ id +" and u.idUsuario = r.idUsuario ;";
 		
@@ -275,7 +272,6 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		return usuarios;
 	}
 
-	
 	/**
 	 * Método para consultar todos os usuários que contribuíram com alguma resposta 
 	 * @param id da pergunta
@@ -320,7 +316,5 @@ public class CadastroRespostaDAO implements CadastroResposta {
 
 		return usuario;
 	}
-	
-	
 	
 }

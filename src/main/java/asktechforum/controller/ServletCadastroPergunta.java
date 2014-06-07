@@ -16,7 +16,7 @@ import asktechforum.negocio.CadastroPerguntaBC;
 import asktechforum.util.Util;
 
 /**
- * Servlet implementation class ServletCadastroPergunta
+ * Implementacao do Servlet de Cadastro de Pergunta.
  */
 @WebServlet("/ServletCadastroPergunta")
 public class ServletCadastroPergunta extends HttpServlet {
@@ -25,23 +25,21 @@ public class ServletCadastroPergunta extends HttpServlet {
 	private CadastroPerguntaBC cadastro;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+     * Construtor do Servlet de Cadastro de Pergunta.
+     */
 	public ServletCadastroPergunta() {
 		super();
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Implementacao do metodo doGet() Servlet de Cadastro de Pergunta.
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Implementacao do metodo doPost() Servlet de Cadastro de Pergunta.
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

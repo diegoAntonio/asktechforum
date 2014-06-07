@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import asktechforum.dominio.*;
 
 /**
- * Implementação do Servlet de Recuperar Senha.
+ * Implementacao do Servlet de Recuperar Senha.
  */
 @WebServlet("/ServletRecuperarSenha")
 public class ServletRecuperarSenha extends HttpServlet {
@@ -27,13 +27,13 @@ public class ServletRecuperarSenha extends HttpServlet {
     }
 
 	/**
-	 * Implementação do método doGet() de Recuperar Senha.
+	 * Implementacao do metodo doGet() de Recuperar Senha.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 
 	/**
-	 * Implementação do método doPost() de Recuperar Senha.
+	 * Implementacao do metodo doPost() de Recuperar Senha.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String emailPesquisado = request.getParameter("email");

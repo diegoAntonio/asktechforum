@@ -14,7 +14,7 @@ import asktechforum.dominio.Usuario;
 import asktechforum.negocio.UsuarioBC;
 
 /**
- * Implementação do Servlet de Exclusao de Usuario.
+ * Implementacao do Servlet de Exclusao de Usuario.
  */
 @WebServlet("/ServletExclusaoUsuario")
 public class ServletExclusaoUsuario extends HttpServlet {

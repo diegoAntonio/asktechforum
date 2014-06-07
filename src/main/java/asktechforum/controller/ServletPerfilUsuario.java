@@ -14,7 +14,7 @@ import asktechforum.dominio.Usuario;
 import asktechforum.negocio.UsuarioBC;
 
 /**
- * Implementação do Servlet de Perfil de Usuario.
+ * Implementacao do Servlet de Perfil de Usuario.
  */
 @WebServlet("/ServletPerfilUsuario")
 public class ServletPerfilUsuario extends HttpServlet {
@@ -24,7 +24,7 @@ public class ServletPerfilUsuario extends HttpServlet {
 	private UsuarioBC usuarioBC;
     
     /**
-     * Construtor do Servlet de Perfil de Usuário.
+     * Construtor do Servlet de Perfil de Usuario.
      */
     public ServletPerfilUsuario() {
         super();

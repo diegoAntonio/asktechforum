@@ -82,4 +82,5 @@ public class Usuario {
 	public void setPergunta(Pergunta pergunta) {
 		this.pergunta = pergunta;
 	}
+	
 }

@@ -15,7 +15,7 @@ import asktechforum.dominio.Resposta;
 import asktechforum.negocio.CadastroRespostaBC;
 
 /**
- * Servlet implementation class ServletConsultarRespostaPergunta
+ * Implementacao do Servlet de Consultar Respostas de Pergunta.
  */
 @WebServlet("/ServletConsultarRespostaPergunta")
 public class ServletConsultarRespostaPergunta extends HttpServlet {
@@ -23,22 +23,22 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 	private static final String RESULTADO_CONSULTA = "consultarRespostaPorPergunta.jsp";
 	private CadastroRespostaBC cadastro;
        
-    /**
-     * @see HttpServlet#HttpServlet()
+	/**
+     * Construtor do Servlet de Consultar Respostas de Pergunta.
      */
     public ServletConsultarRespostaPergunta() {
         super();
     }
 
 	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
+	 * Implementacao do metodo service() Servlet de Consultar Respostas de Pergunta.
 	 */
 	protected void service(HttpServletRequest arg0, HttpServletResponse arg1) throws ServletException, IOException {
 		super.service(arg0, arg1);
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Implementacao do metodo doGet() Servlet de Consultar Respostas de Pergunta.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -62,7 +62,7 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Implementacao do metodo doPost() Servlet de Consultar Respostas de Pergunta.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
