@@ -151,5 +151,13 @@ public class CadastroRespostaBC implements CadastroResposta {
 			e.printStackTrace();
 		}
 	}
+	
+	public void removerVotoResposta(int id){
+		try {
+			cadastro.removerVotoResposta(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

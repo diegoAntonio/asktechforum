@@ -28,7 +28,16 @@
 			</div>
 	</div>
 	<div id="site_content">		
+		<%
+			int aux = 0;
+			int idResposta;
+		%>
 		<c:forEach items="${resposta}" var="resposta">
+			<%
+				ArrayList<Resposta> respostas = (ArrayList<Resposta>)request.getAttribute("resposta");
+				idResposta = respostas.get(aux).getIdResposta();
+				aux++;
+			%>
 			<div class="content">
 				<div class="content_item">
 					<div  style="width: 900px;" class="form_settings_cadastro">
@@ -36,21 +45,34 @@
 						    <c:out value="${resposta.descricao}"></c:out>						
 							<span style="float: right; font-weight:bold;">
 							   	<%
-						           	usuarioLogado = (Usuario)session.getAttribute("usuarioLogado");
-						          	if(usuarioLogado != null) {
-						         %>
-										<a href="<%=getServletContext().getContextPath()%>/ServletCadastroResposta?idR=${resposta.idResposta}">
-										<img style="width:40px;" src="images/like.gif"></a>
-								
-								<% }								
+							   		VotoBC votoBC = new VotoBC();
+							   	   	usuarioLogado = (Usuario)session.getAttribute("usuarioLogado");
+							   	   	
+						   	 		if(usuarioLogado != null) {
+						   				Boolean liked = votoBC.consultarUsuarioVoto(usuarioLogado.getIdUsuario(), idResposta);
+						   				
+					          			if(liked == false) {
+						          			liked = true;
+					       		%>
+											<a href="<%=getServletContext().getContextPath()%>/ServletCadastroResposta?idR=${resposta.idResposta}&idUser=<%=usuarioLogado.getIdUsuario()%>&liked=<%=liked%>">
+											<img style="width:40px;" src="images/dislike.gif"></a>
+								<%
+						        		}else if(liked == true) {
+							          		liked = false;
+								%>	
+											<a href="<%=getServletContext().getContextPath()%>/ServletCadastroResposta?idR=${resposta.idResposta}&idUser=<%=usuarioLogado.getIdUsuario()%>&liked=<%=liked%>">
+											<img style="width:40px;" src="images/like.gif"></a>
+								<%
+										}
+						          	}								
 	 								if(idPergunta != null) {
 		 								session.setAttribute("idPergunta", idPergunta);
 		 							}
-		 								session.setAttribute("isVotar", true);
-										session.setAttribute("descricao", perguntaTitulo);
-										session.setAttribute("autor", perguntaAutor);
-										session.setAttribute("titulo", perguntaDescricao);
-									%>
+	 								session.setAttribute("isVotar", true);
+									session.setAttribute("descricao", perguntaTitulo);
+									session.setAttribute("autor", perguntaAutor);
+									session.setAttribute("titulo", perguntaDescricao);
+								%>
 	 							<br>Votos: ${resposta.votos}
 							</span>						
 						<p>

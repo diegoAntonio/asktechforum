@@ -225,6 +225,27 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			this.con.close();
 		}
 	}
+	
+	public void removerVotoResposta(int id) throws SQLException{
+		String sql = "update resposta set votos = votos - 1 where idResposta = ?";
+		PreparedStatement stmt = null;
+		
+		try {
+			this.con = ConnectionUtil.getConnection();
+			stmt = con.prepareStatement(sql);
+			
+			int index = 0;
+			stmt.setInt(++index, id);	
+
+			stmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			stmt.close();
+			this.con.close();
+		}
+	}
 
 	/**
 	 * Método para consultar todos os usuários que contribuíram com alguma resposta 
