@@ -25,6 +25,4 @@ public class ResultConsultarPergunta extends Pergunta {
 		this.qtdResposta = qtdResposta;
 	}
 	
-	
-
 }

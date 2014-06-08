@@ -15,7 +15,7 @@ import asktechforum.dominio.Usuario;
 import asktechforum.negocio.UsuarioBC;
 
 /**
- * Implementação do Servlet de Pesquisa de Usuario.
+ * Implementacao do Servlet de Pesquisa de Usuario.
  */
 @WebServlet("/ServletPesquisaUsuario")
 public class ServletPesquisaUsuario extends HttpServlet {
@@ -25,7 +25,7 @@ public class ServletPesquisaUsuario extends HttpServlet {
     private UsuarioBC usuarioBC;
        
     /**
-     * Construtor do Servlet de Pesquisa de Usuário.
+     * Construtor do Servlet de Pesquisa de Usuario.
      */
     public ServletPesquisaUsuario() {
         super();

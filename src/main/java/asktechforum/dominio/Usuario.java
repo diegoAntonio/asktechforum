@@ -12,6 +12,7 @@ public class Usuario {
 	private String senha;
 	private String confSenha;
 	private String dataString;
+	private Pergunta pergunta;
 	
 	public Usuario() {
 	}
@@ -73,4 +74,13 @@ public class Usuario {
 	public void setDataString(String dataString) {
 		this.dataString = dataString;
 	}
+
+	public Pergunta getPergunta() {
+		return pergunta;
+	}
+
+	public void setPergunta(Pergunta pergunta) {
+		this.pergunta = pergunta;
+	}
+	
 }

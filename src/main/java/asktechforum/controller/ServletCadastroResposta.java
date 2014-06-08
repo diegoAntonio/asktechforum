@@ -14,10 +14,11 @@ import javax.servlet.http.HttpSession;
 import asktechforum.dominio.Resposta;
 import asktechforum.dominio.Usuario;
 import asktechforum.negocio.CadastroRespostaBC;
+import asktechforum.negocio.VotoBC;
 import asktechforum.util.Util;
 
 /**
- * Servlet implementation class ServletCadastroResposta
+ * Implementacao do Servlet de Cadastro de Resposta.
  */
 @WebServlet("/ServletCadastroResposta")
 public class ServletCadastroResposta extends HttpServlet {
@@ -27,16 +28,19 @@ public class ServletCadastroResposta extends HttpServlet {
 	private static final String PAGECONSULTARESPOSTAS = "consultarRespostaPorPergunta.jsp";
 	
 	private CadastroRespostaBC cadastro;
-    /**
-     * @see HttpServlet#HttpServlet()
+	private VotoBC votoBC;
+	
+	/**
+     * Construtor do Servlet de Cadastro de Resposta.
      */
     public ServletCadastroResposta() {
         super();
         this.cadastro = new CadastroRespostaBC();
+        this.votoBC = new VotoBC();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+	 * Implementacao do metodo doGet() Servlet de Cadastro de Resposta.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -46,22 +50,49 @@ public class ServletCadastroResposta extends HttpServlet {
 		request.setAttribute("titulo", session.getAttribute("titulo"));
 		
 		boolean isVotar = (boolean)session.getAttribute("isVotar");
+		boolean liked = true;
+		
+		if(request.getParameter("liked").equals("true")) {
+			liked = true;
+		}else if(request.getParameter("liked").equals("false")) {
+			liked = false;
+		}
 		String idResposta = request.getParameter("idR");
+		String idUsuario = request.getParameter("idUser");
+		
 		if(isVotar){
-			cadastro.adicionarVotoResposta(Integer.parseInt(idResposta));
-			
-			this.cadastro = new CadastroRespostaBC();
-
-			ArrayList<Resposta> resp = this.cadastro.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
-
-			RequestDispatcher view = request.getRequestDispatcher(PAGECONSULTARESPOSTAS);
-			request.setAttribute("resposta", resp);
-			view.forward(request, response);
+			if(liked) {
+				
+				cadastro.adicionarVotoResposta(Integer.parseInt(idResposta));
+				this.votoBC.adicionarVotoUsuario(Integer.parseInt(idUsuario), Integer.parseInt(idResposta));
+				
+				this.cadastro = new CadastroRespostaBC();
+	
+				ArrayList<Resposta> resp = this.cadastro.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
+	
+				RequestDispatcher view = request.getRequestDispatcher(PAGECONSULTARESPOSTAS);
+				request.setAttribute("resposta", resp);
+				view.forward(request, response);
+				
+			}else {
+				
+				cadastro.removerVotoResposta(Integer.parseInt(idResposta));
+				this.votoBC.deletarUsuarioVoto(Integer.parseInt(idUsuario), Integer.parseInt(idResposta));
+				
+				this.cadastro = new CadastroRespostaBC();
+	
+				ArrayList<Resposta> resp = this.cadastro.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
+	
+				RequestDispatcher view = request.getRequestDispatcher(PAGECONSULTARESPOSTAS);
+				request.setAttribute("resposta", resp);
+				view.forward(request, response);
+				
+			}
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Implementacao do metodo doPost() Servlet de Cadastro de Resposta.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Resposta resposta = new Resposta();
@@ -80,6 +111,7 @@ public class ServletCadastroResposta extends HttpServlet {
 
 			String retornoCadastroResposta = cadastro
 					.adicionarResposta(resposta);
+
 
 			if (retornoCadastroResposta != null
 					&& !retornoCadastroResposta.equals("cadastroSucesso")) {
@@ -111,5 +143,6 @@ public class ServletCadastroResposta extends HttpServlet {
 				view.forward(request, response);
 			}
 		}
+
 	}
 }

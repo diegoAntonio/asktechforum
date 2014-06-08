@@ -15,7 +15,7 @@ import asktechforum.dominio.ResultConsultarPergunta;
 import asktechforum.negocio.CadastroPerguntaBC;
 
 /**
- * Servlet implementation class ServletConsultarPerguntaPorTag
+ * Implementacao do Servlet de Consultar Pergunta por Tag.
  */
 @WebServlet("/ServletConsultarPerguntaPorTag")
 public class ServletConsultarPerguntaPorTag extends HttpServlet {
@@ -26,20 +26,24 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	private static final String TODAS_AS_TAGS = "consultaTodas_asTags.jsp";
 	private CadastroPerguntaBC cadastro;
 
-    /**
-     * @see HttpServlet#HttpServlet()
+	/**
+     * Construtor do Servlet de Consultar Pergunta por Tag.
      */
     public ServletConsultarPerguntaPorTag() {
         super();
     }
+    
+    /**
+	 * Implementacao do metodo service() Servlet de Consultar Pergunta por Tag.
+	 */
     @Override
     protected void service(HttpServletRequest arg0, HttpServletResponse arg1)
     		throws ServletException, IOException {
     	super.service(arg0, arg1);
     }
     
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+	 * Implementacao do metodo doGet() Servlet de Consultar Pergunta por Tag.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -72,7 +76,7 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Implementacao do metodo doPost() Servlet de Consultar Pergunta por Tag.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String tag = request.getParameter("tag");

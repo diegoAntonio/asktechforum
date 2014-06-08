@@ -1,6 +1,5 @@
 package filtro;
 
-
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -23,28 +22,24 @@ import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Usuario;
 
-	
-	public class ControleAcesso implements Filter {
-		
-      public void init(FilterConfig config) throws ServletException {
-      }
+public class ControleAcesso implements Filter {
 
-      public void doFilter(ServletRequest req, ServletResponse res,
-    		  FilterChain chain) throws IOException, ServletException {
+	public void init(FilterConfig config) throws ServletException {
+	}
 
-    	  HttpSession session = ((HttpServletRequest)req).getSession();
-    	  Usuario usuario = (Usuario)session.getAttribute("usuarioLogado");
-    	  if(usuario==null){
-    		  ((HttpServletResponse)res).sendRedirect("../acessoNegado.jsp");
-    	  }else{
-    		  chain.doFilter(req, res);
-    	  }
-      } 
-      public void destroy() {
+	public void doFilter(ServletRequest req, ServletResponse res,
+			FilterChain chain) throws IOException, ServletException {
 
-      }
+		HttpSession session = ((HttpServletRequest)req).getSession();
+		Usuario usuario = (Usuario)session.getAttribute("usuarioLogado");
+		if(usuario==null){
+			((HttpServletResponse)res).sendRedirect("../acessoNegado.jsp");
+		}else{
+			chain.doFilter(req, res);
+		}
+	} 
+	public void destroy() {
+
+	}
 
 }
-
- 
-
