@@ -22,6 +22,7 @@ import asktechforum.util.Util;
 public class ServletCadastroPergunta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final String SUCESSOCADASTRO = "usuarioAutenticado/cadastroPerguntaSucesso.jsp";
+	private final String SUCESSOALTERAR = "usuarioAutenticado/alterarPerguntaSucesso.jsp";
 	private CadastroPerguntaBC cadastro;
 
 	/**
@@ -57,17 +58,44 @@ public class ServletCadastroPergunta extends HttpServlet {
 		pergunta.setTitulo(request.getParameter("titulo"));
 		pergunta.setIdUsuario(usuario.getIdUsuario());
 		pergunta.setTag(request.getParameter("tag"));
-		String retornoCadastroPergunta = cadastro.adcionarPergunta(pergunta);
-		
-		if (retornoCadastroPergunta != null && !retornoCadastroPergunta.equals("cadastroSucesso")) {
-    		session.setAttribute("erroCadastroPergunta",retornoCadastroPergunta);
-    		request.setAttribute("pergunta", pergunta);
-    		request.getRequestDispatcher("usuarioAutenticado/CadastroPergunta.jsp" ).forward(request, response);
-    	}else{
-			RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
-			request.setAttribute("pergunta", pergunta);
-			view.forward(request, response);
-    	}
+		String flag = request.getParameter("flag");
+		if (flag.contentEquals("cadastrar")) {
+			String retornoCadastroPergunta = cadastro
+					.adcionarPergunta(pergunta);
+
+			if (retornoCadastroPergunta != null
+					&& !retornoCadastroPergunta.equals("cadastroSucesso")) {
+				session.setAttribute("erroCadastroPergunta",
+						retornoCadastroPergunta);
+				request.setAttribute("pergunta", pergunta);
+				request.getRequestDispatcher(
+						"usuarioAutenticado/CadastroPergunta.jsp").forward(
+						request, response);
+			} else {
+				RequestDispatcher view = request
+						.getRequestDispatcher(SUCESSOCADASTRO);
+				request.setAttribute("pergunta", pergunta);
+				view.forward(request, response);
+			}
+			
+		}else if(flag.contains("alterar")){
+			String retornoAlteracaoPergunta = cadastro.alterarPergunta(pergunta);					
+
+			if (retornoAlteracaoPergunta != null
+					&& !retornoAlteracaoPergunta.equals("alteracaoSucesso")) {
+				session.setAttribute("erroCadastroPergunta",
+						retornoAlteracaoPergunta);
+				request.setAttribute("pergunta", pergunta);
+				request.getRequestDispatcher(
+						"usuarioAutenticado/AlterarPergunta.jsp").forward(
+						request, response);
+			} else {
+				RequestDispatcher view = request
+						.getRequestDispatcher(SUCESSOALTERAR);
+				request.setAttribute("pergunta", pergunta);
+				view.forward(request, response);
+			}
+		}
 
 	}
 

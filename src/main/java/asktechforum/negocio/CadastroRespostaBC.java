@@ -22,17 +22,8 @@ public class CadastroRespostaBC implements CadastroResposta {
 	public String adicionarResposta(Resposta resposta) {
 		String retorno = "";
 		try {
-			if (resposta.getData() == null) {
-				retorno = "Erro no sistema. Tente novamente em instantes.";
-			} else if (resposta.getDescricao() == null || resposta.getDescricao().trim().equals("")) {
-				retorno = "Preencha o campo 'Descrição' com dados válidos";
-			} else if (resposta.getHora() == null) {
-				retorno = "Erro no sistema. Tente novamente em instantes.";
-			} else if (resposta.getIdPergunta() == 0) {
-				retorno = "Erro no sistema. Tente novamente em instantes.";
-			} else if (resposta.getIdUsuario() == 0) {
-				retorno = "Erro no sistema. Tente novamente em instantes.";
-			} else {
+			String s = this.verificaCampos(resposta);
+			 if(s.length()!=0){
 				retorno = cadastro.adicionarResposta(resposta);
 
 			}
@@ -118,6 +109,37 @@ public class CadastroRespostaBC implements CadastroResposta {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public String alterarResposta(Resposta resposta){
+		String retorno = "";
+		try {
+			String s = this.verificaCampos(resposta);
+			 if(s.length()!=0){
+				retorno = cadastro.alterarResposta(resposta);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return retorno;
+	}
+	
+	private String verificaCampos(Resposta resposta){
+		String retorno = "";
+		if (resposta.getData() == null) {
+			retorno = "Erro no sistema. Tente novamente em instantes.";
+		} else if (resposta.getDescricao() == null || resposta.getDescricao().trim().equals("")) {
+			retorno = "Preencha o campo 'Descrição' com dados válidos";
+		} else if (resposta.getHora() == null) {
+			retorno = "Erro no sistema. Tente novamente em instantes.";
+		} else if (resposta.getIdPergunta() == 0) {
+			retorno = "Erro no sistema. Tente novamente em instantes.";
+		} else if (resposta.getIdUsuario() == 0) {
+			retorno = "Erro no sistema. Tente novamente em instantes.";
+		}
+		return retorno;
 	}
 
 }

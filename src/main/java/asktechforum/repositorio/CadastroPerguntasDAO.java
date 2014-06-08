@@ -353,4 +353,34 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		return pergunta;
 	}
 
+	@Override
+	public String alterarPergunta(Pergunta pergunta) throws SQLException {
+		String retorno = "alteracaoSucesso";
+
+		String sql = "update PERGUNTA set (titulo=?, data=?, hora=?, descricao=?, idUsuario=?, tag=?)  where idPergunta = ?";
+		PreparedStatement stmt = null;
+		this.con = ConnectionUtil.getConnection();
+		try {
+			stmt = this.con.prepareStatement(sql);
+			int index = 0;
+			stmt.setString(++index, pergunta.getTitulo());
+			stmt.setDate(++index, pergunta.getData());
+			stmt.setTime(++index, pergunta.getHora());
+			stmt.setString(++index, pergunta.getDescricao());
+			stmt.setInt(++index, pergunta.getIdUsuario());
+			stmt.setString(++index, pergunta.getTag());
+			stmt.setInt(++index, pergunta.getIdPergunta());
+
+			stmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			stmt.close();
+			this.con.close();
+		}
+		
+		return retorno;
+	}
+
 }

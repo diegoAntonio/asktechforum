@@ -224,4 +224,32 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		}
 	}
 
+	@Override
+	public String alterarResposta(Resposta resposta) throws SQLException {
+		String retorno = "cadastroSucesso";
+		String sql = "update RESPOSTA set (descricao=?, idUsuario=?, idPergunta=?, data=?, hora=?) where idResposta = ?";
+		PreparedStatement stmt = null;
+		
+		try {
+			this.con = ConnectionUtil.getConnection();
+			stmt = con.prepareStatement(sql);
+			int index = 0;
+			stmt.setString(++index, resposta.getDescricao());
+			stmt.setInt(++index, resposta.getIdUsuario());
+			stmt.setInt(++index, resposta.getIdPergunta());
+			stmt.setDate(++index, resposta.getData());
+			stmt.setTime(++index, resposta.getHora());
+			stmt.setInt(++index, resposta.getIdResposta());
+
+			stmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			stmt.close();
+			this.con.close();
+		}
+		return retorno;
+	}
+
 }

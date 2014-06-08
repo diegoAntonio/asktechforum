@@ -18,6 +18,8 @@ public interface CadastroPergunta {
 			throws SQLException ;
 	public ArrayList<ResultConsultarPergunta> consultarPerguntaPorTodasTags()
 			throws SQLException ;
+	public String alterarPergunta(Pergunta pergunta)
+			throws SQLException ;
 	
 	
 }

@@ -8,7 +8,7 @@
 	<input type="hidden" value="cadastrar" id="flag">
 	<div id="site_content">
 		<div class="content">
-			<h1>Faça a sua pergunta</h1>
+			<h1>Altere a sua pergunta</h1>
 			<div class="content_item">
 				<div style="height: 450px; width: 300px;" class="form_settings_cadastro">
 					<p>

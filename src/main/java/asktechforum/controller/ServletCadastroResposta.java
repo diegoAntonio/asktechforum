@@ -23,6 +23,7 @@ import asktechforum.util.Util;
 public class ServletCadastroResposta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String SUCESSOCADASTRO = "usuarioAutenticado/cadastroRespostaSucesso.jsp";
+	private static final String SUCESSOALTERACAO = "usuarioAutenticado/alterarPerguntaSucesso.jsp";
 	private static final String PAGECONSULTARESPOSTAS = "consultarRespostaPorPergunta.jsp";
 	
 	private CadastroRespostaBC cadastro;
@@ -73,18 +74,42 @@ public class ServletCadastroResposta extends HttpServlet {
 		resposta.setStrHora(Util.getHoraSistema());
 		resposta.setIdPergunta(Integer.parseInt((String)session.getAttribute("idPergunta")));
 		resposta.setIdUsuario(usuario.getIdUsuario());
+		String flag = request.getParameter("alterar");
 
+		if (flag.contentEquals("cadastrar")) {
 
-		String retornoCadastroResposta = cadastro.adicionarResposta(resposta);
+			String retornoCadastroResposta = cadastro
+					.adicionarResposta(resposta);
 
-		if (retornoCadastroResposta != null && !retornoCadastroResposta.equals("cadastroSucesso")) {
-			session.setAttribute("erroCadastroResposta",retornoCadastroResposta);
-			request.setAttribute("resposta", resposta);
-			request.getRequestDispatcher("usuarioAutenticado/responder.jsp" ).forward(request, response);
-		}else{
-			RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);
-			request.setAttribute("resposta", resposta);
-			view.forward(request, response);
+			if (retornoCadastroResposta != null
+					&& !retornoCadastroResposta.equals("cadastroSucesso")) {
+				session.setAttribute("erroCadastroResposta",
+						retornoCadastroResposta);
+				request.setAttribute("resposta", resposta);
+				request.getRequestDispatcher("usuarioAutenticado/responder.jsp")
+						.forward(request, response);
+			} else {
+				RequestDispatcher view = request
+						.getRequestDispatcher(SUCESSOCADASTRO);
+				request.setAttribute("resposta", resposta);
+				view.forward(request, response);
+			}
+		} else if (flag.contentEquals("alterar")) {
+			String retornoAlterarResposta = cadastro
+					.alterarResposta(resposta);
+			if (retornoAlterarResposta != null
+					&& !retornoAlterarResposta.equals("alteracaoSucesso")) {
+				session.setAttribute("erroCadastroResposta",
+						retornoAlterarResposta);
+				request.setAttribute("resposta", resposta);
+				request.getRequestDispatcher("usuarioAutenticado/responder.jsp")
+						.forward(request, response);
+			} else {
+				RequestDispatcher view = request
+						.getRequestDispatcher(SUCESSOALTERACAO);
+				request.setAttribute("resposta", resposta);
+				view.forward(request, response);
+			}
 		}
 	}
 }

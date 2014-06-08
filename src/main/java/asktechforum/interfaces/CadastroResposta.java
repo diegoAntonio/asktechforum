@@ -15,5 +15,6 @@ public interface CadastroResposta {
 	public ArrayList<Resposta> consultarTodasRespostas() throws SQLException;
 	public ArrayList<Resposta> consultarRespostaPorPergunta(int id)
 			throws SQLException;
+	public String alterarResposta(Resposta resposta) throws SQLException;
 	
 }

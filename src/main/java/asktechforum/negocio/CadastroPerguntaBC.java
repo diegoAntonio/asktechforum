@@ -22,22 +22,10 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 	public String adcionarPergunta(Pergunta pergunta)  {
 		String retorno = "";
 		try {
-			if (pergunta.getData() == null) {
-				retorno = "Erro no sistema. Tente novamente em instantes.";
-			} else if (pergunta.getDescricao() == null ||  pergunta.getDescricao().trim().equals("")) {
-				retorno = "Preencha o campo 'Descrição' com dados válidos";
-			} else if (pergunta.getHora() == null) {
-				retorno = "Erro no sistema. Tente novamente em instantes.";
-			} else if (pergunta.getTitulo() == null ||  pergunta.getTitulo().trim().equals("")) {
-				retorno = "Preencha o campo 'Pergunta' com dados válidos";
-			} else if (pergunta.getIdUsuario() == 0) {
-				retorno = "Erro no sistema. Tente novamente em instantes.";
-			} else if (pergunta.getTag() == null || pergunta.getTag().trim().equals("")) {
-				retorno = "Preencha o campo 'Assuntos relacionados' com dados válidos";
-			}else {
+			String s = this.verificaCampos(pergunta);
+			if (s.length()==0) {
 				retorno= cadastro.adcionarPergunta(pergunta);
 			}
-			
 			          
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -162,4 +150,40 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 		return null;
 	}
 
+	@Override
+	public String alterarPergunta(Pergunta pergunta)
+			 {
+		String retorno = "";
+		try {
+			String s = this.verificaCampos(pergunta);
+			if (s.length()!=0) {
+				retorno = cadastro.alterarPergunta(pergunta);
+			}
+			          
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return retorno;
+		
+	}
+	
+	private String verificaCampos(Pergunta pergunta){
+		String retorno = "";
+		if (pergunta.getData() == null) {
+			retorno = "Erro no sistema. Tente novamente em instantes.";
+		} else if (pergunta.getDescricao() == null ||  pergunta.getDescricao().trim().equals("")) {
+			retorno = "Preencha o campo 'Descrição' com dados válidos";
+		} else if (pergunta.getHora() == null) {
+			retorno = "Erro no sistema. Tente novamente em instantes.";
+		} else if (pergunta.getTitulo() == null ||  pergunta.getTitulo().trim().equals("")) {
+			retorno = "Preencha o campo 'Pergunta' com dados válidos";
+		} else if (pergunta.getIdUsuario() == 0) {
+			retorno = "Erro no sistema. Tente novamente em instantes.";
+		} else if (pergunta.getTag() == null || pergunta.getTag().trim().equals("")) {
+			retorno = "Preencha o campo 'Assuntos relacionados' com dados válidos";
+		}	
+		return retorno;
+		
+	}
 }
