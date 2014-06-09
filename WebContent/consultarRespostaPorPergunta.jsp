@@ -28,13 +28,13 @@
 				&nbsp;&nbsp;&nbsp;<output name="descricao" style="margin-left: 5px;"><%=perguntaTitulo%></output>
 				<br>
 				<br>
-				<p>
+				<p>&nbsp;&nbsp;&nbsp;
  		     <% 	if((usuarioLogado != null && usuarioLogado.getNome().equals(perguntaAutor))) { %>
-					&nbsp;&nbsp;&nbsp;<input id="submitMenor" value="Alterar" type="submit" name="alterarPergunta"/>	
+					<input id="submitMenor" value="Alterar" type="submit" name="alterarPergunta"/>	
  					<%} 
 					if((usuarioLogado != null && usuarioLogado.isAdmin()) ||  
 							(usuarioLogado != null && usuarioLogado.getNome().equals(perguntaAutor))) { %>											    		
-					&nbsp;&nbsp;&nbsp;<input id="submitMenor" value="Excluir" type="submit" name="excluirPergunta"/>	    		
+					<input id="submitMenor" value="Excluir" type="submit" name="excluirPergunta"/>	    		
  					<%} %> 
 						<input type="hidden" value="<%=idPergunta%>" name="idPerguntaSelecionada"> 
 				</p>

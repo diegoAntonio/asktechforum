@@ -10,7 +10,7 @@
 		<div class="content">
 			<h1>Faça a sua pergunta</h1>
 			<div class="content_item">
-				<div style="height: 450px; width: 300px;" class="form_settings_cadastro">
+				<div style="height: 500px; width: 300px;" class="form_settings_cadastro">
 					<p>
 						<span>Pergunta* </span>
 						<input class="contact"  value="${pergunta.titulo}" type="text" name="titulo" id="titulo" />
