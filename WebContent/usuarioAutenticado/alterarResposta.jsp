@@ -13,8 +13,8 @@
 				<div style="height: 320px; width: 300px;" class="form_settings_cadastro">
 					<p>
 						<span>Descrição </span>
-						<textarea class="contact"  name="descricao" rows="8" cols="20" >${resposta.descricao}</textarea>
-						
+						<textarea class="contact"  name="descricao" rows="8" cols="20" >${resposta.descricao}</textarea>	
+							
 						<c:if test="${empty erroCadastroResposta}">
 						<% session.setAttribute("erroCadastroResposta", ""); %>
 						</c:if>
@@ -22,7 +22,7 @@
 					
 					<p style="font-size: 12px; color: red;" id= msg><%=session.getAttribute("erroCadastroResposta")%></p>
 					
-					<input type="hidden" value="alterar" name="alterar"> 
+					<input type="hidden" value="alterar" name="acao"> 
 					
 					<p style="color:red; font-size:12px;">O campo Descrição é obrigatório.</p> 
 					<input class="submit" value="Enviar" type="submit" /> 

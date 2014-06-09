@@ -20,18 +20,20 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 
 	@Override
 	public String adcionarPergunta(Pergunta pergunta)  {
-		String retorno = "";
+		String msg = "";
 		try {
-			String s = this.verificaCampos(pergunta);
-			if (s.length()==0) {
-				retorno= cadastro.adcionarPergunta(pergunta);
+			String msgErro = this.verificaCampos(pergunta);
+			if (msgErro.length()==0) {
+				msg= cadastro.adcionarPergunta(pergunta);
+			}else{
+				msg= msgErro;
 			}
 			          
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return retorno;
+		return msg;
 
 	}
 
@@ -153,18 +155,20 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 	@Override
 	public String alterarPergunta(Pergunta pergunta)
 			 {
-		String retorno = "";
+		String msg = "";
 		try {
-			String s = this.verificaCampos(pergunta);
-			if (s.length()!=0) {
-				retorno = cadastro.alterarPergunta(pergunta);
+			String msgErro = this.verificaCampos(pergunta);
+			if (msgErro.equals("")) {
+				msg = cadastro.alterarPergunta(pergunta);
+			}else{
+				msg = msgErro;
 			}
 			          
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return retorno;
+		return msg;
 		
 	}
 	

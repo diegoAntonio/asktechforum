@@ -7,7 +7,7 @@
 		<div class="content_item">
 			<div class="form_settings_perfil">
 				<form action="<%=getServletContext().getContextPath()%>/index.jsp">
-					<h2>Resposta alterada com sucesso!</h2>
+					<h2>Resposta excluída com sucesso!</h2>
 					<p>
 						<button class="submit" >Voltar</button>
 					</p>

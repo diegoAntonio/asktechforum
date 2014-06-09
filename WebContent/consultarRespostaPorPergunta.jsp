@@ -1,6 +1,7 @@
 <%@ include file="cabecalho.jsp"%>
 
 <%
+    
 	String idPergunta = request.getParameter("idPergunta");
 	String perguntaDescricao = request.getParameter("titulo");
 	String perguntaAutor = request.getParameter("autor");
@@ -11,6 +12,8 @@
 		perguntaAutor = (String)request.getAttribute("autor");
 		perguntaTitulo = (String)request.getAttribute("descricao");
 	}
+	
+	
 %>
 
 <form id="formConsultarRespostaPorPergunta"
@@ -31,11 +34,13 @@
 		<%
 			int aux = 0;
 			int idResposta;
+			int idAutorResposta;
 		%>
 		<c:forEach items="${resposta}" var="resposta">
 			<%
 				ArrayList<Resposta> respostas = (ArrayList<Resposta>)request.getAttribute("resposta");
 				idResposta = respostas.get(aux).getIdResposta();
+				idAutorResposta = respostas.get(aux).getIdUsuario();
 				aux++;
 			%>
 			<div class="content">
@@ -46,8 +51,7 @@
 							<span style="float: right; font-weight:bold;">
 							   	<%
 							   		VotoBC votoBC = new VotoBC();
-							   	   	usuarioLogado = (Usuario)session.getAttribute("usuarioLogado");
-							   	   	
+							   	    usuarioLogado = (Usuario)session.getAttribute("usuarioLogado");
 						   	 		if(usuarioLogado != null) {
 						   				Boolean liked = votoBC.consultarUsuarioVoto(usuarioLogado.getIdUsuario(), idResposta);
 						   				
@@ -80,6 +84,21 @@
 							<br>						
 							<output style="font-size: 9px; position: right;">Em: <c:out value="${resposta.data}"></c:out> às <c:out value="${resposta.hora}"></c:out></output>
 						</p>
+						
+						
+						
+						<p>
+						<% 	if((usuarioLogado != null && usuarioLogado.getIdUsuario() == idAutorResposta)) { %>
+								<input id="submitMenor" value="Alterar" type="submit" name="alterarResposta"/>	
+							<%}
+								if((usuarioLogado != null && usuarioLogado.isAdmin()) || 
+								(usuarioLogado != null && usuarioLogado.getIdUsuario() == idAutorResposta)) { %>											    		
+					    		<input id="submitMenor" value="Excluir" type="submit" name="excluirResposta"/>	    		
+					    	<%} %>
+						</p>		
+									
+						<input type="hidden" name="idRespostaSelecionada" value="${resposta.idResposta}">	
+						
 					</div>
 				</div>
 			</div>

@@ -22,17 +22,18 @@ public class CadastroRespostaBC implements CadastroResposta {
 
 	@Override
 	public String adicionarResposta(Resposta resposta) {
-		String retorno = "";
+		String msg = "";
 		try {
-			String s = this.verificaCampos(resposta);
-			 if(s.length()!=0){
-				retorno = cadastro.adicionarResposta(resposta);
-
+			String msgErro = this.verificaCampos(resposta);
+			 if(msgErro.equals("")){
+				msg = cadastro.adicionarResposta(resposta);
+			}else{
+				msg =  msgErro;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return retorno;
+		return msg;
 	}
 
 	/** Método que envia email para todos os usuários que responderam uma pergunta e para o autor dessa pergunta.
@@ -66,7 +67,7 @@ public class CadastroRespostaBC implements CadastroResposta {
 	}
 
 	@Override
-	public void deletarResposta(int id) throws SQLException {
+	public void deletarResposta(int id) {
 		try {
 			if (id == 0) {
 
@@ -79,7 +80,7 @@ public class CadastroRespostaBC implements CadastroResposta {
 	}
 
 	@Override
-	public Resposta consultarRespostaPorIdResposta(int id) throws SQLException {
+	public Resposta consultarRespostaPorIdResposta(int id)  {
 		Resposta resposta = new Resposta();
 		try {
 			if (id == 0) {
@@ -153,17 +154,18 @@ public class CadastroRespostaBC implements CadastroResposta {
 
 	@Override
 	public String alterarResposta(Resposta resposta){
-		String retorno = "";
+		String msg = "";
 		try {
-			String s = this.verificaCampos(resposta);
-			 if(s.length()!=0){
-				retorno = cadastro.alterarResposta(resposta);
-
+			String msgErro = this.verificaCampos(resposta);
+			 if(msgErro.equals("")){
+				msg = cadastro.alterarResposta(resposta);
+			}else{
+				msg =  msgErro;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return retorno;
+		return msg;
 	}
 	
 	private String verificaCampos(Resposta resposta){

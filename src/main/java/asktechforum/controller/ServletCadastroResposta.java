@@ -24,7 +24,7 @@ import asktechforum.util.Util;
 public class ServletCadastroResposta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String SUCESSOCADASTRO = "usuarioAutenticado/cadastroRespostaSucesso.jsp";
-	private static final String SUCESSOALTERACAO = "usuarioAutenticado/alterarPerguntaSucesso.jsp";
+	private static final String SUCESSOALTERACAO = "usuarioAutenticado/alterarRespostaSucesso.jsp";
 	private static final String PAGECONSULTARESPOSTAS = "consultarRespostaPorPergunta.jsp";
 	
 	private CadastroRespostaBC cadastro;
@@ -97,21 +97,21 @@ public class ServletCadastroResposta extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Resposta resposta = new Resposta();
 		HttpSession session = request.getSession();
+		String flag = request.getParameter("acao");
 		
-		Usuario usuario = (Usuario)session.getAttribute("usuarioLogado");
 		
-		resposta.setStrData(Util.getDataSistema());
-		resposta.setDescricao(request.getParameter("descricao"));
-		resposta.setStrHora(Util.getHoraSistema());
-		resposta.setIdPergunta(Integer.parseInt((String)session.getAttribute("idPergunta")));
-		resposta.setIdUsuario(usuario.getIdUsuario());
-		String flag = request.getParameter("alterar");
-
-		if (flag.contentEquals("cadastrar")) {
+		if (flag != null && flag.contentEquals("cadastrar")) {			
+			
+			Usuario usuario = (Usuario)session.getAttribute("usuarioLogado");
+			
+			resposta.setStrData(Util.getDataSistema());
+			resposta.setDescricao(request.getParameter("descricao"));
+			resposta.setStrHora(Util.getHoraSistema());
+			resposta.setIdPergunta(Integer.parseInt((String)session.getAttribute("idPergunta")));
+			resposta.setIdUsuario(usuario.getIdUsuario());			
 
 			String retornoCadastroResposta = cadastro
 					.adicionarResposta(resposta);
-
 
 			if (retornoCadastroResposta != null
 					&& !retornoCadastroResposta.equals("cadastroSucesso")) {
@@ -127,6 +127,12 @@ public class ServletCadastroResposta extends HttpServlet {
 				view.forward(request, response);
 			}
 		} else if (flag.contentEquals("alterar")) {
+			
+			resposta = (Resposta)session.getAttribute("resposta");
+			resposta.setStrData(Util.getDataSistema());
+			resposta.setDescricao(request.getParameter("descricao"));
+			resposta.setStrHora(Util.getHoraSistema());
+			
 			String retornoAlterarResposta = cadastro
 					.alterarResposta(resposta);
 			if (retornoAlterarResposta != null
@@ -134,7 +140,7 @@ public class ServletCadastroResposta extends HttpServlet {
 				session.setAttribute("erroCadastroResposta",
 						retornoAlterarResposta);
 				request.setAttribute("resposta", resposta);
-				request.getRequestDispatcher("usuarioAutenticado/responder.jsp")
+				request.getRequestDispatcher("usuarioAutenticado/alterarResposta.jsp")
 						.forward(request, response);
 			} else {
 				RequestDispatcher view = request

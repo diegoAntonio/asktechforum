@@ -241,7 +241,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			throws SQLException {
 		ArrayList<ResultConsultarPergunta> pergunta = new ArrayList<ResultConsultarPergunta>();
 
-		String sql = " select p.descricao, count(r.idResposta) total, u.nome, p.idPergunta, p.titulo, p.data, p.hora " +
+		String sql = " select p.descricao, count(r.idResposta) total, u.nome, p.idPergunta, p.titulo, p.data, p.hora , p.idUsuario" +
 				"  from usuario u left join pergunta p on u.idUsuario = p.idUsuario " +
 				"		left join resposta r on p.idPergunta = r.idPergunta " +
 				"		where p.tag like '%"+ tag +"%'  group by u.nome, p.idPergunta ; ";
@@ -259,6 +259,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			
 			while(rs.next()){
 				p = new ResultConsultarPergunta();
+				p.setIdUsuario(rs.getInt("idUsuario"));
 				p.setAutor(rs.getString("nome"));
 				p.setDescricao(rs.getString("descricao"));
 				p.setQtdResposta(rs.getInt("total"));
@@ -286,7 +287,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			throws SQLException {
 		ArrayList<ResultConsultarPergunta> pergunta = new ArrayList<ResultConsultarPergunta>();
 		
-		String sql = "SELECT p.descricao, COUNT( r.idResposta ) total, u.nome, p.idPergunta, p.titulo, p.tag, p.data, p.hora" +
+		String sql = "SELECT p.descricao, COUNT( r.idResposta ) total, u.nome, p.idPergunta, p.titulo, p.tag, p.data, p.hora, p.idUsuario" +
 		" FROM usuario u LEFT JOIN pergunta p ON u.idUsuario = p.idUsuario 	LEFT JOIN resposta r ON p.idPergunta = r.idPergunta " +
 		" GROUP BY u.nome, p.idPergunta	ORDER BY p.data DESC , p.hora DESC LIMIT 0 , 15 ";
 		
@@ -303,6 +304,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			
 			while(rs.next()){
 				p = new ResultConsultarPergunta();
+				p.setIdUsuario(rs.getInt("idUsuario"));
 				p.setAutor(rs.getString("nome"));
 				p.setDescricao(rs.getString("descricao"));
 				p.setQtdResposta(rs.getInt("total"));

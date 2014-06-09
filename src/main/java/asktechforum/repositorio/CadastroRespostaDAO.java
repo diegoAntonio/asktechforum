@@ -340,8 +340,8 @@ public class CadastroRespostaDAO implements CadastroResposta {
 
 	@Override
 	public String alterarResposta(Resposta resposta) throws SQLException {
-		String retorno = "cadastroSucesso";
-		String sql = "update RESPOSTA set (descricao=?, idUsuario=?, idPergunta=?, data=?, hora=?) where idResposta = ?";
+		String retorno = "alteracaoSucesso";
+		String sql = "update RESPOSTA set descricao=?, idUsuario=?, idPergunta=?, data=?, hora=? where idResposta = ?";
 		PreparedStatement stmt = null;
 		
 		try {

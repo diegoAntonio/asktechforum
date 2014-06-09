@@ -98,6 +98,21 @@ blockquote {
   -webkit-border: 7px 7px 7px 7px;  
 }
 
+#submitMenor{
+  	font: 90% arial;
+	border: 0;
+	width: 50px;
+	margin: 0 0 0 0;
+	height: 20px;
+	padding: 0 0 0 0;
+	cursor: pointer;
+	background: #57BEE5;
+	color: #FFF;
+	border-radius: 7px 7px 7px 7px;
+	-moz-border-radius: 7px 7px 7px 7px;
+	-webkit-border: 7px 7px 7px 7px;  
+}
+
 .input{
 	border-radius: 7px 7px 7px 7px;
   -moz-border-radius: 7px 7px 7px 7px;

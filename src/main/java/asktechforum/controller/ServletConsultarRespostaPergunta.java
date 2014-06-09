@@ -21,6 +21,8 @@ import asktechforum.negocio.CadastroRespostaBC;
 public class ServletConsultarRespostaPergunta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String RESULTADO_CONSULTA = "consultarRespostaPorPergunta.jsp";
+	private static final String ALTERACAO_RESPOSTA = "usuarioAutenticado/alterarResposta.jsp";
+	private static final String EXCLUSAO_RESPOSTA_SUCESSO = "usuarioAutenticado/exclusaoRespostaSucesso.jsp";
 	private CadastroRespostaBC cadastro;
        
 	/**
@@ -43,6 +45,7 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.setAttribute("idPergunta", request.getParameter("idPergunta"));
+		session.setAttribute("idAutorPergunta", request.getParameter("idAutorPergunta"));
 		String idPergunta = request.getParameter("idPergunta");
 		String descricao = request.getParameter("descricao");
 		String autor = request.getParameter("autor");
@@ -66,22 +69,39 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		session.setAttribute("idPergunta", request.getParameter("idPergunta"));
-		String idPergunta = (String)session.getAttribute("idPergunta");
-		String descricao = request.getParameter("descricao");
-		String autor = request.getParameter("autor");
-		String titulo = request.getParameter("titulo");
+		RequestDispatcher view = null;
 		
-		this.cadastro = new CadastroRespostaBC();
+		if(request.getParameter("alterarResposta")!= null){
+			Resposta resposta = this.cadastro.consultarRespostaPorIdResposta(
+					Integer.parseInt(request.getParameter("idRespostaSelecionada")));
+			session.setAttribute("resposta", resposta);
+			view = request.getRequestDispatcher(ALTERACAO_RESPOSTA);
+			view.forward(request, response);
+		}else if(request.getParameter("excluirResposta")!= null){
+			this.cadastro.deletarResposta(
+					Integer.parseInt(request.getParameter("idRespostaSelecionada")));
+			view = request	.getRequestDispatcher(EXCLUSAO_RESPOSTA_SUCESSO);
+			view.forward(request, response);
+		}else{
+			
+			session.setAttribute("idPergunta", request.getParameter("idPergunta"));
+			String idPergunta = (String)session.getAttribute("idPergunta");
+			String descricao = request.getParameter("descricao");
+			String autor = request.getParameter("autor");
+			String titulo = request.getParameter("titulo");
+			
+			this.cadastro = new CadastroRespostaBC();
 
-		ArrayList<Resposta> resp = this.cadastro.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
+			ArrayList<Resposta> resp = this.cadastro.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
 
-		RequestDispatcher view = request.getRequestDispatcher(RESULTADO_CONSULTA);
-		request.setAttribute("resposta", resp);
-		request.setAttribute("descricao", descricao);
-		request.setAttribute("autor", autor);
-		request.setAttribute("titulo", titulo);
-		view.forward(request, response);
+		    view = request.getRequestDispatcher(RESULTADO_CONSULTA);
+			request.setAttribute("resposta", resp);
+			request.setAttribute("descricao", descricao);
+			request.setAttribute("autor", autor);
+			request.setAttribute("titulo", titulo);
+			view.forward(request, response);
+
+		}
 	}
 
 }

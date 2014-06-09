@@ -22,10 +22,10 @@
 					
 					<p style="font-size: 12px; color: red;" id= msg><%=session.getAttribute("erroCadastroResposta")%></p>
 					
-					<input type="hidden" value="cadastrar" name="cadastrar">
+					<input type="hidden" value="cadastrar" name="acao">
 					
 					<p style="color:red; font-size:12px;">O campo Descrição é obrigatório.</p> 
-					<input class="submit" value="Enviar" type="submit" /> 
+					<input class="submit" value="Enviar" type="submit"  /> 
 					<% session.setAttribute("erroCadastroResposta", ""); %>
 				</div>	
 			</div>
