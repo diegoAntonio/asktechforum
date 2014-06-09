@@ -67,7 +67,7 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 				view = request.getRequestDispatcher(RESULTADO_CONSULTA);
 			}
 		
-			request.setAttribute("pergunta", perguntas);
+			request.setAttribute("perguntasTags", perguntas);
 			
 		}
 		
@@ -94,7 +94,7 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 		}
 		
 		if(tags.get(0).getIdPergunta() > 0) {
-			request.setAttribute("pergunta", tags);
+			request.setAttribute("perguntasTags", tags);
 		}
 		view.forward(request, response);
 	}

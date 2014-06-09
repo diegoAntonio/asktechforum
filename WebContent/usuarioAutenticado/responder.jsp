@@ -13,7 +13,7 @@
 				<div style="height: 320px; width: 300px;" class="form_settings_cadastro">
 					<p>
 						<span>Descrição </span>
-						<textarea class="contact"  name="descricao" rows="8" cols="20" >${resposta.descricao}</textarea>
+						<textarea class="contact" name="descricao" rows="8" cols="20" ></textarea>
 						
 						<c:if test="${empty erroCadastroResposta}">
 						<% session.setAttribute("erroCadastroResposta", ""); %>

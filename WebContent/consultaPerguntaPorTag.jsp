@@ -8,7 +8,7 @@
 <form id="formConsultarPerguntaPorTag" action="ServletConsultarPerguntaPorTag" method="post">
 	<div id="site_content">
 		&nbsp;&nbsp;<h2><%=tag.toUpperCase()%></h2>
-		<c:forEach items="${pergunta}" var="pergunta">
+		<c:forEach items="${perguntasTags}" var="pergunta">
 			<div class="content">
 				<h1>
 					<form id="formConsultarRespostaTag<%=i%>"></form>

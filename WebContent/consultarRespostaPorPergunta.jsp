@@ -12,8 +12,6 @@
 		perguntaAutor = (String)request.getAttribute("autor");
 		perguntaTitulo = (String)request.getAttribute("descricao");
 	}
-	
-	
 %>
 
 <form id="formConsultarRespostaPorPergunta"
@@ -46,59 +44,55 @@
 			<div class="content">
 				<div class="content_item">
 					<div  style="width: 900px;" class="form_settings_cadastro">
-						<p>
-						    <c:out value="${resposta.descricao}"></c:out>						
-							<span style="float: right; font-weight:bold;">
-							   	<%
-							   		VotoBC votoBC = new VotoBC();
-							   	    usuarioLogado = (Usuario)session.getAttribute("usuarioLogado");
-						   	 		if(usuarioLogado != null) {
-						   				Boolean liked = votoBC.consultarUsuarioVoto(usuarioLogado.getIdUsuario(), idResposta);
-						   				
-					          			if(liked == false) {
-						          			liked = true;
-					       		%>
-											<a href="<%=getServletContext().getContextPath()%>/ServletCadastroResposta?idR=${resposta.idResposta}&idUser=<%=usuarioLogado.getIdUsuario()%>&liked=<%=liked%>">
-											<img style="width:40px;" src="images/dislike.gif"></a>
-								<%
-						        		}else if(liked == true) {
-							          		liked = false;
-								%>	
-											<a href="<%=getServletContext().getContextPath()%>/ServletCadastroResposta?idR=${resposta.idResposta}&idUser=<%=usuarioLogado.getIdUsuario()%>&liked=<%=liked%>">
-											<img style="width:40px;" src="images/like.gif"></a>
-								<%
-										}
-						          	}								
-	 								if(idPergunta != null) {
-		 								session.setAttribute("idPergunta", idPergunta);
-		 							}
-	 								session.setAttribute("isVotar", true);
-									session.setAttribute("descricao", perguntaTitulo);
-									session.setAttribute("autor", perguntaAutor);
-									session.setAttribute("titulo", perguntaDescricao);
-								%>
-	 							<br>Votos: ${resposta.votos}
-							</span>						
+					    <c:out value="${resposta.descricao}"></c:out>						
+						<span style="float: right; font-weight:bold;">
+						   	<%
+						   		VotoBC votoBC = new VotoBC();
+						   	    usuarioLogado = (Usuario)session.getAttribute("usuarioLogado");
+					   	 		if(usuarioLogado != null) {
+					   				Boolean liked = votoBC.consultarUsuarioVoto(usuarioLogado.getIdUsuario(), idResposta);
+					   				
+				          			if(liked == false) {
+					          			liked = true;
+				       		%>
+										<a href="<%=getServletContext().getContextPath()%>/ServletCadastroResposta?idR=${resposta.idResposta}&idUser=<%=usuarioLogado.getIdUsuario()%>&liked=<%=liked%>">
+										<img style="width:40px;" src="images/dislike.gif"></a>
+							<%
+					        		}else if(liked == true) {
+						          		liked = false;
+							%>	
+										<a href="<%=getServletContext().getContextPath()%>/ServletCadastroResposta?idR=${resposta.idResposta}&idUser=<%=usuarioLogado.getIdUsuario()%>&liked=<%=liked%>">
+										<img style="width:40px;" src="images/like.gif"></a>
+							<%
+									}
+					          	}								
+ 								if(idPergunta != null) {
+	 								session.setAttribute("idPergunta", idPergunta);
+	 							}
+ 								session.setAttribute("isVotar", true);
+								session.setAttribute("descricao", perguntaTitulo);
+								session.setAttribute("autor", perguntaAutor);
+								session.setAttribute("titulo", perguntaDescricao);
+							%>
+ 							<br>Votos: ${resposta.votos}
+						</span>						
 						<p>
 							<output style="font-size: 11px; position: right;">Por: <c:out value="${resposta.nomeUsuario}"></c:out></output>
 							<br>						
 							<output style="font-size: 9px; position: right;">Em: <c:out value="${resposta.data}"></c:out> às <c:out value="${resposta.hora}"></c:out></output>
 						</p>
-						
-						
-						
+					
 						<p>
 						<% 	if((usuarioLogado != null && usuarioLogado.getIdUsuario() == idAutorResposta)) { %>
-								<input id="submitMenor" value="Alterar" type="submit" name="alterarResposta"/>	
+								<a id="submitMenor" href="<%=getServletContext().getContextPath()%>/ServletConsultarRespostaPergunta?alterarResposta=Alterar&idRespostaSelecionada=${resposta.idResposta}">Alterar</a>
 							<%}
 								if((usuarioLogado != null && usuarioLogado.isAdmin()) || 
 								(usuarioLogado != null && usuarioLogado.getIdUsuario() == idAutorResposta)) { %>											    		
-					    		<input id="submitMenor" value="Excluir" type="submit" name="excluirResposta"/>	    		
+								<a id="submitMenor" href="<%=getServletContext().getContextPath()%>/ServletConsultarRespostaPergunta?excluirResposta=Excluir&idRespostaSelecionada=${resposta.idResposta}">Excluir</a>    		
 					    	<%} %>
 						</p>		
-									
-						<input type="hidden" name="idRespostaSelecionada" value="${resposta.idResposta}">	
-						
+								
+						<input type="hidden" name="idRespostaSelecionada" value="${resposta.idResposta}">
 					</div>
 				</div>
 			</div>
@@ -108,12 +102,12 @@
 		</a>
 	</div>
 </form>
-<form id= "formVotarResposta" action="ServletCadastroResposta" method="post">
-</form>
 
 <script>
-	function submeterFormVotarResposta() {
-		var formulario = document.getElementById("formVotarResposta");
+	function submeterformConsultarRespostaPorPergunta(id) {
+		var formulario;
+		formulario = document.getElementById(id);
+		alert(id);
 		formulario.submit();
 	}
 </script>

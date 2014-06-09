@@ -19,8 +19,8 @@ int i = 1;
 
 <form id="formConsultarPerguntaPorTodasTags" action="ServletConsultarPerguntaPorTag" method="post">
 	<div id="site_content">
-		<c:if test="${not empty pergunta}">
-			<c:forEach items="${pergunta}" var="pergunta">
+		<c:if test="${not empty perguntasTags}">
+			<c:forEach items="${perguntasTags}" var="pergunta">
 				<c:if test="${not empty pergunta.titulo}" >
 					<div class="content">
 						<h1>

@@ -124,6 +124,7 @@ public class ServletCadastroResposta extends HttpServlet {
 				RequestDispatcher view = request
 						.getRequestDispatcher(SUCESSOCADASTRO);
 				request.setAttribute("resposta", resposta);
+				cadastro.notificarContribuintesPerg(resposta.getIdPergunta(), resposta.getIdUsuario());
 				view.forward(request, response);
 			}
 		} else if (flag.contentEquals("alterar")) {
