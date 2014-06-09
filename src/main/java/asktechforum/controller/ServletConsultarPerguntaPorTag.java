@@ -22,7 +22,7 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String RESULTADO_CONSULTA = "consultaPerguntaPorTag.jsp";
-	private static final String INDEX = "index.jsp";
+	private static final String INDEX = "index.jsp"; 
 	private static final String TODAS_AS_TAGS = "consultaTodas_asTags.jsp";
 	private CadastroPerguntaBC cadastro;
 
@@ -80,23 +80,25 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String tag = request.getParameter("tag");
-		this.cadastro = new CadastroPerguntaBC();
-		ArrayList<ResultConsultarPergunta> tags = cadastro.consultarPerguntaPorTag(tag);
-		RequestDispatcher view;
-        HttpSession session = request.getSession();
-		
+		RequestDispatcher view = null;
+		HttpSession session = request.getSession();
 		session.setAttribute("stop", false);
+
+			this.cadastro = new CadastroPerguntaBC();
+			ArrayList<ResultConsultarPergunta> tags = cadastro.consultarPerguntaPorTag(tag);			
+
+			if(tag.equals("all")){
+				view = request.getRequestDispatcher(INDEX);
+			}else{
+				view = request.getRequestDispatcher(RESULTADO_CONSULTA);
+			}
+
+			if(tags.get(0).getIdPergunta() > 0) {
+				request.setAttribute("perguntasTags", tags);
+			}
+			view.forward(request, response);
 		
-		if(tag.equals("all")){
-			view = request.getRequestDispatcher(INDEX);
-		}else{
-			view = request.getRequestDispatcher(RESULTADO_CONSULTA);
-		}
-		
-		if(tags.get(0).getIdPergunta() > 0) {
-			request.setAttribute("perguntasTags", tags);
-		}
-		view.forward(request, response);
+
 	}
 
 }

@@ -56,8 +56,8 @@ public class ServletCadastroPergunta extends HttpServlet {
 		pergunta.setTitulo(request.getParameter("titulo"));
 		pergunta.setIdUsuario(usuario.getIdUsuario());
 		pergunta.setTag(request.getParameter("tag"));
-		String flag = request.getParameter("flag");
-		if (flag.contentEquals("cadastrar")) {
+		String acao = request.getParameter("acao");
+		if (acao.contentEquals("cadastrar")) {
 			String retornoCadastroPergunta = cadastro
 					.adcionarPergunta(pergunta);
 
@@ -76,16 +76,19 @@ public class ServletCadastroPergunta extends HttpServlet {
 				view.forward(request, response);
 			}
 			
-		}else if(flag.contains("alterar")){
-			String retornoAlteracaoPergunta = cadastro.alterarPergunta(pergunta);					
-
+		}else if(acao.contains("alterar")){
+								
+			Pergunta perguntaSelecionada = (Pergunta)session.getAttribute("pergunta");
+			pergunta.setIdPergunta(perguntaSelecionada.getIdPergunta());
+			String retornoAlteracaoPergunta = cadastro.alterarPergunta(pergunta);
+			
 			if (retornoAlteracaoPergunta != null
 					&& !retornoAlteracaoPergunta.equals("alteracaoSucesso")) {
 				session.setAttribute("erroCadastroPergunta",
 						retornoAlteracaoPergunta);
 				request.setAttribute("pergunta", pergunta);
 				request.getRequestDispatcher(
-						"usuarioAutenticado/AlterarPergunta.jsp").forward(
+						"usuarioAutenticado/alterarPergunta.jsp").forward(
 						request, response);
 			} else {
 				RequestDispatcher view = request

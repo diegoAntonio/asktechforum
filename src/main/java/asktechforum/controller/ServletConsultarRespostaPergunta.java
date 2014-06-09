@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.Resposta;
 import asktechforum.negocio.CadastroPerguntaBC;
 import asktechforum.negocio.CadastroRespostaBC;
@@ -23,6 +24,8 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String RESULTADO_CONSULTA = "consultarRespostaPorPergunta.jsp";
 	private static final String ALTERACAO_RESPOSTA = "usuarioAutenticado/alterarResposta.jsp";
+	private static final String ALTERACAO_PERGUNTA = "usuarioAutenticado/alterarPergunta.jsp";
+	private static final String EXCLUSAO_PERGUNTA_SUCESSO = "usuarioAutenticado/exclusaoPerguntaSucesso.jsp";
 	private static final String EXCLUSAO_RESPOSTA_SUCESSO = "usuarioAutenticado/exclusaoRespostaSucesso.jsp";
 	private CadastroRespostaBC cadastroRespostaBC = new CadastroRespostaBC();
 	private CadastroPerguntaBC cadastroPerguntaBC = new CadastroPerguntaBC();
@@ -90,7 +93,7 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 		if(request.getParameter("alterarResposta")!= null){
 			Resposta resposta = this.cadastroRespostaBC.consultarRespostaPorIdResposta(
 					Integer.parseInt(request.getParameter("idRespostaSelecionada")));
-			session.setAttribute("resposta", resposta);
+		    session.setAttribute("resposta", resposta);
 			view = request.getRequestDispatcher(ALTERACAO_RESPOSTA);
 			view.forward(request, response);
 		}else if(request.getParameter("excluirResposta")!= null){
@@ -98,6 +101,21 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 					Integer.parseInt(request.getParameter("idRespostaSelecionada")));
 			view = request	.getRequestDispatcher(EXCLUSAO_RESPOSTA_SUCESSO);
 			view.forward(request, response);
+		}else if(request.getParameter("alterarPergunta")!=null){
+			String idPergunta = (String)session.getAttribute("idPergunta");
+			Pergunta pergunta = this.cadastroPerguntaBC.consultarPerguntaPorIdPergunta(
+					Integer.parseInt(idPergunta));
+			session.setAttribute("pergunta", pergunta);
+			request.setAttribute("pergunta", pergunta);
+			view = request.getRequestDispatcher(ALTERACAO_PERGUNTA);
+			view.forward(request, response);
+		}else if(request.getParameter("excluirPergunta")!=null){
+			String idPergunta = (String)session.getAttribute("idPergunta");
+			this.cadastroPerguntaBC.deletarPergunta(
+					Integer.parseInt(idPergunta));
+			view = request	.getRequestDispatcher(EXCLUSAO_PERGUNTA_SUCESSO);
+			view.forward(request, response);
+			
 		}else{
 			
 			session.setAttribute("idPergunta", request.getParameter("idPergunta"));

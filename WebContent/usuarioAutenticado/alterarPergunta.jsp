@@ -22,14 +22,14 @@
 					<p>
 						<span>Assuntos relacionados*</span>
 						<input class="contact" value="${pergunta.tag}" type="text" name="tag" id="tag" />
-						<span style="color:rgb(10,122,146); font-size:12px;">Separe as Tags por apenas um espaço em branco</span> 
+						<span style="color:rgb(10,122,146); font-size:12px;">Separe os assuntos por apenas um espaço em branco</span> 
 					</p>
 					
 					<c:if test="${empty erroCadastroPergunta}">
 						<% session.setAttribute("erroCadastroPergunta", ""); %>
 					</c:if>
 					
-					<input type="hidden" value="cadastrar" name="flag">
+					<input type="hidden" value="alterar" name="acao">
 					
 					<p style="font-size: 12px; color: red;" id= msg><%=session.getAttribute("erroCadastroPergunta")%></p>
 					

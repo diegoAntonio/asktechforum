@@ -358,7 +358,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 	public String alterarPergunta(Pergunta pergunta) throws SQLException {
 		String retorno = "alteracaoSucesso";
 
-		String sql = "update PERGUNTA set (titulo=?, data=?, hora=?, descricao=?, idUsuario=?, tag=?)  where idPergunta = ?";
+		String sql = "update PERGUNTA set titulo=?, data=?, hora=?, descricao=?, idUsuario=?, tag=?  where idPergunta = ?";
 		PreparedStatement stmt = null;
 		this.con = ConnectionUtil.getConnection();
 		try {
