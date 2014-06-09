@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.Resposta;
+import asktechforum.negocio.CadastroPerguntaBC;
 import asktechforum.negocio.CadastroRespostaBC;
 
 /**
@@ -22,8 +24,11 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String RESULTADO_CONSULTA = "consultarRespostaPorPergunta.jsp";
 	private static final String ALTERACAO_RESPOSTA = "usuarioAutenticado/alterarResposta.jsp";
+	private static final String ALTERACAO_PERGUNTA = "usuarioAutenticado/alterarPergunta.jsp";
+	private static final String EXCLUSAO_PERGUNTA_SUCESSO = "usuarioAutenticado/exclusaoPerguntaSucesso.jsp";
 	private static final String EXCLUSAO_RESPOSTA_SUCESSO = "usuarioAutenticado/exclusaoRespostaSucesso.jsp";
-	private CadastroRespostaBC cadastro;
+	private CadastroRespostaBC cadastroRespostaBC = new CadastroRespostaBC();
+	private CadastroPerguntaBC cadastroPerguntaBC = new CadastroPerguntaBC();
        
 	/**
      * Construtor do Servlet de Consultar Respostas de Pergunta.
@@ -52,9 +57,9 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 		String titulo = request.getParameter("titulo");
 		
 		
-		this.cadastro = new CadastroRespostaBC();
-
-		ArrayList<Resposta> resp = cadastro.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
+		this.cadastroRespostaBC = new CadastroRespostaBC();
+	
+		ArrayList<Resposta> resp = cadastroRespostaBC.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
 
 		RequestDispatcher view = request.getRequestDispatcher(RESULTADO_CONSULTA);
 		request.setAttribute("resposta", resp);
@@ -72,16 +77,31 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 		RequestDispatcher view = null;
 		
 		if(request.getParameter("alterarResposta")!= null){
-			Resposta resposta = this.cadastro.consultarRespostaPorIdResposta(
+			Resposta resposta = this.cadastroRespostaBC.consultarRespostaPorIdResposta(
 					Integer.parseInt(request.getParameter("idRespostaSelecionada")));
-			session.setAttribute("resposta", resposta);
+		    session.setAttribute("resposta", resposta);
 			view = request.getRequestDispatcher(ALTERACAO_RESPOSTA);
 			view.forward(request, response);
 		}else if(request.getParameter("excluirResposta")!= null){
-			this.cadastro.deletarResposta(
+			this.cadastroRespostaBC.deletarResposta(
 					Integer.parseInt(request.getParameter("idRespostaSelecionada")));
 			view = request	.getRequestDispatcher(EXCLUSAO_RESPOSTA_SUCESSO);
 			view.forward(request, response);
+		}else if(request.getParameter("alterarPergunta")!=null){
+			String idPergunta = (String)session.getAttribute("idPergunta");
+			Pergunta pergunta = this.cadastroPerguntaBC.consultarPerguntaPorIdPergunta(
+					Integer.parseInt(idPergunta));
+			session.setAttribute("pergunta", pergunta);
+			request.setAttribute("pergunta", pergunta);
+			view = request.getRequestDispatcher(ALTERACAO_PERGUNTA);
+			view.forward(request, response);
+		}else if(request.getParameter("excluirPergunta")!=null){
+			String idPergunta = (String)session.getAttribute("idPergunta");
+			this.cadastroPerguntaBC.deletarPergunta(
+					Integer.parseInt(idPergunta));
+			view = request	.getRequestDispatcher(EXCLUSAO_PERGUNTA_SUCESSO);
+			view.forward(request, response);
+			
 		}else{
 			
 			session.setAttribute("idPergunta", request.getParameter("idPergunta"));
@@ -90,9 +110,9 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 			String autor = request.getParameter("autor");
 			String titulo = request.getParameter("titulo");
 			
-			this.cadastro = new CadastroRespostaBC();
+			this.cadastroRespostaBC = new CadastroRespostaBC();
 
-			ArrayList<Resposta> resp = this.cadastro.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
+			ArrayList<Resposta> resp = this.cadastroRespostaBC.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
 
 		    view = request.getRequestDispatcher(RESULTADO_CONSULTA);
 			request.setAttribute("resposta", resp);

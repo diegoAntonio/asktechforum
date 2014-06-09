@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import asktechforum.dominio.Pergunta;
+import asktechforum.dominio.Resposta;
 import asktechforum.dominio.ResultConsultarPergunta;
 import asktechforum.negocio.CadastroPerguntaBC;
 
@@ -22,7 +24,9 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String RESULTADO_CONSULTA = "consultaPerguntaPorTag.jsp";
-	private static final String INDEX = "index.jsp";
+	private static final String ALTERACAO_PERGUNTA = "usuarioAutenticado/alterarPergunta.jsp";
+	private static final String EXCLUSAO_PERGUNTA_SUCESSO = "usuarioAutenticado/exclusaoPerguntaSucesso.jsp";
+	private static final String INDEX = "index.jsp"; 
 	private static final String TODAS_AS_TAGS = "consultaTodas_asTags.jsp";
 	private CadastroPerguntaBC cadastro;
 
@@ -67,7 +71,7 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 				view = request.getRequestDispatcher(RESULTADO_CONSULTA);
 			}
 		
-			request.setAttribute("pergunta", perguntas);
+			request.setAttribute("perguntasTags", perguntas);
 			
 		}
 		
@@ -80,23 +84,25 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String tag = request.getParameter("tag");
-		this.cadastro = new CadastroPerguntaBC();
-		ArrayList<ResultConsultarPergunta> tags = cadastro.consultarPerguntaPorTag(tag);
-		RequestDispatcher view;
-        HttpSession session = request.getSession();
-		
+		RequestDispatcher view = null;
+		HttpSession session = request.getSession();
 		session.setAttribute("stop", false);
+
+			this.cadastro = new CadastroPerguntaBC();
+			ArrayList<ResultConsultarPergunta> tags = cadastro.consultarPerguntaPorTag(tag);			
+
+			if(tag.equals("all")){
+				view = request.getRequestDispatcher(INDEX);
+			}else{
+				view = request.getRequestDispatcher(RESULTADO_CONSULTA);
+			}
+
+			if(tags.get(0).getIdPergunta() > 0) {
+				request.setAttribute("perguntasTags", tags);
+			}
+			view.forward(request, response);
 		
-		if(tag.equals("all")){
-			view = request.getRequestDispatcher(INDEX);
-		}else{
-			view = request.getRequestDispatcher(RESULTADO_CONSULTA);
-		}
-		
-		if(tags.get(0).getIdPergunta() > 0) {
-			request.setAttribute("pergunta", tags);
-		}
-		view.forward(request, response);
+
 	}
 
 }

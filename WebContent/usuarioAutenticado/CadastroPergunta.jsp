@@ -29,7 +29,7 @@
 						<% session.setAttribute("erroCadastroPergunta", ""); %>
 					</c:if>
 					
-					<input type="hidden" value="cadastrar" name="flag">
+					<input type="hidden" value="cadastrar" name="acao">
 					
 					<p style="font-size: 12px; color: red;" id= msg><%=session.getAttribute("erroCadastroPergunta")%></p>
 					

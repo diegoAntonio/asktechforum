@@ -19,8 +19,8 @@ int i = 1;
 
 <form id="formConsultarPerguntaPorTodasTags" action="ServletConsultarPerguntaPorTag" method="post">
 	<div id="site_content">
-		<c:if test="${not empty pergunta}">
-			<c:forEach items="${pergunta}" var="pergunta">
+		<c:if test="${not empty perguntasTags}">
+			<c:forEach items="${perguntasTags}" var="pergunta">
 				<c:if test="${not empty pergunta.titulo}" >
 					<div class="content">
 						<h1>
@@ -50,7 +50,7 @@ int i = 1;
 								<p><output style="font-size: 9px; position: right;">Em: <c:out value="${pergunta.data}"></c:out> às <c:out value="${pergunta.hora}"></c:out></output><p>
 								Respostas:<c:out value=" ${pergunta.qtdResposta}"></c:out>
 								
-		
+								<input type="hidden" value="${pergunta.idPergunta}" name="idPergunta" id="idPergunta" checked="checked" />
 							</div>
 						</div>
 					</div>

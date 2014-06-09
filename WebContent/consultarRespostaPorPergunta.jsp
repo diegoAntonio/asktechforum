@@ -13,7 +13,7 @@
 		perguntaTitulo = (String)request.getAttribute("descricao");
 	}
 	
-	
+	usuarioLogado = (Usuario)session.getAttribute("usuarioLogado");
 %>
 
 <form id="formConsultarRespostaPorPergunta"
@@ -28,6 +28,16 @@
 				&nbsp;&nbsp;&nbsp;<output name="descricao" style="margin-left: 5px;"><%=perguntaTitulo%></output>
 				<br>
 				<br>
+				<p>
+ 		     <% 	if((usuarioLogado != null && usuarioLogado.getNome().equals(perguntaAutor))) { %>
+					&nbsp;&nbsp;&nbsp;<input id="submitMenor" value="Alterar" type="submit" name="alterarPergunta"/>	
+ 					<%} 
+					if((usuarioLogado != null && usuarioLogado.isAdmin()) ||  
+							(usuarioLogado != null && usuarioLogado.getNome().equals(perguntaAutor))) { %>											    		
+					&nbsp;&nbsp;&nbsp;<input id="submitMenor" value="Excluir" type="submit" name="excluirPergunta"/>	    		
+ 					<%} %> 
+						<input type="hidden" value="<%=idPergunta%>" name="idPerguntaSelecionada"> 
+				</p>
 			</div>
 	</div>
 	<div id="site_content">		
@@ -51,7 +61,7 @@
 							<span style="float: right; font-weight:bold;">
 							   	<%
 							   		VotoBC votoBC = new VotoBC();
-							   	    usuarioLogado = (Usuario)session.getAttribute("usuarioLogado");
+							   	    
 						   	 		if(usuarioLogado != null) {
 						   				Boolean liked = votoBC.consultarUsuarioVoto(usuarioLogado.getIdUsuario(), idResposta);
 						   				
@@ -96,8 +106,9 @@
 					    		<input id="submitMenor" value="Excluir" type="submit" name="excluirResposta"/>	    		
 					    	<%} %>
 						</p>		
-									
-						<input type="hidden" name="idRespostaSelecionada" value="${resposta.idResposta}">	
+								
+						<input type="hidden" name="idRespostaSelecionada" value="<%=idResposta%>">	
+						<input type="hidden" name="idRespostaAlteracao" value="${resposta.idResposta}">		
 						
 					</div>
 				</div>
