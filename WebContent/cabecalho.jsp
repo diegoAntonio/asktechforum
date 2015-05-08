@@ -25,7 +25,7 @@ if((Boolean)session.getAttribute("stop") == null) {
 }
 %>
 
-<body onunload="goBack()">
+<body>
   <div id="main">
   	<div id="header">
       <div id="logo">

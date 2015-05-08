@@ -8,18 +8,19 @@ import java.sql.SQLException;
 import asktechforum.util.ConnectionUtil;
 
 public class VotoDAO {
-	private Connection connection = null;
+    private ConnectionUtil conexaoUtil;
 
 	public VotoDAO() {
+		this.conexaoUtil = ConnectionUtil.getInstancia();
 	}
 	
 	public void adicionarVotoUsuario(int idUsuario, int idResposta) throws SQLException {
 		String sql = "insert into voto(idUsuario, idResposta)values( ?, ? )";
 		PreparedStatement preparedStatement = null;
+		Connection con = this.conexaoUtil. getConnection();
 		
 		try {
-			this.connection = ConnectionUtil.getConnection();
-			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = con.prepareStatement(sql);
 			preparedStatement.setInt(1, idUsuario);
 			preparedStatement.setInt(2, idResposta);
 
@@ -29,15 +30,16 @@ public class VotoDAO {
 			e.printStackTrace();
 		} finally {
 			preparedStatement.close();
-			this.connection.close();
+			con.close();
 		}
 	}
 	
 	public void deletarUsuarioVoto(int idUsuario, int idResposta) throws SQLException {
 		PreparedStatement preparedStatement = null;
-        try {
-    		this.connection = ConnectionUtil.getConnection();
-            preparedStatement = this.connection
+		Connection con = this.conexaoUtil. getConnection();
+		
+		try {
+            preparedStatement = con
                     .prepareStatement("delete from voto where idUsuario=? and idResposta=?");
 
 			preparedStatement.setInt(1, idUsuario);
@@ -48,7 +50,7 @@ public class VotoDAO {
             e.printStackTrace();
         } finally {
             preparedStatement.close();
-            this.connection.close();
+            con.close();
         }
 	}
 	
@@ -56,9 +58,10 @@ public class VotoDAO {
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 		Boolean flag = true;
+		Connection con = this.conexaoUtil. getConnection();
+		
 		try {
-			this.connection = ConnectionUtil.getConnection();
-			preparedStatement = this.connection
+			preparedStatement = con
 					.prepareStatement("select * from voto where idUsuario=? and idResposta=?");
 
 			preparedStatement.setInt(1, idUsuario);
@@ -74,7 +77,7 @@ public class VotoDAO {
 		} finally {
             preparedStatement.close();
             rs.close();
-            this.connection.close();
+            con.close();
         }
 		
 		return flag;

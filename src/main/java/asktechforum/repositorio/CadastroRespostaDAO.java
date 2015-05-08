@@ -14,18 +14,19 @@ import asktechforum.util.ConnectionUtil;
 
 public class CadastroRespostaDAO implements CadastroResposta {
 
-	private Connection con = null;
+	private ConnectionUtil conexaoUtil;
 
 	public CadastroRespostaDAO() {
+		conexaoUtil = ConnectionUtil.getInstancia();
 	}
 
 	public String adicionarResposta(Resposta resposta) throws SQLException {
 		String retorno = "cadastroSucesso";
 		String sql = "insert into RESPOSTA(descricao, idUsuario, idPergunta, data, hora)values(?,?,?,?,?)";
 		PreparedStatement stmt = null;
+		Connection con = conexaoUtil.getConnection();
 		
-		try {
-			this.con = ConnectionUtil.getConnection();
+		try {	 
 			stmt = con.prepareStatement(sql);
 			int index = 0;
 			stmt.setString(++index, resposta.getDescricao());
@@ -40,7 +41,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 		return retorno;
 	}
@@ -48,16 +49,16 @@ public class CadastroRespostaDAO implements CadastroResposta {
 	public void deletarResposta(int id) throws SQLException {
 		String sql = "delete from RESPOSTA where idResposta = " + id;
 		PreparedStatement stmt = null;
+		Connection con = conexaoUtil.getConnection();
 		
-		try {
-			this.con = ConnectionUtil.getConnection();
+		try {	 
 			stmt = con.prepareStatement(sql);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 	}
 
@@ -67,9 +68,9 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		String sql = "select * from RESPOSTA where idResposta = " + id;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-
-		try {
-			this.con = ConnectionUtil.getConnection();
+		Connection con = conexaoUtil.getConnection();
+		
+		try {	 
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -86,7 +87,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		} finally {
 			rs.close();
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 
 		return resposta;
@@ -101,9 +102,9 @@ public class CadastroRespostaDAO implements CadastroResposta {
 				+ " order by data, hora";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		Connection con = conexaoUtil.getConnection();
 		
-		try {
-			this.con = ConnectionUtil.getConnection();
+		try {	 
 			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
@@ -124,7 +125,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		} finally {
 			rs.close();
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 
 		return resposta;
@@ -136,9 +137,9 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		String sql = "select * from Resposta order by data, hora";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-
-		try {
-			this.con = ConnectionUtil.getConnection();
+		Connection con = conexaoUtil.getConnection();
+		
+		try {	 
 			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
@@ -159,7 +160,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		} finally {
 			rs.close();
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 
 		return resposta;
@@ -174,9 +175,9 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-
-		try {
-			this.con = ConnectionUtil.getConnection();
+		Connection con = conexaoUtil.getConnection();
+		
+		try {	 
 			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
@@ -199,7 +200,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		} finally {
 			rs.close();
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 
 		return resposta;
@@ -208,9 +209,9 @@ public class CadastroRespostaDAO implements CadastroResposta {
 	public void adcionarVotoResposta(int id) throws SQLException{
 		String sql = "update resposta set votos = votos + 1 where idResposta = ?";
 		PreparedStatement stmt = null;
+		Connection con = conexaoUtil.getConnection();
 		
-		try {
-			this.con = ConnectionUtil.getConnection();
+		try {	 
 			stmt = con.prepareStatement(sql);
 			
 			int index = 0;
@@ -222,16 +223,16 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 	}
 	
 	public void removerVotoResposta(int id) throws SQLException{
 		String sql = "update resposta set votos = votos - 1 where idResposta = ?";
 		PreparedStatement stmt = null;
+		Connection con = conexaoUtil.getConnection();
 		
-		try {
-			this.con = ConnectionUtil.getConnection();
+		try {	 
 			stmt = con.prepareStatement(sql);
 			
 			int index = 0;
@@ -243,7 +244,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 	}
 
@@ -262,9 +263,9 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-
-		try {
-			this.con = ConnectionUtil.getConnection();
+		Connection con = conexaoUtil.getConnection();
+		
+		try {	
 			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
@@ -287,7 +288,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		} finally {
 			rs.close();
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 
 		return usuarios;
@@ -308,11 +309,11 @@ public class CadastroRespostaDAO implements CadastroResposta {
 	 				"WHERE p.idUsuario = u.idUsuario and p.idPergunta = " + id;
 	 	
 	 		
-	 		PreparedStatement stmt = null;
-	 	ResultSet rs = null;
-	 
+	 	   PreparedStatement stmt = null;
+	  	   ResultSet rs = null;
+	 	   Connection con = conexaoUtil.getConnection();
 	 		try {
-	 			this.con = ConnectionUtil.getConnection();
+	 			 
 	 			stmt = con.prepareStatement(sql);
 	 
 	 			rs = stmt.executeQuery();
@@ -332,7 +333,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 	 		} finally {
 	 			rs.close();
 	 			stmt.close();
-	 			this.con.close();
+	 			con.close();
 	 		}
 	 
 		return usuario;
@@ -343,9 +344,9 @@ public class CadastroRespostaDAO implements CadastroResposta {
 		String retorno = "alteracaoSucesso";
 		String sql = "update RESPOSTA set descricao=?, idUsuario=?, idPergunta=?, data=?, hora=? where idResposta = ?";
 		PreparedStatement stmt = null;
-		
-		try {
-			this.con = ConnectionUtil.getConnection();
+		 Connection con = conexaoUtil.getConnection();
+		 
+		try {	
 			stmt = con.prepareStatement(sql);
 			int index = 0;
 			stmt.setString(++index, resposta.getDescricao());
@@ -361,7 +362,7 @@ public class CadastroRespostaDAO implements CadastroResposta {
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 		return retorno;
 	}

@@ -13,18 +13,20 @@ import asktechforum.util.UsuarioUtil;
 import asktechforum.dominio.Usuario;
 
 public class UsuarioDAO {
-	private Connection connection = null;
     UsuarioUtil usuarioUtil;
+    private ConnectionUtil conexaoUtil;
 	
 	public UsuarioDAO(){
 		this.usuarioUtil = new UsuarioUtil();
+		this.conexaoUtil = ConnectionUtil.getInstancia();
 	}
 	
 	public void alterarUsuario(Usuario usuario) throws SQLException {
 		PreparedStatement preparedStatement = null;
+		Connection con = this.conexaoUtil. getConnection();
+		
 		try {
-			this.connection = ConnectionUtil.getConnection();
-            preparedStatement = this.connection
+            preparedStatement = con
                     .prepareStatement("update usuario set nome=?,dt_nasc=?,admin=?,email=?,localizacao=?,senha=? where idUsuario=?");
 
             preparedStatement.setString(1, usuario.getNome());
@@ -41,15 +43,16 @@ public class UsuarioDAO {
             e.printStackTrace();
         } finally {
             preparedStatement.close();
-            this.connection.close();
+            con.close();
         }
     }
 	
 	public void alterarUsuarioAdmin(Usuario usuario) throws SQLException {
 		PreparedStatement preparedStatement = null;
+		Connection con = this.conexaoUtil. getConnection();
+		
 		try {
-			this.connection = ConnectionUtil.getConnection();
-            preparedStatement = this.connection
+            preparedStatement = con
                     .prepareStatement("update usuario set admin=? where idUsuario=?");
 
             preparedStatement.setBoolean(1, usuario.isAdmin());
@@ -61,15 +64,16 @@ public class UsuarioDAO {
             e.printStackTrace();
         } finally {
             preparedStatement.close();
-            this.connection.close();
+            con.close();
         }
     }
 	
 	public void adicionarUsuario(Usuario usuario) throws SQLException {
 		PreparedStatement preparedStatement = null;
+		Connection con = this.conexaoUtil. getConnection();
+		
 		try {
-			this.connection = ConnectionUtil.getConnection();
-            preparedStatement = this.connection
+            preparedStatement = con
                     .prepareStatement("insert into usuario(nome,dt_nasc,email,localizacao,senha,admin) values ( ?, ?, ?, ?, ?, ? )");
             
             preparedStatement.setString(1, usuario.getNome());
@@ -85,15 +89,16 @@ public class UsuarioDAO {
             e.printStackTrace();
         } finally {
             preparedStatement.close();
-            this.connection.close();
+            con.close();
         }
     }
 	
 	public void deletarUsuario(String email) throws SQLException {
 		PreparedStatement preparedStatement = null;
-        try {
-    		this.connection = ConnectionUtil.getConnection();
-            preparedStatement = this.connection
+		Connection con = this.conexaoUtil. getConnection();
+		
+		try {
+            preparedStatement = con
                     .prepareStatement("delete from usuario where email=?");
             
             preparedStatement.setString(1, email);
@@ -103,15 +108,16 @@ public class UsuarioDAO {
             e.printStackTrace();
         } finally {
             preparedStatement.close();
-            this.connection.close();
+            con.close();
         }
     }
 	
 	public void deletarUsuarioPorId(int idUsuario) throws SQLException {
 		PreparedStatement preparedStatement = null;
-        try {
-    		this.connection = ConnectionUtil.getConnection();
-            preparedStatement = this.connection
+		Connection con = this.conexaoUtil. getConnection();
+		
+		try {
+            preparedStatement = con
                     .prepareStatement("delete from usuario where idUsuario=?");
             
             preparedStatement.setInt(1, idUsuario);
@@ -121,7 +127,7 @@ public class UsuarioDAO {
             e.printStackTrace();
         } finally {
             preparedStatement.close();
-            this.connection.close();
+            con.close();
         }
     }
 	
@@ -130,9 +136,10 @@ public class UsuarioDAO {
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 		Usuario usuario = new Usuario();
+		Connection con = this.conexaoUtil. getConnection();
+		
 		try {
-			this.connection = ConnectionUtil.getConnection();
-			preparedStatement = this.connection
+			preparedStatement = con
 					.prepareStatement("select * from usuario where email=? and senha=?");
 			preparedStatement.setString(1,email);
 			preparedStatement.setString(2,senha);
@@ -154,7 +161,7 @@ public class UsuarioDAO {
 		} finally {
             preparedStatement.close();
             rs.close();
-            this.connection.close();
+            con.close();
         }
 		
 		return usuario;
@@ -164,9 +171,10 @@ public class UsuarioDAO {
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 		Usuario usuario = new Usuario();
+		Connection con = this.conexaoUtil. getConnection();
+		
 		try {
-			this.connection = ConnectionUtil.getConnection();
-			preparedStatement = this.connection
+			preparedStatement = con
 					.prepareStatement("select * from usuario where idUsuario=?");
 			
 			preparedStatement.setInt(1, idUsuario);
@@ -187,7 +195,7 @@ public class UsuarioDAO {
 		} finally {
             preparedStatement.close();
             rs.close();
-            this.connection.close();
+            con.close();
         }
 		
 		return usuario;
@@ -197,9 +205,10 @@ public class UsuarioDAO {
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 		Usuario usuario = new Usuario();
+		Connection con = this.conexaoUtil. getConnection();
+		
 		try {
-			this.connection = ConnectionUtil.getConnection();
-			preparedStatement = this.connection
+			preparedStatement = con
 					.prepareStatement("select * from usuario where email=?");
 			
 			preparedStatement.setString(1, email);
@@ -220,7 +229,7 @@ public class UsuarioDAO {
 		} finally {
             preparedStatement.close();
             rs.close();
-            this.connection.close();
+            con.close();
         }
 		
 		return usuario;
@@ -230,9 +239,10 @@ public class UsuarioDAO {
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 		List<Usuario> usuarios = new ArrayList<Usuario>();
+		Connection con = this.conexaoUtil. getConnection();
+		
 		try {
-			this.connection = ConnectionUtil.getConnection();
-			preparedStatement = this.connection
+			preparedStatement = con
 					.prepareStatement("select * from usuario where nome=?");
 			
 			preparedStatement.setString(1, nome);
@@ -255,7 +265,7 @@ public class UsuarioDAO {
 		} finally {
             preparedStatement.close();
             rs.close();
-            this.connection.close();
+            con.close();
         }
 		
 		return usuarios;
@@ -265,9 +275,10 @@ public class UsuarioDAO {
 		Statement statement = null;
 		ResultSet rs = null;
         List<Usuario> usuarios = new ArrayList<Usuario>();
+        Connection con = this.conexaoUtil. getConnection();
+        
         try {
-    		this.connection = ConnectionUtil.getConnection();
-            statement = this.connection.createStatement();
+            statement = con.createStatement();
             rs = statement.executeQuery("select * from usuario;");
             
             while(rs.next()) {
@@ -287,7 +298,7 @@ public class UsuarioDAO {
         } finally {
         	statement.close();
             rs.close();
-            this.connection.close();
+            con.close();
         }
         
         return usuarios;

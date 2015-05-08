@@ -14,9 +14,10 @@ import asktechforum.util.ConnectionUtil;
 
 public class CadastroPerguntasDAO implements CadastroPergunta {
 
-	private Connection con = null;
+	private ConnectionUtil conexaoUtil;
 
 	public CadastroPerguntasDAO() {
+		this.conexaoUtil = ConnectionUtil.getInstancia();
 	}
 	
 	public String adcionarPergunta(Pergunta pergunta) throws SQLException {
@@ -24,9 +25,9 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 		String sql = "insert into PERGUNTA(titulo, data, hora, descricao, idUsuario, tag)values(?,?,?,?,?,?)";
 		PreparedStatement stmt = null;
-		this.con = ConnectionUtil.getConnection();
+		 Connection con = this.conexaoUtil.getConnection();
 		try {
-			stmt = this.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			int index = 0;
 			stmt.setString(++index, pergunta.getTitulo());
 			stmt.setDate(++index, pergunta.getData());
@@ -41,7 +42,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 		return retorno;
 	}
@@ -50,15 +51,16 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 		String sql = "delete from PERGUNTA where idPergunta = " + id;
 		PreparedStatement stmt = null;
+		Connection con = conexaoUtil.getConnection();
+		
 		try {
-			this.con = ConnectionUtil.getConnection();
-			stmt = this.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 
 	}
@@ -70,10 +72,10 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		String sql = "select * from PERGUNTA where idPergunta = " + id;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-
+		 Connection con = this.conexaoUtil.getConnection();
+		 
 		try {
-			this.con = ConnectionUtil.getConnection();
-			stmt = this.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				pergunta.setDescricao(rs.getString("descricao"));
@@ -90,7 +92,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		} finally {
 			rs.close();
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 
 		return pergunta;
@@ -104,9 +106,9 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 				+ " order by data, hora";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		this.con = ConnectionUtil.getConnection();
+		 Connection con = this.conexaoUtil.getConnection();
 		try {
-			stmt = this.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
 
@@ -117,7 +119,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		} finally {
 			rs.close();
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 
 		return pergunta;
@@ -129,10 +131,10 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		String sql = "select * from PERGUNTA order by data, hora";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-
+		Connection con = this.conexaoUtil.getConnection();
+		
 		try {
-			this.con = ConnectionUtil.getConnection();
-			stmt = this.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
 
@@ -143,7 +145,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		} finally {
 			rs.close();
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 
 		return pergunta;
@@ -156,10 +158,10 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		String sql = "SELECT DISTINCT tag FROM pergunta order by tag";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-
+		Connection con = this.conexaoUtil.getConnection();
+		
 		try {
-			this.con = ConnectionUtil.getConnection();
-			stmt = this.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
 			tags = this.separaTags(rs);
@@ -169,7 +171,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		} finally {
 			rs.close();
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 
 		return tags;
@@ -204,15 +206,12 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 				+ " order by hora";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-
+		Connection con = this.conexaoUtil.getConnection();
 		try {
-			this.con = ConnectionUtil.getConnection();
-			stmt = this.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
 
-			
-			
 			while (rs.next()) {
 				Pergunta p = new Pergunta();
 				p.setDescricao(rs.getString("descricao"));
@@ -230,7 +229,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		} finally {
 			rs.close();
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 
 		return pergunta;
@@ -248,10 +247,10 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-
+		Connection con = this.conexaoUtil.getConnection();
+		
 		try {
-			this.con = ConnectionUtil.getConnection();
-			stmt = this.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
 
@@ -274,7 +273,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		} finally {
 			rs.close();
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 
 		return pergunta;
@@ -293,10 +292,9 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-
+		Connection con = this.conexaoUtil.getConnection();
 		try {
-			this.con = ConnectionUtil.getConnection();
-			stmt = this.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
 
@@ -322,7 +320,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 		} finally {
 			rs.close();
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 
 		return pergunta;
@@ -330,9 +328,9 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 	private ArrayList<Pergunta> montarLista(ResultSet rs)
 			throws SQLException {
 		ArrayList<Pergunta> pergunta = new ArrayList<Pergunta>();
-
+		Connection con = this.conexaoUtil.getConnection();
+		
 		try {
-			this.con = ConnectionUtil.getConnection();
 			while (rs.next()) {
 				Pergunta p = new Pergunta();
 				p.setDescricao(rs.getString("descricao"));
@@ -348,7 +346,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			e.printStackTrace();
 		}finally {
 			rs.close();
-			this.con.close();
+			con.close();
 		}
 
 		return pergunta;
@@ -360,9 +358,9 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 
 		String sql = "update PERGUNTA set titulo=?, data=?, hora=?, descricao=?, idUsuario=?, tag=?  where idPergunta = ?";
 		PreparedStatement stmt = null;
-		this.con = ConnectionUtil.getConnection();
+		 Connection con = this.conexaoUtil.getConnection();
 		try {
-			stmt = this.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			int index = 0;
 			stmt.setString(++index, pergunta.getTitulo());
 			stmt.setDate(++index, pergunta.getData());
@@ -378,7 +376,7 @@ public class CadastroPerguntasDAO implements CadastroPergunta {
 			e.printStackTrace();
 		} finally {
 			stmt.close();
-			this.con.close();
+			con.close();
 		}
 		
 		return retorno;
