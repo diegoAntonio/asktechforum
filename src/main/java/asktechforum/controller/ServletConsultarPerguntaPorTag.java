@@ -17,7 +17,6 @@ import asktechforum.negocio.CadastroPerguntaBC;
 /**
  * Implementacao do Servlet de Consultar Pergunta por Tag.
  */
-@WebServlet("/ServletConsultarPerguntaPorTag")
 public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

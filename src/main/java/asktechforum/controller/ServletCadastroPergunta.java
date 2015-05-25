@@ -18,7 +18,6 @@ import asktechforum.util.Util;
 /**
  * Implementacao do Servlet de Cadastro de Pergunta.
  */
-@WebServlet("/ServletCadastroPergunta")
 public class ServletCadastroPergunta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final String SUCESSOCADASTRO = "usuarioAutenticado/cadastroPerguntaSucesso.jsp";

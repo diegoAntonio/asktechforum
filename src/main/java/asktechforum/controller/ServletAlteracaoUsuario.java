@@ -16,7 +16,6 @@ import asktechforum.negocio.UsuarioBC;
 /**
  * Implementacao do Servlet de Alterar Perfil de Usuario.
  */
-@WebServlet("/ServletAlteracaoUsuario")
 public class ServletAlteracaoUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String ALTERAR = "./usuarioAutenticado/alterarUsuario.jsp";

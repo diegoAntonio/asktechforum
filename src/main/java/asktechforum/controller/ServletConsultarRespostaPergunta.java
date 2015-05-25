@@ -19,7 +19,6 @@ import asktechforum.negocio.CadastroRespostaBC;
 /**
  * Implementacao do Servlet de Consultar Respostas de Pergunta.
  */
-@WebServlet("/ServletConsultarRespostaPergunta")
 public class ServletConsultarRespostaPergunta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String RESULTADO_CONSULTA = "consultarRespostaPorPergunta.jsp";

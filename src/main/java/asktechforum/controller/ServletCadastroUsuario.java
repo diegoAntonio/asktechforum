@@ -15,7 +15,6 @@ import asktechforum.negocio.UsuarioBC;
 /**
  * Implementacao do Servlet de Cadastro de Usuario.
  */
-@WebServlet("/ServletCadastroUsuario")
 public class ServletCadastroUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String SUCESSOCADASTRO = "cadastroUsuarioSucesso.jsp";

@@ -16,7 +16,6 @@ import asktechforum.negocio.UsuarioBC;
 /**
  * Implementacao do Servlet de Exclusao de Usuario.
  */
-@WebServlet("/ServletExclusaoUsuario")
 public class ServletExclusaoUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String SUCESSOEXCLUSAO = "./usuarioAutenticado/exclusaoUsuarioSucesso.jsp";

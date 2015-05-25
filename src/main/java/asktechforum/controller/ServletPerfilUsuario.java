@@ -16,7 +16,6 @@ import asktechforum.negocio.UsuarioBC;
 /**
  * Implementacao do Servlet de Perfil de Usuario.
  */
-@WebServlet("/ServletPerfilUsuario")
 public class ServletPerfilUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String PERFIL = "perfilUsuario.jsp";

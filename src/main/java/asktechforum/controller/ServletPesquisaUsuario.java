@@ -17,7 +17,6 @@ import asktechforum.negocio.UsuarioBC;
 /**
  * Implementacao do Servlet de Pesquisa de Usuario.
  */
-@WebServlet("/ServletPesquisaUsuario")
 public class ServletPesquisaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String PESQUISA = "pesquisarUsuario.jsp";

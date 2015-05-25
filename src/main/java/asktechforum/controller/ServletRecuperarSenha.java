@@ -15,7 +15,6 @@ import asktechforum.dominio.*;
 /**
  * Implementacao do Servlet de Recuperar Senha.
  */
-@WebServlet("/ServletRecuperarSenha")
 public class ServletRecuperarSenha extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
