@@ -1,10 +1,10 @@
 package asktechforum.util;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import asktechforum.config.PropriedadesBancoLoader;
+import asktechforum.conection.ConexaoAbs;
+import asktechforum.conection.ConexaoFactory;
 
 /**
  * Classe que implementa o padrao singleton
@@ -14,43 +14,33 @@ import asktechforum.config.PropriedadesBancoLoader;
  */
 public class ConnectionUtil {
 	private static ConnectionUtil instancia;
-	private Connection connection = null;
+	private ConexaoAbs connection = null;
+	private ConexaoFactory fabricaConexao;
 	
 	private ConnectionUtil(){
-		this.criarConexao();
+		fabricaConexao = new ConexaoFactory();
+		this.iniciarConexao();
 	}
 	
-	private void criarConexao() {
-		try {
-			String driver = PropriedadesBancoLoader.BANCO_DRIVER;
-			String url = PropriedadesBancoLoader.BANCO_URL;
-			String user = PropriedadesBancoLoader.BANCO_USER_NAME;
-			String password = PropriedadesBancoLoader.BANCO_PASSWD;
-			Class.forName(driver);
-			this.connection = DriverManager.getConnection(url, user, password);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public void iniciarConexao(){
+		this.connection = fabricaConexao.criarConexao(1);		
 	}
 	
-
 	public Connection getConnection() {
 		if (this.connection == null) {
-			this.criarConexao();
+			this.iniciarConexao();
 		}
 
 		try {
 			// checando se a conexao ainda eh valida.
-			if (!this.connection.isValid(500)) {
+			if (!this.connection.getConexao().isValid(500)) {
 				throw new SQLException();
 			}
 		} catch (SQLException e) {
-			this.criarConexao();
+			this.iniciarConexao();
 		}
 
-		return this.connection;
+		return this.connection.getConexao();
 	}
 	
 	public static ConnectionUtil getInstancia() {
