@@ -13,11 +13,16 @@ public class PropriedadesBancoLoader {
 	private static final String path = "asktechforum.properties.propriedadesBanco";
 	private ResourceBundle resources;
 	
-	public static final String BANCO_URL = getInstance().getPropriedade("url");
+	public static final String BANCO_URL_LOCAL = getInstance().getPropriedade("url.local");
 	public static final String BANCO_DRIVER = getInstance().getPropriedade("driver");
 	public static final String BANCO_USER_NAME = getInstance().getPropriedade("username");
-	public static final String BANCO_PASSWD =getInstance().getPropriedade("passwd");
+	public static final String BANCO_PASSWD = getInstance().getPropriedade("passwd");
 	
+	public static final String BANCO_URL_REMOTA = getInstance().getPropriedade("url.remota");
+	
+	//tipos de conexao
+	public static final int CONEXAO_LOCAL = Integer.parseInt(getInstance().getPropriedade("conexao.local"));
+	public static final int CONEXAO_REMOTA = Integer.parseInt(getInstance().getPropriedade("conexao.remota"));
 	
 	private PropriedadesBancoLoader(){
 		this.carregarPropriedades();

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import asktechforum.conection.ConexaoAbs;
 import asktechforum.conection.ConexaoFactory;
+import asktechforum.config.PropriedadesBancoLoader;
 
 /**
  * Classe que implementa o padrao singleton
@@ -23,7 +24,7 @@ public class ConnectionUtil {
 	}
 	
 	public void iniciarConexao(){
-		this.connection = fabricaConexao.criarConexao(1);		
+		this.connection = fabricaConexao.criarConexao(PropriedadesBancoLoader.CONEXAO_LOCAL);		
 	}
 	
 	public Connection getConnection() {
