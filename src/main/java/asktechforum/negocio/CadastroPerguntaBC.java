@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.ResultConsultarPergunta;
+import asktechforum.proxy.TagProxy;
 import asktechforum.repositorio.CadastroPerguntasDAO;
 import asktechforum.interfaces.CadastroPergunta;
 
@@ -13,9 +14,11 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 	private CadastroPerguntasDAO cadastro;
 	private ArrayList<Pergunta> lstPergunta;
 	private ArrayList<ResultConsultarPergunta> lstQtdPergunta;
+	private TagProxy tagProxy;
 
 	public CadastroPerguntaBC() {
 		cadastro = new CadastroPerguntasDAO();
+		this.tagProxy = TagProxy.getTagProxy();
 	}
 
 	@Override
@@ -94,7 +97,8 @@ public class CadastroPerguntaBC implements CadastroPergunta {
 		ArrayList<String> tagFiltradas = new ArrayList<String>();
 		try {
 
-		   tags = cadastro.consultaTodasAsTags();
+		   //tags = cadastro.consultaTodasAsTags();
+		   tags=this.tagProxy.consultarTag();
 		   
 		   tagFiltradas.add(tags.get(0));
 		   boolean ehIgual = false;
