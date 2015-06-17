@@ -105,4 +105,26 @@
     <servlet-name>ServletConsultarPerguntaPorTag</servlet-name>
     <url-pattern>/ServletConsultarPerguntaPorTag</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>ServletConsultarRespostaPergunta</display-name>
+    <servlet-name>ServletConsultarRespostaPergunta</servlet-name>
+    <servlet-class>asktechforum.controller.ServletConsultarRespostaPergunta</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>ServletConsultarRespostaPergunta</servlet-name>
+    <url-pattern>/ServletConsultarRespostaPergunta</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>ServletRecuperarSenha</display-name>
+    <servlet-name>ServletRecuperarSenha</servlet-name>
+    <servlet-class>asktechforum.controller.ServletRecuperarSenha</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>ServletRecuperarSenha</servlet-name>
+    <url-pattern>/ServletRecuperarSenha</url-pattern>
+  </servlet-mapping>
 </web-app>
