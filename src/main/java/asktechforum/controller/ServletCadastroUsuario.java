@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import asktechforum.dominio.Usuario;
-import asktechforum.negocio.UsuarioBC;
+//import asktechforum.negocio.UsuarioBC;
+import asktechforum.fachada.Fachada;
 
 /**
  * Implementacao do Servlet de Cadastro de Usuario.
@@ -20,14 +21,14 @@ public class ServletCadastroUsuario extends HttpServlet {
     private static String SUCESSOCADASTRO = "cadastroUsuarioSucesso.jsp";
     private static String ERROCADASTRO = "cadastroUsuario.jsp";
 	
-    private UsuarioBC usuarioBC;
+    //private UsuarioBC usuarioBC;
        
     /**
      * Construtor do Servlet de Cadastro de Usuario.
      */
     public ServletCadastroUsuario() {
         super();
-        this.usuarioBC = new UsuarioBC();
+        //this.usuarioBC = new UsuarioBC();
     }
 
 	/**
@@ -40,11 +41,12 @@ public class ServletCadastroUsuario extends HttpServlet {
 	 * Implementacao do metodo doPost() Servlet de Cadastro de Usuario.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Fachada fachada = Fachada.getInstance();
 		Usuario usuario = new Usuario();
-		int quantAdmin = this.usuarioBC.consultarQuantidadeAdmin(usuario);
+		int quantAdmin = fachada.fachadaConsultarQuantidadeAdmin(usuario);
 		boolean flag = true;
 
-		if(!this.usuarioBC.verificarEmail(request.getParameter("email"), usuario)) {
+		if(!fachada.fachadaVerificarEmail(request.getParameter("email"), usuario)) {
 			usuario.setNome(request.getParameter("nome"));
 			usuario.setDataString(request.getParameter("dataNascimento"));
 			usuario.setEmail(request.getParameter("email"));
@@ -58,7 +60,7 @@ public class ServletCadastroUsuario extends HttpServlet {
 				usuario.setAdmin(false);
 			}
 			
-			flag = this.usuarioBC.adicionarUsuario(usuario);
+			flag = fachada.fachadaAdicionarUsuario(usuario);
 			
 			if(flag) {
 				RequestDispatcher view = request.getRequestDispatcher(SUCESSOCADASTRO);

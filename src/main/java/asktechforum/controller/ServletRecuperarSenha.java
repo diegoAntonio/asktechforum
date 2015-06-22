@@ -1,7 +1,7 @@
 package asktechforum.controller;
 
-import asktechforum.negocio.UsuarioBC;
-
+//import asktechforum.negocio.UsuarioBC;
+import asktechforum.fachada.Fachada;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -36,8 +36,9 @@ public class ServletRecuperarSenha extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String emailPesquisado = request.getParameter("email");
-		UsuarioBC consultaUsuario = new UsuarioBC();
-		Usuario usuario = consultaUsuario.consultarUsuarioPorEmail(emailPesquisado);
+		Fachada fachada = Fachada.getInstance();
+		//UsuarioBC consultaUsuario = new UsuarioBC();
+		Usuario usuario = fachada.fachadaConsultarUsuarioPorEmail(emailPesquisado);
 		
 		try{
 			if(usuario.getEmail() == null){

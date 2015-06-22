@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Usuario;
-import asktechforum.negocio.UsuarioBC;
+//import asktechforum.negocio.UsuarioBC;
+import asktechforum.fachada.Fachada;
 
 /**
  * Implementacao do Servlet de Alterar Perfil de Usuario.
@@ -24,14 +25,14 @@ public class ServletAlteracaoUsuario extends HttpServlet {
     private static String SUCESSOALTERACAO = "perfilUsuario.jsp";
     private static String ERROALTERACAOEXCLUSAO = "./usuarioAutenticado/alteracaoExclusaoUsuarioErro.jsp";
     
-	private UsuarioBC usuarioBC;
+	//private UsuarioBC usuarioBC;
        
     /**
      * Construtor do Servlet de Alterar Perfil de Usuario.
      */
     public ServletAlteracaoUsuario() {
         super();
-        this.usuarioBC = new UsuarioBC();
+        //this.usuarioBC = new UsuarioBC();
     }
 
     /**
@@ -48,6 +49,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 		HttpSession session = request.getSession();
 		int quantAdmin;
 		boolean flag = true;
+		Fachada fachada = Fachada.getInstance();
 		
 		String pesquisaUsuarioEmail = request.getParameter("pesquisaUsuarioEmail");
 		String alteracaoUsuarioId = request.getParameter("alteracaoUsuarioId");
@@ -59,9 +61,10 @@ public class ServletAlteracaoUsuario extends HttpServlet {
     	session.setAttribute("erroAlteracaoExclusao", true);
 		
 		if(pesquisaUsuarioEmail != null) {
-			usuario = this.usuarioBC.consultarUsuarioPorEmail(pesquisaUsuarioEmail);
+			//usuario = this.usuarioBC.consultarUsuarioPorEmail(pesquisaUsuarioEmail);
+			usuario = fachada.fachadaConsultarUsuarioPorEmail(pesquisaUsuarioEmail);
 			if(usuario.getDataNascimento() != null) {
-				usuario.setDataString(this.usuarioBC.formatarDataSQL(usuario.getDataNascimento().toString()));
+				usuario.setDataString(fachada.fachadaFormatarDataSQL(usuario.getDataNascimento().toString()));
 			}
 			usuario.setSenha("");
 			usuario.setConfSenha("");
@@ -73,10 +76,11 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 		}else if(alteracaoUsuarioId != null) {
 			idUsuario = Integer.parseInt(alteracaoUsuarioId);
 			
-			usuario = this.usuarioBC.consultarUsuarioPorId(idUsuario);
-			quantAdmin = this.usuarioBC.consultarQuantidadeAdmin(usuario);
-
-			if(!this.usuarioBC.verificarEmail(request.getParameter("email"), usuario)) {
+			//usuario = this.usuarioBC.consultarUsuarioPorId(idUsuario);
+			usuario = fachada.fachadaConsultarUsuarioPorId(idUsuario);
+			//quantAdmin = this.usuarioBC.consultarQuantidadeAdmin(usuario);
+			quantAdmin = fachada.fachadaConsultarQuantidadeAdmin(usuario);
+			if(!fachada.fachadaVerificarEmail(request.getParameter("email"), usuario)) {
 				usuario.setNome(request.getParameter("nome"));
 				usuario.setDataString(request.getParameter("dataNascimento"));
 				usuario.setEmail(request.getParameter("email"));
@@ -88,7 +92,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 					if(request.getParameter("admin").trim().equals("true")) {
 						usuario.setAdmin(true);
 
-						flag = this.usuarioBC.alterarUsuario(usuario);
+						flag = fachada.fachadaAlterarUsuario(usuario);
 						
 						if(flag) {
 							view = request.getRequestDispatcher(SUCESSOALTERACAO);
@@ -107,7 +111,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 					if(quantAdmin > 1) {
 						usuario.setAdmin(false);
 
-						flag = this.usuarioBC.alterarUsuario(usuario);
+						flag = fachada.fachadaAlterarUsuario(usuario);
 						
 						if(flag) {
 							view = request.getRequestDispatcher(SUCESSOALTERACAO);
@@ -141,7 +145,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 		}else if(alteracaoAdminId != null) {
 			idUsuario = Integer.parseInt(alteracaoAdminId);
 			
-			usuario = this.usuarioBC.consultarUsuarioPorId(idUsuario);
+			usuario = fachada.fachadaConsultarUsuarioPorId(idUsuario);
 			
 			if(request.getParameter("admin") != null) {
 				usuario.setAdmin(true);
@@ -149,7 +153,7 @@ public class ServletAlteracaoUsuario extends HttpServlet {
 				usuario.setAdmin(false);
 			}
 
-			flag = this.usuarioBC.alterarUsuarioAdmin(usuario);
+			flag = fachada.fachadaAlterarUsuarioAdmin(usuario);
 			
 			if(flag) {
 				view = request.getRequestDispatcher(SUCESSOALTERACAO);
