@@ -1,16 +1,17 @@
-package asktechforum.repositorio;
+package asktechforum.repositorio.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import asktechforum.interfaces.RepositorioVoto;
 import asktechforum.util.ConnectionUtil;
 
-public class VotoDAO {
+public class RepositorioVotoJDBC implements RepositorioVoto{
     private ConnectionUtil conexaoUtil;
 
-	public VotoDAO() {
+	public RepositorioVotoJDBC() {
 		this.conexaoUtil = ConnectionUtil.getInstancia();
 	}
 	

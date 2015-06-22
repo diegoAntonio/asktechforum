@@ -1,4 +1,4 @@
-package asktechforum.repositorio;
+package asktechforum.repositorio.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.Resposta;
 import asktechforum.dominio.Usuario;
-import asktechforum.interfaces.CadastroResposta;
+import asktechforum.interfaces.RepositorioResposta;
 import asktechforum.util.ConnectionUtil;
 
-public class CadastroRespostaDAO implements CadastroResposta {
+public class RepositorioRespostaJDBC implements RepositorioResposta {
 
 	private ConnectionUtil conexaoUtil;
 
-	public CadastroRespostaDAO() {
+	public RepositorioRespostaJDBC() {
 		conexaoUtil = ConnectionUtil.getInstancia();
 	}
 

@@ -6,25 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import asktechforum.dominio.Usuario;
-import asktechforum.repositorio.UsuarioDAO;
-import asktechforum.util.UsuarioUtil;
 import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.Resposta;
-import asktechforum.negocio.CadastroPerguntaBC;
-import asktechforum.negocio.CadastroRespostaBC;
+import asktechforum.dominio.Usuario;
+import asktechforum.factory.FabricaDAO;
+import asktechforum.factory.FactoryDataBase;
+import asktechforum.interfaces.RepositorioPergunta;
+import asktechforum.interfaces.RepositorioResposta;
+import asktechforum.interfaces.RepositorioUsuario;
+import asktechforum.util.UsuarioUtil;
 
 public class UsuarioBC {
 
-	private UsuarioDAO usuarioDAO;
-	private CadastroPerguntaBC perguntaBC;
-	private CadastroRespostaBC respostaBC;
+	private RepositorioUsuario usuarioDAO;
+	private RepositorioPergunta perguntaBC;
+	private RepositorioResposta respostaBC;
 	
 	public UsuarioBC() {
         super();
-        this.usuarioDAO = new UsuarioDAO();
-        this.perguntaBC = new CadastroPerguntaBC();
-        this.respostaBC = new CadastroRespostaBC();
+        FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("JDBC");
+        this.usuarioDAO = fabrica.criarDaoUsuario();
+        this.perguntaBC = fabrica.criarDaoPergunta();
+        this.respostaBC = fabrica.criarDaoResposta();
 	}
 	
 	public boolean alterarUsuario(Usuario usuario){

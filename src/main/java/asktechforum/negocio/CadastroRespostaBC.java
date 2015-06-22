@@ -6,21 +6,23 @@ import java.util.ArrayList;
 import asktechforum.dominio.Email;
 import asktechforum.dominio.Resposta;
 import asktechforum.dominio.Usuario;
-import asktechforum.interfaces.CadastroResposta;
-import asktechforum.repositorio.CadastroRespostaDAO;
+import asktechforum.factory.FabricaDAO;
+import asktechforum.factory.FactoryDataBase;
+import asktechforum.interfaces.RepositorioResposta;
 
 
-public class CadastroRespostaBC implements CadastroResposta {
+public class CadastroRespostaBC{
 
-	private CadastroRespostaDAO cadastro;
+	private RepositorioResposta cadastro;
 	private ArrayList<Resposta> lstResposta;
 
 
 	public CadastroRespostaBC() {
-		cadastro = new CadastroRespostaDAO();
+		FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("JDBC");
+		this.cadastro = fabrica.criarDaoResposta();
+		
 	}
 
-	@Override
 	public String adicionarResposta(Resposta resposta) {
 		String msg = "";
 		try {
@@ -66,7 +68,6 @@ public class CadastroRespostaBC implements CadastroResposta {
 		}
 	}
 
-	@Override
 	public void deletarResposta(int id) {
 		try {
 			if (id == 0) {
@@ -79,7 +80,6 @@ public class CadastroRespostaBC implements CadastroResposta {
 		}
 	}
 
-	@Override
 	public Resposta consultarRespostaPorIdResposta(int id)  {
 		Resposta resposta = new Resposta();
 		try {
@@ -94,7 +94,6 @@ public class CadastroRespostaBC implements CadastroResposta {
 		return resposta;
 	}
 
-	@Override
 	public ArrayList<Resposta> consultarRespostaPorIdUsuario(int id)
 			throws SQLException {
 		lstResposta = new ArrayList<Resposta>();
@@ -110,7 +109,6 @@ public class CadastroRespostaBC implements CadastroResposta {
 		return lstResposta;
 	}
 
-	@Override
 	public ArrayList<Resposta> consultarTodasRespostas() throws SQLException {
 		lstResposta = new ArrayList<Resposta>();
 		try {
@@ -121,7 +119,6 @@ public class CadastroRespostaBC implements CadastroResposta {
 		return lstResposta;
 	}
 
-	@Override
 	public ArrayList<Resposta> consultarRespostaPorPergunta(int id) {
 		lstResposta = new ArrayList<Resposta>();
 		try {
@@ -152,7 +149,6 @@ public class CadastroRespostaBC implements CadastroResposta {
 		}
 	}
 
-	@Override
 	public String alterarResposta(Resposta resposta){
 		String msg = "";
 		try {

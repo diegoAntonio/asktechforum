@@ -1,4 +1,4 @@
-package asktechforum.repositorio;
+package asktechforum.repositorio.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,15 +8,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import asktechforum.dominio.Usuario;
+import asktechforum.interfaces.RepositorioUsuario;
 import asktechforum.util.ConnectionUtil;
 import asktechforum.util.UsuarioUtil;
-import asktechforum.dominio.Usuario;
 
-public class UsuarioDAO {
+public class RepositorioUsuarioJDBC  implements RepositorioUsuario{
     UsuarioUtil usuarioUtil;
     private ConnectionUtil conexaoUtil;
 	
-	public UsuarioDAO(){
+	public RepositorioUsuarioJDBC(){
 		this.usuarioUtil = new UsuarioUtil();
 		this.conexaoUtil = ConnectionUtil.getInstancia();
 	}

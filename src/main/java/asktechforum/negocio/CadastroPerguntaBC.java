@@ -5,17 +5,19 @@ import java.util.ArrayList;
 
 import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.ResultConsultarPergunta;
-import asktechforum.repositorio.CadastroPerguntasDAO;
-import asktechforum.interfaces.CadastroPergunta;
+import asktechforum.factory.FabricaDAO;
+import asktechforum.factory.FactoryDataBase;
+import asktechforum.interfaces.RepositorioPergunta;
 
-public class CadastroPerguntaBC implements CadastroPergunta {
+public class CadastroPerguntaBC implements RepositorioPergunta {
 
-	private CadastroPerguntasDAO cadastro;
+	private RepositorioPergunta cadastro;
 	private ArrayList<Pergunta> lstPergunta;
 	private ArrayList<ResultConsultarPergunta> lstQtdPergunta;
 
 	public CadastroPerguntaBC() {
-		cadastro = new CadastroPerguntasDAO();
+		FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("JDBC");
+		this.cadastro = fabrica.criarDaoPergunta();
 	}
 
 	@Override

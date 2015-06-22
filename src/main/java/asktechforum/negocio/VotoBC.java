@@ -2,13 +2,16 @@ package asktechforum.negocio;
 
 import java.sql.SQLException;
 
-import asktechforum.repositorio.VotoDAO;
+import asktechforum.factory.FabricaDAO;
+import asktechforum.factory.FactoryDataBase;
+import asktechforum.interfaces.RepositorioVoto;
 
 public class VotoBC {
-	private VotoDAO votoDAO;
+	private RepositorioVoto votoDAO;
 	
 	public VotoBC() {
-		this.votoDAO = new VotoDAO();
+		FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("JDBC");
+		this.votoDAO = fabrica.criarDaoVoto();
 	}
 	
 	public void adicionarVotoUsuario(int idUsuario, int idResposta) {
