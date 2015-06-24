@@ -8,16 +8,19 @@ import asktechforum.dominio.ResultConsultarPergunta;
 import asktechforum.factory.FabricaDAO;
 import asktechforum.factory.FactoryDataBase;
 import asktechforum.interfaces.RepositorioPergunta;
+import asktechforum.proxy.TagProxy;
 
 public class CadastroPerguntaBC implements RepositorioPergunta {
 
-	private RepositorioPergunta cadastro;
+	private RepositorioPergunta perguntaDAO;
 	private ArrayList<Pergunta> lstPergunta;
 	private ArrayList<ResultConsultarPergunta> lstQtdPergunta;
+	private TagProxy tagProxy;
 
 	public CadastroPerguntaBC() {
 		FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("JDBC");
-		this.cadastro = fabrica.criarDaoPergunta();
+		this.perguntaDAO = fabrica.criarDaoPergunta();
+		this.tagProxy = TagProxy.getTagProxy();
 	}
 
 	@Override
@@ -26,7 +29,7 @@ public class CadastroPerguntaBC implements RepositorioPergunta {
 		try {
 			String msgErro = this.verificaCampos(pergunta);
 			if (msgErro.length()==0) {
-				msg= cadastro.adcionarPergunta(pergunta);
+				msg= perguntaDAO.adcionarPergunta(pergunta);
 			}else{
 				msg= msgErro;
 			}
@@ -45,7 +48,7 @@ public class CadastroPerguntaBC implements RepositorioPergunta {
 			if (id == 0) {
 
 			} else {
-				cadastro.deletarPergunta(id);
+				perguntaDAO.deletarPergunta(id);
 			}
 
 		} catch (SQLException e) {
@@ -62,7 +65,7 @@ public class CadastroPerguntaBC implements RepositorioPergunta {
 			if (id == 0) {
 
 			} else {
-				pergunta = cadastro.consultarPerguntaPorIdPergunta(id);
+				pergunta = perguntaDAO.consultarPerguntaPorIdPergunta(id);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -80,7 +83,7 @@ public class CadastroPerguntaBC implements RepositorioPergunta {
 			if (id == 0) {
 
 			} else {
-				this.lstPergunta = cadastro.consultarPerguntaIdUsuario(id);
+				this.lstPergunta = perguntaDAO.consultarPerguntaIdUsuario(id);
 			}
 
 		} catch (SQLException e) {
@@ -95,8 +98,8 @@ public class CadastroPerguntaBC implements RepositorioPergunta {
 		ArrayList<String> tags = new ArrayList<String>();
 		ArrayList<String> tagFiltradas = new ArrayList<String>();
 		try {
-
-		   tags = cadastro.consultaTodasAsTags();
+			
+		   tags = this.tagProxy.consultarTag();
 		   
 		   tagFiltradas.add(tags.get(0));
 		   boolean ehIgual = false;
@@ -123,7 +126,7 @@ public class CadastroPerguntaBC implements RepositorioPergunta {
 		lstPergunta = new ArrayList<Pergunta>();
 		try {
 
-			this.lstPergunta = cadastro.consultarTodasPerguntas();
+			this.lstPergunta = perguntaDAO.consultarTodasPerguntas();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -136,9 +139,9 @@ public class CadastroPerguntaBC implements RepositorioPergunta {
 		lstQtdPergunta = new ArrayList<ResultConsultarPergunta>();
 		try {
 			if(tag.equals("all")){
-				this.lstQtdPergunta = cadastro.consultarPerguntaPorTodasTags();
+				this.lstQtdPergunta = perguntaDAO.consultarPerguntaPorTodasTags();
 			}else{
-				this.lstQtdPergunta = cadastro.consultarPerguntaPorTag(tag);
+				this.lstQtdPergunta = perguntaDAO.consultarPerguntaPorTag(tag);
 			}
 			
 
@@ -161,7 +164,7 @@ public class CadastroPerguntaBC implements RepositorioPergunta {
 		try {
 			String msgErro = this.verificaCampos(pergunta);
 			if (msgErro.equals("")) {
-				msg = cadastro.alterarPergunta(pergunta);
+				msg = perguntaDAO.alterarPergunta(pergunta);
 			}else{
 				msg = msgErro;
 			}
