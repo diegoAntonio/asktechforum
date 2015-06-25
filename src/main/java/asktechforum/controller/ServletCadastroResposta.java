@@ -12,8 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Resposta;
 import asktechforum.dominio.Usuario;
-import asktechforum.negocio.CadastroRespostaBC;
-import asktechforum.negocio.VotoBC;
+import asktechforum.fachada.Fachada;
+//import asktechforum.negocio.CadastroRespostaBC;
+//import asktechforum.negocio.VotoBC;
 import asktechforum.util.Util;
 
 /**
@@ -25,16 +26,16 @@ public class ServletCadastroResposta extends HttpServlet {
 	private static final String SUCESSOALTERACAO = "usuarioAutenticado/alterarRespostaSucesso.jsp";
 	private static final String PAGECONSULTARESPOSTAS = "consultarRespostaPorPergunta.jsp";
 	
-	private CadastroRespostaBC cadastro;
-	private VotoBC votoBC;
+	//private CadastroRespostaBC cadastro;
+	//private VotoBC votoBC;
 	
 	/**
      * Construtor do Servlet de Cadastro de Resposta.
      */
     public ServletCadastroResposta() {
         super();
-        this.cadastro = new CadastroRespostaBC();
-        this.votoBC = new VotoBC();
+        //this.cadastro = new CadastroRespostaBC();
+        //this.votoBC = new VotoBC();
     }
 
     /**
@@ -46,6 +47,8 @@ public class ServletCadastroResposta extends HttpServlet {
 		request.setAttribute("descricao", session.getAttribute("descricao"));
 		request.setAttribute("autor", session.getAttribute("autor"));
 		request.setAttribute("titulo", session.getAttribute("titulo"));
+		
+		Fachada fachada = Fachada.getInstance();
 		
 		boolean isVotar = (boolean)session.getAttribute("isVotar");
 		boolean liked = true;
@@ -61,12 +64,12 @@ public class ServletCadastroResposta extends HttpServlet {
 		if(isVotar){
 			if(liked) {
 				
-				cadastro.adicionarVotoResposta(Integer.parseInt(idResposta));
-				this.votoBC.adicionarVotoUsuario(Integer.parseInt(idUsuario), Integer.parseInt(idResposta));
+				fachada.fachadaAdicionarVotoResposta(Integer.parseInt(idResposta));
+				fachada.fachadaAdicionarVotoUsuario(Integer.parseInt(idUsuario), Integer.parseInt(idResposta));
 				
-				this.cadastro = new CadastroRespostaBC();
+				//this.cadastro = new CadastroRespostaBC();
 	
-				ArrayList<Resposta> resp = this.cadastro.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
+				ArrayList<Resposta> resp = fachada.fachadaConsultarRespostaPorPergunta(Integer.parseInt(idPergunta));
 	
 				RequestDispatcher view = request.getRequestDispatcher(PAGECONSULTARESPOSTAS);
 				request.setAttribute("resposta", resp);
@@ -74,12 +77,12 @@ public class ServletCadastroResposta extends HttpServlet {
 				
 			}else {
 				
-				cadastro.removerVotoResposta(Integer.parseInt(idResposta));
-				this.votoBC.deletarUsuarioVoto(Integer.parseInt(idUsuario), Integer.parseInt(idResposta));
+				fachada.fachadaRemoverVotoResposta(Integer.parseInt(idResposta));
+				fachada.fachadaDeletarUsuarioVoto(Integer.parseInt(idUsuario), Integer.parseInt(idResposta));
 				
-				this.cadastro = new CadastroRespostaBC();
+				//this.cadastro = new CadastroRespostaBC();
 	
-				ArrayList<Resposta> resp = this.cadastro.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
+				ArrayList<Resposta> resp = fachada.fachadaConsultarRespostaPorPergunta(Integer.parseInt(idPergunta));
 	
 				RequestDispatcher view = request.getRequestDispatcher(PAGECONSULTARESPOSTAS);
 				request.setAttribute("resposta", resp);
@@ -97,6 +100,7 @@ public class ServletCadastroResposta extends HttpServlet {
 		HttpSession session = request.getSession();
 		String flag = request.getParameter("acao");
 		
+		Fachada fachada = Fachada.getInstance();
 		
 		if (flag != null && flag.contentEquals("cadastrar")) {			
 			
@@ -108,8 +112,8 @@ public class ServletCadastroResposta extends HttpServlet {
 			resposta.setIdPergunta(Integer.parseInt((String)session.getAttribute("idPergunta")));
 			resposta.setIdUsuario(usuario.getIdUsuario());			
 
-			String retornoCadastroResposta = cadastro
-					.adicionarResposta(resposta);
+			String retornoCadastroResposta = fachada
+					.fachadaAdicionarResposta(resposta);
 
 			if (retornoCadastroResposta != null
 					&& !retornoCadastroResposta.equals("cadastroSucesso")) {
@@ -122,7 +126,7 @@ public class ServletCadastroResposta extends HttpServlet {
 				RequestDispatcher view = request
 						.getRequestDispatcher(SUCESSOCADASTRO);
 				request.setAttribute("resposta", resposta);
-				cadastro.notificarContribuintesPerg(resposta.getIdPergunta(), resposta.getIdUsuario());
+				fachada.fachadaNotificarContribuintesPerg(resposta.getIdPergunta(), resposta.getIdUsuario());
 				view.forward(request, response);
 			}
 		} else if (flag.contentEquals("alterar")) {
@@ -132,8 +136,8 @@ public class ServletCadastroResposta extends HttpServlet {
 			resposta.setDescricao(request.getParameter("descricao"));
 			resposta.setStrHora(Util.getHoraSistema());
 			
-			String retornoAlterarResposta = cadastro
-					.alterarResposta(resposta);
+			String retornoAlterarResposta = fachada
+					.fachadaAlterarResposta(resposta);
 			if (retornoAlterarResposta != null
 					&& !retornoAlterarResposta.equals("alteracaoSucesso")) {
 				session.setAttribute("erroCadastroResposta",
@@ -148,6 +152,5 @@ public class ServletCadastroResposta extends HttpServlet {
 				view.forward(request, response);
 			}
 		}
-
 	}
 }

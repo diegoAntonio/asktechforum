@@ -11,7 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.Usuario;
-import asktechforum.negocio.CadastroPerguntaBC;
+//import asktechforum.negocio.CadastroPerguntaBC;
+import asktechforum.fachada.Fachada;
 import asktechforum.util.Util;
 
 /**
@@ -21,7 +22,7 @@ public class ServletCadastroPergunta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final String SUCESSOCADASTRO = "usuarioAutenticado/cadastroPerguntaSucesso.jsp";
 	private final String SUCESSOALTERAR = "usuarioAutenticado/alterarPerguntaSucesso.jsp";
-	private CadastroPerguntaBC cadastro;
+	//private CadastroPerguntaBC cadastro;
 
 	/**
      * Construtor do Servlet de Cadastro de Pergunta.
@@ -44,8 +45,8 @@ public class ServletCadastroPergunta extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Usuario usuario = (Usuario)session.getAttribute("usuarioLogado");
-		
-		this.cadastro = new CadastroPerguntaBC();
+		Fachada fachada = Fachada.getInstance();
+		//this.cadastro = new CadastroPerguntaBC();
 		Pergunta pergunta = new Pergunta();
 
 		pergunta.setStrData(Util.getDataSistema());
@@ -56,8 +57,8 @@ public class ServletCadastroPergunta extends HttpServlet {
 		pergunta.setTag(request.getParameter("tag"));
 		String acao = request.getParameter("acao");
 		if (acao.contentEquals("cadastrar")) {
-			String retornoCadastroPergunta = cadastro
-					.adcionarPergunta(pergunta);
+			String retornoCadastroPergunta = fachada
+					.fachadaAdcionarPergunta(pergunta);
 
 			if (retornoCadastroPergunta != null
 					&& !retornoCadastroPergunta.equals("cadastroSucesso")) {
@@ -78,7 +79,7 @@ public class ServletCadastroPergunta extends HttpServlet {
 								
 			Pergunta perguntaSelecionada = (Pergunta)session.getAttribute("pergunta");
 			pergunta.setIdPergunta(perguntaSelecionada.getIdPergunta());
-			String retornoAlteracaoPergunta = cadastro.alterarPergunta(pergunta);
+			String retornoAlteracaoPergunta = fachada.fachadaAlterarPergunta(pergunta);
 			
 			if (retornoAlteracaoPergunta != null
 					&& !retornoAlteracaoPergunta.equals("alteracaoSucesso")) {

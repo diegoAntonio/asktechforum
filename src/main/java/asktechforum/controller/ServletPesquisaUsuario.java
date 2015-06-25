@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import asktechforum.dominio.Usuario;
-import asktechforum.negocio.UsuarioBC;
-
+//import asktechforum.negocio.UsuarioBC;
+import asktechforum.fachada.Fachada;
 /**
  * Implementacao do Servlet de Pesquisa de Usuario.
  */
@@ -20,14 +20,14 @@ public class ServletPesquisaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String PESQUISA = "pesquisarUsuario.jsp";
     
-    private UsuarioBC usuarioBC;
+    //private UsuarioBC usuarioBC;
        
     /**
      * Construtor do Servlet de Pesquisa de Usuario.
      */
     public ServletPesquisaUsuario() {
         super();
-        this.usuarioBC = new UsuarioBC();
+        //this.usuarioBC = new UsuarioBC();
     }
 
     /**
@@ -40,6 +40,7 @@ public class ServletPesquisaUsuario extends HttpServlet {
 	 * Implementacao do metodo doPost() Servlet de Pesquisa de Usuario.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Fachada fachada = Fachada.getInstance();
 		List<Usuario> listaUsuarios = null;
 		String pesquisaRadio = request.getParameter("pesquisaRadio");
 		String nome, email;
@@ -50,23 +51,23 @@ public class ServletPesquisaUsuario extends HttpServlet {
 				nome = request.getParameter("nome");
 				if(nome.trim() != "" && nome != null) {
 					listaUsuarios = new ArrayList<Usuario>();
-					listaUsuarios.addAll(this.usuarioBC.consultarUsuarioPorNome(nome));
+					listaUsuarios.addAll(fachada.fachadaConsultarUsuarioPorNome(nome));
 				}
 				break;
 			case "emailRadio":
 				email = request.getParameter("email");
 				if(email.trim() != "" && email != null) {
-					if(this.usuarioBC.consultarUsuarioPorEmail(email) != null) {
-						if(this.usuarioBC.consultarUsuarioPorEmail(email).getIdUsuario() != 0) {
+					if(fachada.fachadaConsultarUsuarioPorEmail(email) != null) {
+						if(fachada.fachadaConsultarUsuarioPorEmail(email).getIdUsuario() != 0) {
 							listaUsuarios = new ArrayList<Usuario>();
-							listaUsuarios.add(this.usuarioBC.consultarUsuarioPorEmail(email));
+							listaUsuarios.add(fachada.fachadaConsultarUsuarioPorEmail(email));
 						}
 					}
 				}
 				break;
 			case "listartodosRadio":
 				listaUsuarios = new ArrayList<Usuario>();
-				listaUsuarios.addAll(this.usuarioBC.consultarTodosUsuarios());
+				listaUsuarios.addAll(fachada.fachadaConsultarTodosUsuarios());
 				break;
 			case "":
 				break;

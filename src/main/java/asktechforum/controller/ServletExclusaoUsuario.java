@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Usuario;
-import asktechforum.negocio.UsuarioBC;
+//import asktechforum.negocio.UsuarioBC;
+import asktechforum.fachada.Fachada;
 
 /**
  * Implementacao do Servlet de Exclusao de Usuario.
@@ -20,14 +21,14 @@ public class ServletExclusaoUsuario extends HttpServlet {
     private static String SUCESSOEXCLUSAO = "./usuarioAutenticado/exclusaoUsuarioSucesso.jsp";
     private static String ERROEXCLUSAO = "./usuarioAutenticado/alteracaoExclusaoUsuarioErro.jsp";
     
-	private UsuarioBC usuarioBC;
+	//private UsuarioBC usuarioBC;
 
     /**
      * Construtor do Servlet de Exclusao de Usuario.
      */
     public ServletExclusaoUsuario() {
         super();
-        this.usuarioBC = new UsuarioBC();
+        //this.usuarioBC = new UsuarioBC();
     }
 
 	/**
@@ -40,11 +41,12 @@ public class ServletExclusaoUsuario extends HttpServlet {
 	 * Implementacao do metodo doPost() Servlet de Exclusao de Usuario.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Fachada fachada = Fachada.getInstance();
 		String pesquisaUsuarioEmail = request.getParameter("exclusaoUsuarioEmail");
-		Usuario usuario = this.usuarioBC.consultarUsuarioPorEmail(pesquisaUsuarioEmail);
+		Usuario usuario = fachada.fachadaConsultarUsuarioPorEmail(pesquisaUsuarioEmail);
 		RequestDispatcher view;
 		HttpSession session = request.getSession();
-		int quantAdmin = this.usuarioBC.consultarQuantidadeAdmin(usuario);
+		int quantAdmin = fachada.fachadaConsultarQuantidadeAdmin(usuario);
 
 		Usuario usuarioExcluido = (Usuario) session.getAttribute("usuarioExcluido");
 		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); 
@@ -53,7 +55,7 @@ public class ServletExclusaoUsuario extends HttpServlet {
 		
 		if(pesquisaUsuarioEmail != null) {
 			if(quantAdmin > 1) {
-				this.usuarioBC.deletarUsuario(pesquisaUsuarioEmail);
+				fachada.fachadaDeletarUsuario(pesquisaUsuarioEmail);
 				
 				if(usuarioExcluido != null && usuarioLogado != null) {
 					if(usuarioExcluido.getIdUsuario() == usuarioLogado.getIdUsuario()) {

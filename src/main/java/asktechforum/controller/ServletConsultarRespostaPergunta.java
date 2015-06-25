@@ -12,8 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.Resposta;
-import asktechforum.negocio.CadastroPerguntaBC;
-import asktechforum.negocio.CadastroRespostaBC;
+//import asktechforum.negocio.CadastroPerguntaBC;
+//import asktechforum.negocio.CadastroRespostaBC;
+import asktechforum.fachada.Fachada;
 
 /**
  * Implementacao do Servlet de Consultar Respostas de Pergunta.
@@ -25,8 +26,8 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 	private static final String ALTERACAO_PERGUNTA = "usuarioAutenticado/alterarPergunta.jsp";
 	private static final String EXCLUSAO_PERGUNTA_SUCESSO = "usuarioAutenticado/exclusaoPerguntaSucesso.jsp";
 	private static final String EXCLUSAO_RESPOSTA_SUCESSO = "usuarioAutenticado/exclusaoRespostaSucesso.jsp";
-	private CadastroRespostaBC cadastroRespostaBC = new CadastroRespostaBC();
-	private CadastroPerguntaBC cadastroPerguntaBC = new CadastroPerguntaBC();
+	//private CadastroRespostaBC cadastroRespostaBC = new CadastroRespostaBC();
+	//private CadastroPerguntaBC cadastroPerguntaBC = new CadastroPerguntaBC();
        
 	/**
      * Construtor do Servlet de Consultar Respostas de Pergunta.
@@ -48,15 +49,16 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		RequestDispatcher view = null;
+		Fachada fachada = Fachada.getInstance();
 		
 		if(request.getParameter("alterarResposta")!= null){
-			Resposta resposta = this.cadastroRespostaBC.consultarRespostaPorIdResposta(
+			Resposta resposta = fachada.fachadaConsultarRespostaPorIdResposta(
 					Integer.parseInt(request.getParameter("idRespostaSelecionada")));
 			session.setAttribute("resposta", resposta);
 			view = request.getRequestDispatcher(ALTERACAO_RESPOSTA);
 			view.forward(request, response);
 		}else if(request.getParameter("excluirResposta")!= null){
-			this.cadastroRespostaBC.deletarResposta(
+			fachada.fachadaDeletarResposta(
 					Integer.parseInt(request.getParameter("idRespostaSelecionada")));
 			view = request	.getRequestDispatcher(EXCLUSAO_RESPOSTA_SUCESSO);
 			view.forward(request, response);
@@ -68,9 +70,9 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 			String autor = request.getParameter("autor");
 			String titulo = request.getParameter("titulo");
 			
-			this.cadastroRespostaBC = new CadastroRespostaBC();
+			//this.cadastroRespostaBC = new CadastroRespostaBC();
 
-			ArrayList<Resposta> resp = this.cadastroRespostaBC.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
+			ArrayList<Resposta> resp = fachada.fachadaConsultarRespostaPorPergunta(Integer.parseInt(idPergunta));
 
 		    view = request.getRequestDispatcher(RESULTADO_CONSULTA);
 			request.setAttribute("resposta", resp);
@@ -88,20 +90,22 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 		HttpSession session = request.getSession();
 		RequestDispatcher view = null;
 		
+		Fachada fachada = Fachada.getInstance();
+		
 		if(request.getParameter("alterarResposta")!= null){
-			Resposta resposta = this.cadastroRespostaBC.consultarRespostaPorIdResposta(
+			Resposta resposta = fachada.fachadaConsultarRespostaPorIdResposta(
 					Integer.parseInt(request.getParameter("idRespostaSelecionada")));
 		    session.setAttribute("resposta", resposta);
 			view = request.getRequestDispatcher(ALTERACAO_RESPOSTA);
 			view.forward(request, response);
 		}else if(request.getParameter("excluirResposta")!= null){
-			this.cadastroRespostaBC.deletarResposta(
+			fachada.fachadaDeletarResposta(
 					Integer.parseInt(request.getParameter("idRespostaSelecionada")));
 			view = request	.getRequestDispatcher(EXCLUSAO_RESPOSTA_SUCESSO);
 			view.forward(request, response);
 		}else if(request.getParameter("alterarPergunta")!=null){
 			String idPergunta = (String)session.getAttribute("idPergunta");
-			Pergunta pergunta = this.cadastroPerguntaBC.consultarPerguntaPorIdPergunta(
+			Pergunta pergunta = fachada.fachadaConsultarPerguntaPorIdPergunta(
 					Integer.parseInt(idPergunta));
 			session.setAttribute("pergunta", pergunta);
 			request.setAttribute("pergunta", pergunta);
@@ -109,7 +113,7 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 			view.forward(request, response);
 		}else if(request.getParameter("excluirPergunta")!=null){
 			String idPergunta = (String)session.getAttribute("idPergunta");
-			this.cadastroPerguntaBC.deletarPergunta(
+			fachada.fachadaDeletarPergunta(
 					Integer.parseInt(idPergunta));
 			view = request	.getRequestDispatcher(EXCLUSAO_PERGUNTA_SUCESSO);
 			view.forward(request, response);
@@ -122,9 +126,9 @@ public class ServletConsultarRespostaPergunta extends HttpServlet {
 			String autor = request.getParameter("autor");
 			String titulo = request.getParameter("titulo");
 			
-			this.cadastroRespostaBC = new CadastroRespostaBC();
+			//this.cadastroRespostaBC = new CadastroRespostaBC();
 
-			ArrayList<Resposta> resp = this.cadastroRespostaBC.consultarRespostaPorPergunta(Integer.parseInt(idPergunta));
+			ArrayList<Resposta> resp = fachada.fachadaConsultarRespostaPorPergunta(Integer.parseInt(idPergunta));
 
 		    view = request.getRequestDispatcher(RESULTADO_CONSULTA);
 			request.setAttribute("resposta", resp);

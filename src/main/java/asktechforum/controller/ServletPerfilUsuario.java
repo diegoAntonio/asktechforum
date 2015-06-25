@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Usuario;
-import asktechforum.negocio.UsuarioBC;
+//import asktechforum.negocio.UsuarioBC;
+import asktechforum.fachada.Fachada;
 
 /**
  * Implementacao do Servlet de Perfil de Usuario.
@@ -19,14 +20,14 @@ public class ServletPerfilUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String PERFIL = "perfilUsuario.jsp";
        
-	private UsuarioBC usuarioBC;
+	//private UsuarioBC usuarioBC;
     
     /**
      * Construtor do Servlet de Perfil de Usuario.
      */
     public ServletPerfilUsuario() {
         super();
-        this.usuarioBC = new UsuarioBC();
+        //this.usuarioBC = new UsuarioBC();
     }
 
     /**
@@ -40,12 +41,13 @@ public class ServletPerfilUsuario extends HttpServlet {
 	 * Implementacao do metodo doPost() Servlet de Perfil de Usuario.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Fachada fachada = Fachada.getInstance();
 		Usuario usuario = new Usuario();
 		HttpSession session = request.getSession();
 		String usuarioRadio = request.getParameter("usuarioRadio");
 		
 		if(usuarioRadio != null) {
-			usuario = this.usuarioBC.consultarUsuarioPorEmail(usuarioRadio);
+			usuario = fachada.fachadaConsultarUsuarioPorEmail(usuarioRadio);
 			RequestDispatcher view = request.getRequestDispatcher(PERFIL);
 			session.setAttribute("usuarioPerfil", usuario);
 
