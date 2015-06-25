@@ -9,7 +9,7 @@ import asktechforum.config.PropriedadesBancoLoader;
  * @author Pamela
  *
  */
-public class ConexaoFactory {
+public class ConexaoFactory implements FabricaDeConexoes{
 	private ConexaoAbs conexao;
 	
 	/**

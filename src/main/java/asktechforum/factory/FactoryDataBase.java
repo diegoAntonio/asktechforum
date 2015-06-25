@@ -10,7 +10,7 @@ package asktechforum.factory;
  * @author diego.ferreira
  *
  */
-public class FactoryDataBase {
+public class FactoryDataBase implements FabricaDeFabricas{
 	private static FactoryDataBase instancia;
 	
 	private FactoryDataBase() {
