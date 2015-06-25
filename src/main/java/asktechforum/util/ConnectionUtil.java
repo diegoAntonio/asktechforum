@@ -10,7 +10,8 @@ import asktechforum.config.PropriedadesBancoLoader;
 /**
  * Classe que implementa o padrao singleton
  *	servindo conexoes a quem precisar.
- * @author Diego
+ * Tambem implementa o padrao proxy remoto para abstrair a forma como 
+ * a conexao ao baanco eh feita, seja a conexao remota ou local.
  *	
  */
 public class ConnectionUtil {

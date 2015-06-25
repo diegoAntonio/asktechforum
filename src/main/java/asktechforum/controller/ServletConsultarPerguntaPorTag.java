@@ -23,7 +23,6 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 	private static final String RESULTADO_CONSULTA = "consultaPerguntaPorTag.jsp";
 	private static final String INDEX = "index.jsp"; 
 	private static final String TODAS_AS_TAGS = "consultaTodas_asTags.jsp";
-	//private CadastroPerguntaBC cadastro;
 
 	/**
      * Construtor do Servlet de Consultar Pergunta por Tag.
@@ -48,7 +47,6 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 		Fachada fachada = Fachada.getInstance();
 		
 		String tag = request.getParameter("tag");
-		//this.cadastro = new CadastroPerguntaBC();
 		ArrayList<ResultConsultarPergunta> perguntas;
 		ArrayList<String> tags;
 		RequestDispatcher view ; 
@@ -85,7 +83,6 @@ public class ServletConsultarPerguntaPorTag extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("stop", false);
 
-			//this.cadastro = new CadastroPerguntaBC();
 			ArrayList<ResultConsultarPergunta> tags = fachada.fachadaConsultarPerguntaPorTag(tag);			
 
 			if(tag.equals("all")){

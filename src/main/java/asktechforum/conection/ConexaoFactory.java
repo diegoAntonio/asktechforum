@@ -4,8 +4,7 @@ import asktechforum.config.PropriedadesBancoLoader;
 
 /**
  * 	Classe que implementa o padrao factory method
- * criando conexoes com o banco por um parametro
- * passado.
+ * criando conexoes com a base de dados de acordo com o tipo de parametro fornecido (conexao local / remota).
  * 
  * @author Pamela
  *
@@ -13,6 +12,12 @@ import asktechforum.config.PropriedadesBancoLoader;
 public class ConexaoFactory {
 	private ConexaoAbs conexao;
 	
+	/**
+	 * Metodo responsavel por criar um objeto conexao de acordo com o tipo fornecido por
+	 * parametro.
+	 * @param tipoConexao - Tipo de conexao a ser criado
+	 * @return uma conexao do Tipo ConexaoAbs(classe pai das conexoes remota e local)
+	 */
 	public ConexaoAbs criarConexao(int tipoConexao){
 		conexao = null;
 		

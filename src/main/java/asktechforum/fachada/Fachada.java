@@ -15,6 +15,12 @@ import asktechforum.negocio.CadastroPerguntaBC;
 import asktechforum.negocio.CadastroRespostaBC;
 import asktechforum.negocio.VotoBC;
 
+/**
+ * 
+ * Classe responsavel por intermediar a camada controller e camada de negocio.
+ * Centraliza todas as solicitacoes de servicos da interface para a camada de negocio
+ *
+ */
 public class Fachada {
 	private static Fachada instancia;
 	private UsuarioBC usuarioBC;
@@ -29,14 +35,18 @@ public class Fachada {
 		this.votoBC = new VotoBC();
 	}
 	
+	//Utilizacao do padrao singleton para garantir que apenas uma instancia da fachada sera 
+	//usada na execucao do sistema.
 	public static Fachada getInstance(){
 		if(instancia == null){
-			instancia = new Fachada(); 
-			
+			instancia = new Fachada(); 			
 		}
 		return instancia;
 	}
-	//Usuario BC
+	
+	//========================================================================================
+	//Chamadas de servicos para a classe que representa as 
+	//regras de negocio para o domain model usuario
 	public Usuario fachadaConsultarUsuarioPorEmail_Senha(String email_form, String senha_form){
 		return this.usuarioBC.consultarUsuarioPorEmail_Senha(email_form, senha_form);
 	}	
@@ -97,7 +107,9 @@ public class Fachada {
 		
 	}
 	
-	//PerguntaBC
+	//========================================================================================
+	//Chamadas de servicos para a classe que representa as 
+	//regras de negocio para o domain model Pergunta
 	public String fachadaAdcionarPergunta(Pergunta pergunta)  {
 		return this.cadastroPerguntaBC.adcionarPergunta(pergunta);
 		
@@ -124,8 +136,9 @@ public class Fachada {
 		this.cadastroPerguntaBC.deletarPergunta(id);
 	}
 	
-	//RespostaBC
-	
+	//========================================================================================
+	//Chamadas de servicos para a classe que representa as 
+	//regras de negocio para o domain model Resposta
 	public void fachadaAdicionarVotoResposta(int id){
 		this.cadastroRespostaBC.adicionarVotoResposta(id); 
 		
@@ -161,7 +174,9 @@ public class Fachada {
 		this.cadastroRespostaBC.deletarResposta(id);
 	}
 	
-	//VotoBC
+	//========================================================================================
+	//Chamadas de servicos para a classe que representa as 
+	//regras de negocio para o domain model Voto
 	public void fachadaAdicionarVotoUsuario(int idUsuario, int idResposta) {
 		this.votoBC.adicionarVotoUsuario(idUsuario, idResposta);
 		

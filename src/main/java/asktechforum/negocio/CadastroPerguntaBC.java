@@ -98,7 +98,8 @@ public class CadastroPerguntaBC implements RepositorioPergunta {
 		ArrayList<String> tags = new ArrayList<String>();
 		ArrayList<String> tagFiltradas = new ArrayList<String>();
 		try {
-			
+			//Faz uso do padrao proxy virtual para controlar quando a consulta de 
+			// tags será realizada para popular a lista de tags.
 		   tags = this.tagProxy.consultarTag();
 		   
 		   tagFiltradas.add(tags.get(0));
