@@ -3,31 +3,33 @@ package asktechforum.util;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.persistence.EntityManager;
+
 import asktechforum.conection.ConexaoAbs;
 import asktechforum.conection.ConexaoFactory;
 import asktechforum.config.PropriedadesBancoLoader;
 
 /**
- * Classe que implementa o padrao singleton
- *	servindo conexoes a quem precisar.
- * Tambem implementa o padrao proxy remoto para abstrair a forma como 
- * a conexao ao baanco eh feita, seja a conexao remota ou local.
- *	
+ * Classe que implementa o padrao singleton servindo conexoes a quem precisar.
+ * Tambem implementa o padrao proxy remoto para abstrair a forma como a conexao
+ * ao baanco eh feita, seja a conexao remota ou local.
+ * 
  */
 public class ConnectionUtil {
 	private static ConnectionUtil instancia;
 	private ConexaoAbs connection = null;
 	private ConexaoFactory fabricaConexao;
-	
-	private ConnectionUtil(){
+
+	private ConnectionUtil() {
 		fabricaConexao = new ConexaoFactory();
 		this.iniciarConexao();
 	}
-	
-	public void iniciarConexao(){
-		this.connection = fabricaConexao.criarConexao(PropriedadesBancoLoader.CONEXAO_REMOTA);		
+
+	public void iniciarConexao() {
+		this.connection = fabricaConexao
+				.criarConexao(PropriedadesBancoLoader.CONEXAO_JPA_REMOTA);
 	}
-	
+
 	public Connection getConnection() {
 		if (this.connection == null) {
 			this.iniciarConexao();
@@ -44,12 +46,21 @@ public class ConnectionUtil {
 
 		return this.connection.getConexao();
 	}
-	
+
+	public EntityManager getEntityManager() {
+		// checando se a conexao ainda eh valida.
+		if (!this.connection.getEntityManager().isOpen() || this.connection == null) {
+			this.iniciarConexao();
+		}
+
+		return this.connection.getEntityManager();
+	}
+
 	public static ConnectionUtil getInstancia() {
 		if (ConnectionUtil.instancia == null) {
 			instancia = new ConnectionUtil();
 		}
 		return instancia;
 	}
-	
+
 }

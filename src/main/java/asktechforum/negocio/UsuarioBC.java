@@ -24,7 +24,7 @@ public class UsuarioBC {
 	
 	public UsuarioBC() {
         super();
-        FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("JDBC");
+        FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("jpa");
         this.usuarioDAO = fabrica.criarDaoUsuario();
         this.perguntaBC = fabrica.criarDaoPergunta();
         this.respostaBC = fabrica.criarDaoResposta();

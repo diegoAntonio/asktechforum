@@ -1,6 +1,7 @@
 package asktechforum.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import asktechforum.dominio.Usuario;
 //import asktechforum.negocio.UsuarioBC;
 import asktechforum.fachada.Fachada;
+import asktechforum.interfaces.RepositorioUsuario;
+import asktechforum.repositorio.jpa.RepositorioUsuarioJPA;
 /**
  * Implementacao do Servlet de Pesquisa de Usuario.
  */
@@ -50,8 +53,15 @@ public class ServletPesquisaUsuario extends HttpServlet {
 			case "nomeRadio":
 				nome = request.getParameter("nome");
 				if(nome.trim() != "" && nome != null) {
+					RepositorioUsuario ru = new RepositorioUsuarioJPA();
 					listaUsuarios = new ArrayList<Usuario>();
-					listaUsuarios.addAll(fachada.fachadaConsultarUsuarioPorNome(nome));
+					
+					try {
+						listaUsuarios.addAll(ru.consultarUsuarioPorNome(nome));
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				break;
 			case "emailRadio":

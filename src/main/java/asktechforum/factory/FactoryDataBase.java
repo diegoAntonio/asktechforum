@@ -34,6 +34,8 @@ public class FactoryDataBase implements FabricaDeFabricas{
 		
 		if(tipoFabrica.equalsIgnoreCase("JDBC")){
 			f = new FabricaJDBC();
+		}else if(tipoFabrica.equalsIgnoreCase("JPA")){
+			f = new FabricaJPA();
 		}
 		//os outros tipos de fabrica,seriam adicionados aqui.
 		//exemplo

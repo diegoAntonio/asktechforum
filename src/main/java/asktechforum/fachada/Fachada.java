@@ -7,12 +7,9 @@ import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.Resposta;
 import asktechforum.dominio.ResultConsultarPergunta;
 import asktechforum.dominio.Usuario;
-import asktechforum.negocio.UsuarioBC;
-
-
-
 import asktechforum.negocio.CadastroPerguntaBC;
 import asktechforum.negocio.CadastroRespostaBC;
+import asktechforum.negocio.UsuarioBC;
 import asktechforum.negocio.VotoBC;
 
 /**
@@ -29,10 +26,13 @@ public class Fachada {
 	private VotoBC votoBC;
 	
 	private Fachada(){
-		this.cadastroPerguntaBC = new CadastroPerguntaBC();
 		this.usuarioBC = new UsuarioBC();
-		this.cadastroRespostaBC = new CadastroRespostaBC();
-		this.votoBC = new VotoBC();
+//		this.cadastroRespostaBC = new CadastroRespostaBC();
+//		this.votoBC = new VotoBC();
+//		this.cadastroPerguntaBC = new CadastroPerguntaBC();
+		this.cadastroPerguntaBC = null;
+		this.cadastroRespostaBC = null;
+		this.votoBC = null;
 	}
 	
 	//Utilizacao do padrao singleton para garantir que apenas uma instancia da fachada sera 

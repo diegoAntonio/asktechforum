@@ -2,16 +2,50 @@ package asktechforum.dominio;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name="usuario")
+@NamedQueries({@NamedQuery(name="Usuario.email",query="SELECT u FROM Usuario u WHERE u.email like :email"),
+			   @NamedQuery(name="Usuario.email_senha",query="SELECT u FROM Usuario u WHERE u.email = :email and u.senha = :senha"),
+			   @NamedQuery(name="Usuario.nome",query="SELECT u FROM Usuario u WHERE u.nome like ':nome'")})
 public class Usuario {
+	public static String JPQL_email = "Usuario.email";
+	public static String JPQL_email_senha = "Usuario.email_senha";
+	public static String JPQL_nome = "Usuario.nome";
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idUsuario;
+	
 	private String nome;
+	
+	@Column(name="dt_nasc")
 	private Date dataNascimento;
+	
 	private boolean admin;
+	
 	private String email;
+	
 	private String localizacao;
+	
 	private String senha;
+	
+	@Transient
 	private String confSenha;
+	
+	@Transient
 	private String dataString;
+	
+	@Transient
 	private Pergunta pergunta;
 	
 	public Usuario() {
