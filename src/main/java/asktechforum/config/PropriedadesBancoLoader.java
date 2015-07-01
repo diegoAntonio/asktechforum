@@ -23,6 +23,8 @@ public class PropriedadesBancoLoader {
 	//tipos de conexao
 	public static final int CONEXAO_LOCAL = Integer.parseInt(getInstance().getPropriedade("conexao.local"));
 	public static final int CONEXAO_REMOTA = Integer.parseInt(getInstance().getPropriedade("conexao.remota"));
+	public static final int CONEXAO_JPA_LOCAL = Integer.parseInt(getInstance().getPropriedade("conexao.jpalocal"));
+	public static final int CONEXAO_JPA_REMOTA = Integer.parseInt(getInstance().getPropriedade("conexao.jparemota"));
 	
 	private PropriedadesBancoLoader(){
 		this.carregarPropriedades();
