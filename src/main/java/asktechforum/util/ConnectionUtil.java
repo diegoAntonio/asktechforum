@@ -25,7 +25,7 @@ public class ConnectionUtil {
 	}
 	
 	public void iniciarConexao(){
-		this.connection = fabricaConexao.criarConexao(PropriedadesBancoLoader.CONEXAO_LOCAL);		
+		this.connection = fabricaConexao.criarConexao(PropriedadesBancoLoader.CONEXAO_REMOTA);		
 	}
 	
 	public Connection getConnection() {
