@@ -21,7 +21,13 @@ public class ConexaoJPARemoto extends ConexaoAbs{
 	
 	@Override
 	public EntityManager getEntityManager() {
+		if(this.em == null){
+			this.em = ConexaoJPARemoto.emf.createEntityManager();
+		}
+		
 		return this.em;
 	}
+	
+	
 
 }

@@ -16,7 +16,7 @@ import javax.persistence.Transient;
 @Table(name="usuario")
 @NamedQueries({@NamedQuery(name="Usuario.email",query="SELECT u FROM Usuario u WHERE u.email like :email"),
 			   @NamedQuery(name="Usuario.email_senha",query="SELECT u FROM Usuario u WHERE u.email = :email and u.senha = :senha"),
-			   @NamedQuery(name="Usuario.nome",query="SELECT u FROM Usuario u WHERE u.nome like ':nome'")})
+			   @NamedQuery(name="Usuario.nome",query="SELECT u FROM Usuario u WHERE u.nome like :nome")})
 public class Usuario {
 	public static String JPQL_email = "Usuario.email";
 	public static String JPQL_email_senha = "Usuario.email_senha";

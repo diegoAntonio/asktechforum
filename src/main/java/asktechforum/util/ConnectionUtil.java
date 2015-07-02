@@ -49,7 +49,7 @@ public class ConnectionUtil {
 
 	public EntityManager getEntityManager() {
 		// checando se a conexao ainda eh valida.
-		if (!this.connection.getEntityManager().isOpen() || this.connection == null) {
+		if (this.connection.getEntityManager() == null || !this.connection.getEntityManager().isOpen()) {
 			this.iniciarConexao();
 		}
 

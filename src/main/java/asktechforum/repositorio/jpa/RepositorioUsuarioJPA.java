@@ -102,7 +102,7 @@ public class RepositorioUsuarioJPA implements RepositorioUsuario {
 			throws SQLException {
 		Usuario result = null;
 		try {
-			Query query = this.conexaoUtil.getEntityManager().createQuery(
+			Query query = this.conexaoUtil.getEntityManager().createNamedQuery(
 					Usuario.JPQL_email_senha);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("email", email);
@@ -135,7 +135,7 @@ public class RepositorioUsuarioJPA implements RepositorioUsuario {
 	public Usuario consultarUsuarioPorEmail(String email) throws SQLException {
 		Usuario result = null;
 		try {
-			Query query = this.conexaoUtil.getEntityManager().createQuery(
+			Query query = this.conexaoUtil.getEntityManager().createNamedQuery(
 					Usuario.JPQL_email);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("email", email);
@@ -161,7 +161,7 @@ public class RepositorioUsuarioJPA implements RepositorioUsuario {
 			throws SQLException {
 		List<Usuario> result = null;
 		try {
-			Query query = this.conexaoUtil.getEntityManager().createQuery(
+			Query query = this.conexaoUtil.getEntityManager().createNamedQuery(
 					Usuario.JPQL_nome);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("nome", nome);
@@ -185,7 +185,7 @@ public class RepositorioUsuarioJPA implements RepositorioUsuario {
 	@SuppressWarnings("unchecked")
 	public List<Usuario> consultarTodosUsuarios() throws SQLException {
 		return (List<Usuario>) this.conexaoUtil.getEntityManager()
-				.createQuery("FROM" + Usuario.class).getResultList();
+				.createQuery("FROM Usuario").getResultList();
 	}
 
 	private void populateQueryParameters(Query query,
