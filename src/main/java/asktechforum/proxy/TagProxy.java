@@ -34,7 +34,7 @@ public class TagProxy {
 	}
 
 	public ArrayList<String> consultarTag() throws SQLException{
-		if(this.lista != null){
+		if(this.lista == null || this.lista.isEmpty()){
 			this.lista = this.perguntaDAO.consultaTodasAsTags();
 		}
 		return this.lista;
