@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import asktechforum.dominio.Email;
 import asktechforum.dominio.Resposta;
+import asktechforum.dominio.RespostaImpl;
 import asktechforum.dominio.Usuario;
 import asktechforum.factory.FabricaDAO;
 import asktechforum.factory.FactoryDataBase;
@@ -81,7 +82,7 @@ public class CadastroRespostaBC{
 	}
 
 	public Resposta consultarRespostaPorIdResposta(int id)  {
-		Resposta resposta = new Resposta();
+		Resposta resposta = new RespostaImpl();
 		try {
 			if (id == 0) {
 

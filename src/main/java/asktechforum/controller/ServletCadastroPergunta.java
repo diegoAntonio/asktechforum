@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Pergunta;
+import asktechforum.dominio.PerguntaImpl;
 import asktechforum.dominio.Usuario;
 //import asktechforum.negocio.CadastroPerguntaBC;
 import asktechforum.fachada.Fachada;
@@ -47,7 +48,7 @@ public class ServletCadastroPergunta extends HttpServlet {
 		Usuario usuario = (Usuario)session.getAttribute("usuarioLogado");
 		Fachada fachada = Fachada.getInstance();
 		//this.cadastro = new CadastroPerguntaBC();
-		Pergunta pergunta = new Pergunta();
+		Pergunta pergunta = new PerguntaImpl();
 
 		pergunta.setStrData(Util.getDataSistema());
 		pergunta.setDescricao(request.getParameter("descricao"));

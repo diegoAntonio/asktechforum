@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import asktechforum.dominio.Resposta;
+import asktechforum.dominio.RespostaImpl;
 import asktechforum.dominio.Usuario;
 import asktechforum.fachada.Fachada;
 //import asktechforum.negocio.CadastroRespostaBC;
@@ -96,7 +97,7 @@ public class ServletCadastroResposta extends HttpServlet {
 	 * Implementacao do metodo doPost() Servlet de Cadastro de Resposta.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Resposta resposta = new Resposta();
+		Resposta resposta = new RespostaImpl();
 		HttpSession session = request.getSession();
 		String flag = request.getParameter("acao");
 		

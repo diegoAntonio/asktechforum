@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import asktechforum.dominio.Pergunta;
+import asktechforum.dominio.PerguntaImpl;
 import asktechforum.dominio.ResultConsultarPergunta;
+import asktechforum.dominio.ResultConsultarPerguntaImpl;
 import asktechforum.interfaces.RepositorioPergunta;
 import asktechforum.util.ConnectionUtil;
 
@@ -67,7 +69,7 @@ public class RepositorioPerguntasJDBC implements RepositorioPergunta {
 
 	public Pergunta consultarPerguntaPorIdPergunta(int id) throws SQLException {
 
-		Pergunta pergunta = new Pergunta();
+		Pergunta pergunta = new PerguntaImpl();
 
 		String sql = "select * from PERGUNTA where idPergunta = " + id;
 		PreparedStatement stmt = null;
@@ -213,7 +215,7 @@ public class RepositorioPerguntasJDBC implements RepositorioPergunta {
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Pergunta p = new Pergunta();
+				Pergunta p = new PerguntaImpl();
 				p.setDescricao(rs.getString("descricao"));
 				p.setIdPergunta(rs.getInt("idPergunta"));
 				p.setTitulo(rs.getString("titulo"));
@@ -257,7 +259,7 @@ public class RepositorioPerguntasJDBC implements RepositorioPergunta {
 			ResultConsultarPergunta p;
 			
 			while(rs.next()){
-				p = new ResultConsultarPergunta();
+				p = new ResultConsultarPerguntaImpl();
 				p.setIdUsuario(rs.getInt("idUsuario"));
 				p.setAutor(rs.getString("nome"));
 				p.setDescricao(rs.getString("descricao"));
@@ -301,7 +303,7 @@ public class RepositorioPerguntasJDBC implements RepositorioPergunta {
 			ResultConsultarPergunta p;
 			
 			while(rs.next()){
-				p = new ResultConsultarPergunta();
+				p = new ResultConsultarPerguntaImpl();
 				p.setIdUsuario(rs.getInt("idUsuario"));
 				p.setAutor(rs.getString("nome"));
 				p.setDescricao(rs.getString("descricao"));
@@ -332,7 +334,7 @@ public class RepositorioPerguntasJDBC implements RepositorioPergunta {
 		
 		try {
 			while (rs.next()) {
-				Pergunta p = new Pergunta();
+				Pergunta p = new PerguntaImpl();
 				p.setDescricao(rs.getString("descricao"));
 				p.setIdPergunta(rs.getInt("idPergunta"));
 				p.setTitulo(rs.getString("titulo"));

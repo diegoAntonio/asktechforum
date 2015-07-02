@@ -1,28 +1,13 @@
 package asktechforum.dominio;
 
-public class ResultConsultarPergunta extends Pergunta {
-	
-	private String autor;
-	private int qtdResposta;
-	
-	public ResultConsultarPergunta(){
-		super();
-	}
+public interface ResultConsultarPergunta extends Pergunta{
 
-	public String getAutor() {
-		return autor;
-	}
+	public abstract String getAutor();
 
-	public void setAutor(String autor) {
-		this.autor = autor;
-	}
+	public abstract void setAutor(String autor);
 
-	public int getQtdResposta() {
-		return qtdResposta;
-	}
+	public abstract int getQtdResposta();
 
-	public void setQtdResposta(int qtdResposta) {
-		this.qtdResposta = qtdResposta;
-	}
-	
+	public abstract void setQtdResposta(int qtdResposta);
+
 }

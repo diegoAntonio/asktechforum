@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import asktechforum.dominio.Pergunta;
+import asktechforum.dominio.PerguntaImpl;
 import asktechforum.dominio.ResultConsultarPergunta;
 import asktechforum.factory.FabricaDAO;
 import asktechforum.factory.FactoryDataBase;
@@ -60,7 +61,7 @@ public class CadastroPerguntaBC implements RepositorioPergunta {
 	@Override
 	public Pergunta consultarPerguntaPorIdPergunta(int id) {
 
-		Pergunta pergunta = new Pergunta();
+		Pergunta pergunta = new PerguntaImpl();
 		try {
 			if (id == 0) {
 

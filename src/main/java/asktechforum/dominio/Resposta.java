@@ -2,124 +2,60 @@ package asktechforum.dominio;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.text.ParseException;
 
-import asktechforum.util.Util;
+public interface Resposta {
 
-public class Resposta {
-	private int idResposta;
-	private String descricao;
-	private int idUsuario;
-	private int idPergunta;
-	private int votos;
-	private Date data;
-	private Time hora;
-	private String strData;
-	private String strHora;
-	private String nomeUsuario;
-	private String email;
-	
-	public Resposta() {
-	}
-	
 	//GETTERS AND SETTERS
-	public int getIdResposta() {
-		return idResposta;
-	}
-	public void setIdResposta(int idResposta) {
-		this.idResposta = idResposta;
-	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+	public abstract int getIdResposta();
 
-	public int getIdUsuario() {
-		return idUsuario;
-	}
+	public abstract void setIdResposta(int idResposta);
 
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+	public abstract String getDescricao();
 
-	public int getIdPergunta() {
-		return idPergunta;
-	}
+	public abstract void setDescricao(String descricao);
 
-	public void setIdPergunta(int idPergunta) {
-		this.idPergunta = idPergunta;
-	}
+	public abstract int getIdUsuario();
 
-	public Date getData() {
-		return data;
-	}
+	public abstract void setIdUsuario(int idUsuario);
 
-	public void setData(Date data) {
-		this.data = data;
-	}
+	public abstract int getIdPergunta();
 
-	public Time getHora() {
-		return hora;
-	}
+	public abstract void setIdPergunta(int idPergunta);
 
-	public void setHora(Time hora) {
-		this.hora = hora;
-	}
+	public abstract Date getData();
 
-	public String getStrData() {
-		strData = Util.converterDataToString("dd/MM/yyyy", this.data);
-		return strData;
-	}
+	public abstract void setData(Date data);
 
-	public void setStrData(String strData) {
-		
-	  try {
-		this.data = Util.converterStringToDate("dd/MM/yyyy", strData);
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}
-	  
-	}
+	public abstract Time getHora();
 
-	public String getStrHora() {
-		strHora = Util.converterTimeToString("dd/MM/yyyy", hora);
-		return strHora;
-	}
+	public abstract void setHora(Time hora);
 
-	public void setStrHora(String strHora) {
-		try {
-			this.hora = Util.converterStringToTime("dd/MM/yyyy", strHora);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-	}
+	public abstract String getStrData();
 
-	public String getNomeUsuario() {
-		return nomeUsuario;
-	}
+	public abstract void setStrData(String strData);
 
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
-	}
+	public abstract String getStrHora();
 
+	public abstract void setStrHora(String strHora);
 
-	public String getEmail() {
-		return email;
-	}
+	public abstract String getNomeUsuario();
+
+	public abstract void setNomeUsuario(String nomeUsuario);
+
+	public abstract String getEmail();
+
+	public abstract void setEmail(String email);
+
+	public abstract int getVotos();
+
+	public abstract void setVotos(int votos);
 	
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public int getVotos() {
-		return votos;
-	}
+	public abstract Usuario getUsuario() ;
 
-	public void setVotos(int votos) {
-		this.votos = votos;
+	public abstract void setUsuario(Usuario usuario) ;
 
-	}
+	public abstract Pergunta getPergunta() ;
+
+	public abstract void setPergunta(Pergunta pergunta);
 
 }

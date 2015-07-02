@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import asktechforum.dominio.Pergunta;
+import asktechforum.dominio.PerguntaImpl;
 import asktechforum.dominio.Resposta;
+import asktechforum.dominio.RespostaImpl;
 import asktechforum.dominio.Usuario;
 import asktechforum.interfaces.RepositorioResposta;
 import asktechforum.util.ConnectionUtil;
@@ -63,7 +65,7 @@ public class RepositorioRespostaJDBC implements RepositorioResposta {
 	}
 
 	public Resposta consultarRespostaPorIdResposta(int id) throws SQLException {
-		Resposta resposta = new Resposta();
+		Resposta resposta = new RespostaImpl();
 
 		String sql = "select * from RESPOSTA where idResposta = " + id;
 		PreparedStatement stmt = null;
@@ -110,7 +112,7 @@ public class RepositorioRespostaJDBC implements RepositorioResposta {
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Resposta r = new Resposta();
+				Resposta r = new RespostaImpl();
 				r.setData(rs.getDate("data"));
 				r.setDescricao(rs.getString("descricao"));
 				r.setHora(rs.getTime("hora"));
@@ -145,7 +147,7 @@ public class RepositorioRespostaJDBC implements RepositorioResposta {
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Resposta r = new Resposta();
+				Resposta r = new RespostaImpl();
 				r.setData(rs.getDate("data"));
 				r.setDescricao(rs.getString("descricao"));
 				r.setHora(rs.getTime("hora"));
@@ -183,7 +185,7 @@ public class RepositorioRespostaJDBC implements RepositorioResposta {
 			rs = stmt.executeQuery();
 			
 			while (rs.next()) {
-				Resposta r = new Resposta();
+				Resposta r = new RespostaImpl();
 				r.setData(rs.getDate("data"));
 				r.setDescricao(rs.getString("descricao"));
 				r.setHora(rs.getTime("hora"));
@@ -272,7 +274,7 @@ public class RepositorioRespostaJDBC implements RepositorioResposta {
 			
 			while (rs.next()) {
 				Usuario u = new Usuario();
-				Pergunta p = new Pergunta();
+				Pergunta p = new PerguntaImpl();
 				
 				u.setIdUsuario(rs.getInt("idUsuario"));
 				u.setNome(rs.getString("nome"));
@@ -303,7 +305,7 @@ public class RepositorioRespostaJDBC implements RepositorioResposta {
 	public Usuario consultarAutorPergunta(int id)
 	 			throws SQLException {
 	 		Usuario usuario = new Usuario();
-	 		Pergunta pergunta = new Pergunta();
+	 		Pergunta pergunta = new PerguntaImpl();
 	 		
 	 		String sql = "SELECT  u.email, u.nome, u.idUsuario,p.titulo FROM usuario u, pergunta p " +
 	 				"WHERE p.idUsuario = u.idUsuario and p.idPergunta = " + id;
