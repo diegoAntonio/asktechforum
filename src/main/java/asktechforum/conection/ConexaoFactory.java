@@ -27,6 +27,7 @@ public class ConexaoFactory implements FabricaDeConexoes{
 			conexao = new ConexaoRemota();
 		}else if(tipoConexao == PropriedadesBancoLoader.CONEXAO_JPA_REMOTA){
 			conexao = new ConexaoJPARemoto();
+			//nova conexao implementada.
 		} else {
 			System.out.println("Não foi possível criar conexão. Tipo de conexão inválido.");
 		}

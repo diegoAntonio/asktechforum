@@ -8,6 +8,12 @@ import asktechforum.repositorio.jdbc.RepositorioPerguntasJDBC;
 import asktechforum.repositorio.jdbc.RepositorioRespostaJDBC;
 import asktechforum.repositorio.jpa.RepositorioUsuarioJPA;
 
+/**
+ * Classe que implementa o Abstract Factory
+ * criando a familia JPA.
+ * @author Diego
+ *
+ */
 public class FabricaJPA implements FabricaDAO{
 
 	@Override

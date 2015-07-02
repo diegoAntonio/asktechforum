@@ -12,22 +12,28 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-@Entity
-@Table(name="usuario")
+@Entity//diz que a classe é mapeada pelo JPA.
+@Table(name="usuario")//tabela que a classe eh salva no banco.
 @NamedQueries({@NamedQuery(name="Usuario.email",query="SELECT u FROM Usuario u WHERE u.email like :email"),
 			   @NamedQuery(name="Usuario.email_senha",query="SELECT u FROM Usuario u WHERE u.email = :email and u.senha = :senha"),
 			   @NamedQuery(name="Usuario.nome",query="SELECT u FROM Usuario u WHERE u.nome like :nome")})
+//consultas 'default' que sao utilizadas no repositorio.
 public class Usuario {
+	//nome das consultas default,pra ser usadas no codigo.
 	public static String JPQL_email = "Usuario.email";
 	public static String JPQL_email_senha = "Usuario.email_senha";
 	public static String JPQL_nome = "Usuario.nome";
 	
+	//diz q a variavel eh o id da classe
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idUsuario;
 	
 	private String nome;
-	
+	//diz o nome da tabela associado a variavel
+	//so precisa informar se o nome da coluna 
+	//na tabela for diferente do nome da variavel
+	//na classe.
 	@Column(name="dt_nasc")
 	private Date dataNascimento;
 	
@@ -39,6 +45,7 @@ public class Usuario {
 	
 	private String senha;
 	
+	//Diz pro jpa ignorar essas variaveis.
 	@Transient
 	private String confSenha;
 	
