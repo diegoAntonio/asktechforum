@@ -1,35 +1,26 @@
 package asktechforum.dominio;
 
-public class Voto {
-	private int idVoto;
-	private int idUsuario;
-	private int idResposta;
-	
-	public Voto() {
-	}
+public interface Voto {
 
 	//GETTERS AND SETTERS
-	public int getIdVoto() {
-		return idVoto;
-	}
+	int getIdVoto();
 
-	public void setIdVoto(int idVoto) {
-		this.idVoto = idVoto;
-	}
+	void setIdVoto(int idVoto);
 
-	public int getIdUsuario() {
-		return idUsuario;
-	}
+	int getIdUsuario();
 
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+	void setIdUsuario(int idUsuario);
 
-	public int getIdResposta() {
-		return idResposta;
-	}
+	int getIdResposta();
 
-	public void setIdResposta(int idResposta) {
-		this.idResposta = idResposta;
-	}
+	void setIdResposta(int idResposta);
+	
+	public Usuario getUsuario();
+
+	public void setUsuario(Usuario usuario);
+
+	public RespostaImpl getResposta();
+
+	public void setResposta(RespostaImpl resposta);
+
 }
