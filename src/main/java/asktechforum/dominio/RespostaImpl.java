@@ -32,7 +32,7 @@ public class RespostaImpl implements Resposta {
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idPergunta")
-	private Pergunta pergunta;
+	private PerguntaImpl pergunta;
 	
 	private int votos;
 	
@@ -189,7 +189,7 @@ public class RespostaImpl implements Resposta {
 
 	@Override
 	public void setPergunta(Pergunta pergunta) {
-		this.pergunta = pergunta;
+		this.pergunta = (PerguntaImpl)pergunta;
 	}
 	
 	

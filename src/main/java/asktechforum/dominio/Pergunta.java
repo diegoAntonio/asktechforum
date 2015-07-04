@@ -52,8 +52,8 @@ public interface Pergunta {
 
 	public abstract void setUsuario(Usuario usuario);
 
-	public abstract List<Resposta> getRespostas() ;
+	public abstract List<RespostaImpl> getRespostas() ;
 
-	public abstract void setRespostas(List<Resposta> respostas);
+	public abstract void setRespostas(List<RespostaImpl> respostas);
 
 }

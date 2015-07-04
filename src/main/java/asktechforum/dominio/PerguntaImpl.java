@@ -36,7 +36,7 @@ public class PerguntaImpl implements ResultConsultarPergunta{
 	
 	@OneToMany(cascade=CascadeType.REMOVE)
 	@JoinColumn(name="idPergunta")
-	private List<Resposta> respostas;
+	private List<RespostaImpl> respostas;
 
 	@Transient
 	private String strData;
@@ -203,12 +203,12 @@ public class PerguntaImpl implements ResultConsultarPergunta{
 		this.usuario = usuario;
 	}
 	@Override
-	public List<Resposta> getRespostas() {
-		return respostas;
+	public List<RespostaImpl> getRespostas() {
+		return this.respostas;
 	}
 
 	@Override
-	public void setRespostas(List<Resposta> respostas) {
+	public void setRespostas(List<RespostaImpl> respostas) {
 		this.respostas = respostas;
 	}
 
