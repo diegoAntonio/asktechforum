@@ -21,22 +21,24 @@ import javax.persistence.Transient;
 
 import asktechforum.util.Util;
 
+//Diz ao jpa que eh uma entity
 @Entity
-@Table(name = "pergunta")
+@Table(name = "pergunta")//diz o nome da tabela que a entidade e mapeada.
 @NamedQueries({@NamedQuery(name="Pergunta.autor",query="select p from PerguntaImpl p where p.usuario.idUsuario = :id"),
 			  @NamedQuery(name="Pergunta.tags",query="select distinct p.tag from PerguntaImpl p"),
 			  @NamedQuery(name="Pergunta.por_tag",query="select distinct p from PerguntaImpl p where p.tag = :tag"),
 			  @NamedQuery(name="Pergunta.agrupada",query="select p from PerguntaImpl p where p.tag in ("
 			  		+ "select p2.tag from "
 			  		+ " PerguntaImpl p2 group by p2.tag)")})
+//consultas criadas para lidar com problemas de mapeamento.
 public class PerguntaImpl implements ResultConsultarPergunta{
-	
+	//queries criadas acima.
 	public static String JPQL_autor = "Pergunta.autor";
 	public static String JPQL_tags = "Pergunta.tags";
 	public static String JPQL_por_tag = "Pergunta.por_tag";
 	public static String JPQL_agrupadas = "Pergunta.agrupada";
 
-	
+	//informa ao jpa que esse e o id da classe
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idPergunta;
@@ -45,6 +47,10 @@ public class PerguntaImpl implements ResultConsultarPergunta{
 	
 	private String descricao;
 	
+	//diz pro jpa que ha um relacionamento
+	//1 pra n com usuario
+	//e o campo da tabela Pergunta
+	//que representa e o idUsuario
 	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="idUsuario")
 	private Usuario usuario;
@@ -122,9 +128,6 @@ public class PerguntaImpl implements ResultConsultarPergunta{
 		return strData;
 	}
 
-	/* (non-Javadoc)
-	 * @see asktechforum.dominio.Pergunta#setStrData(java.lang.String)
-	 */
 	@Override
 	public void setStrData(String strData){
 		
@@ -135,9 +138,6 @@ public class PerguntaImpl implements ResultConsultarPergunta{
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see asktechforum.dominio.Pergunta#getStrHora()
-	 */
 	@Override
 	public String getStrHora() {
 		strHora = Util.converterTimeToString("hh:mm", hora);

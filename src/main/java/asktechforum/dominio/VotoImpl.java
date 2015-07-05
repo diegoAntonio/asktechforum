@@ -9,8 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+//Diz pro jpa que voto e uma entidade
 @Entity
-@Table(name="voto")
+@Table(name="voto") //diz o nome da tabela em que voto sera mapeado
 public class VotoImpl implements Voto {
 	
 	@Id

@@ -20,9 +20,9 @@ import javax.persistence.Transient;
 //consultas 'default' que sao utilizadas no repositorio.
 public class Usuario {
 	//nome das consultas default,pra ser usadas no codigo.
-	public static String JPQL_email = "Usuario.email";
-	public static String JPQL_email_senha = "Usuario.email_senha";
-	public static String JPQL_nome = "Usuario.nome";
+	public static String JPQL_email = "Usuario.email";				//o nome dentro da string 
+	public static String JPQL_email_senha = "Usuario.email_senha";// tem que bater com o name
+	public static String JPQL_nome = "Usuario.nome"; 			  //da consulta acima
 	
 	//diz q a variavel eh o id da classe
 	@Id

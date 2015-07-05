@@ -13,6 +13,12 @@ import asktechforum.dominio.PerguntaImpl;
 import asktechforum.dominio.ResultConsultarPergunta;
 import asktechforum.interfaces.RepositorioPergunta;
 
+/**
+ * @author Diego
+ *
+ *Classe que implementa o repositoriode Perguntas
+ * na forma JPA.
+ */
 public class RepositorioPerguntasJPA extends RepositorioGenericJPA<PerguntaImpl,Integer>implements RepositorioPergunta {
 
 	/**
@@ -71,8 +77,6 @@ public class RepositorioPerguntasJPA extends RepositorioGenericJPA<PerguntaImpl,
 		return resultado;
 	}
 	
-	//TODO: Fazer metodos stress
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<String> consultaTodasAsTags() throws SQLException {
@@ -80,8 +84,10 @@ public class RepositorioPerguntasJPA extends RepositorioGenericJPA<PerguntaImpl,
 		ArrayList<String> resultados = null;
 		Query query = null;
 				
+		//Faz a consulta dentro de JPQL_tags la em PerguntaImpl
 		query = em.createNamedQuery(PerguntaImpl.JPQL_tags);
 		
+		//retorna o resultado das consultas.
 		resultados = new ArrayList<String>(query.getResultList());
 		
 		return resultados;
