@@ -21,7 +21,7 @@ public class TagProxy {
 	private RepositorioPergunta perguntaDAO;
 
 	private TagProxy() {
-		this.fabrica = FactoryDataBase.getInstancia().criarFabrica("JDBC");
+		this.fabrica = FactoryDataBase.getInstancia().criarFabrica("JPA");
 		this.perguntaDAO = fabrica.criarDaoPergunta();
 		this.lista = new ArrayList<String>();
 	}

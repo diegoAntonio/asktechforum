@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -18,7 +20,14 @@ import asktechforum.util.Util;
 
 @Entity
 @Table(name="resposta")
+
+@NamedQueries({
+@NamedQuery(name="Resposta.autor", query="Select r from RespostaImpl r where r.usuario.idUsuario = :id"),
+@NamedQuery(name="Resposta.por_pergunta",query="Select r from RespostaImpl r where r.pergunta.idPergunta = :idPergunta")})
 public class RespostaImpl implements Resposta {
+	
+	public static String JPQL_autor = "Resposta.autor";
+	public static String JPQL_por_pergunta = "Resposta.por_pergunta";
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -26,11 +35,11 @@ public class RespostaImpl implements Resposta {
 	
 	private String descricao;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="idUsuario")
 	private Usuario usuario;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="idPergunta")
 	private PerguntaImpl pergunta;
 	

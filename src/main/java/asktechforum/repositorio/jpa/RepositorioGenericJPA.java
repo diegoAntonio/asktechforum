@@ -38,7 +38,7 @@ public class RepositorioGenericJPA<T, PK> implements Serializable{
 		this.conexaoUtil.getEntityManager().close();
 	}
 	
-	private EntityManager getEntityManager(){
+	protected EntityManager getEntityManager(){
 		return this.conexaoUtil.getEntityManager();
 	}
 

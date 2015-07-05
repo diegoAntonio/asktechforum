@@ -27,12 +27,12 @@ public class Fachada {
 	
 	private Fachada(){
 		this.usuarioBC = new UsuarioBC();
-//		this.cadastroRespostaBC = new CadastroRespostaBC();
-//		this.votoBC = new VotoBC();
-//		this.cadastroPerguntaBC = new CadastroPerguntaBC();
-		this.cadastroPerguntaBC = null;
-		this.cadastroRespostaBC = null;
-		this.votoBC = null;
+		this.cadastroRespostaBC = new CadastroRespostaBC();
+		this.votoBC = new VotoBC();
+		this.cadastroPerguntaBC = new CadastroPerguntaBC();
+//		this.cadastroPerguntaBC = null;
+//		this.cadastroRespostaBC = null;
+//		this.votoBC = null;
 	}
 	
 	//Utilizacao do padrao singleton para garantir que apenas uma instancia da fachada sera 

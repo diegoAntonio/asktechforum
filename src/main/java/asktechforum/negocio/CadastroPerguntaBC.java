@@ -19,7 +19,7 @@ public class CadastroPerguntaBC implements RepositorioPergunta {
 	private TagProxy tagProxy;
 
 	public CadastroPerguntaBC() {
-		FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("JDBC");
+		FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("JPA");
 		this.perguntaDAO = fabrica.criarDaoPergunta();
 		this.tagProxy = TagProxy.getTagProxy();
 	}

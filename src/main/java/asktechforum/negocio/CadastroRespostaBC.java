@@ -19,7 +19,7 @@ public class CadastroRespostaBC{
 
 
 	public CadastroRespostaBC() {
-		FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("JDBC");
+		FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("JPA");
 		this.cadastro = fabrica.criarDaoResposta();
 		
 	}

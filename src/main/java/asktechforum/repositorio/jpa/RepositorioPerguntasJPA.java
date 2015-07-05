@@ -2,12 +2,18 @@ package asktechforum.repositorio.jpa;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import asktechforum.dominio.Pergunta;
+import asktechforum.dominio.PerguntaImpl;
 import asktechforum.dominio.ResultConsultarPergunta;
 import asktechforum.interfaces.RepositorioPergunta;
 
-public class RepositorioPerguntasJPA extends RepositorioGenericJPA<Pergunta,Integer>implements RepositorioPergunta {
+public class RepositorioPerguntasJPA extends RepositorioGenericJPA<PerguntaImpl,Integer>implements RepositorioPergunta {
 
 	/**
 	 * 
@@ -18,7 +24,7 @@ public class RepositorioPerguntasJPA extends RepositorioGenericJPA<Pergunta,Inte
 	public String adcionarPergunta(Pergunta pergunta) throws SQLException {
 		String retorno = "cadastroSucesso";
 		
-		super.persist(pergunta);
+		super.persist((PerguntaImpl) pergunta);
 		
 		return retorno;
 	}
@@ -27,20 +33,26 @@ public class RepositorioPerguntasJPA extends RepositorioGenericJPA<Pergunta,Inte
 	public void deletarPergunta(int id) throws SQLException {
 		Pergunta p = this.consultarPerguntaPorIdPergunta(id);
 
-		super.remove(p);
+		super.remove((PerguntaImpl) p);
 	}
 
 	@Override
 	public Pergunta consultarPerguntaPorIdPergunta(int id) throws SQLException {
-		Pergunta p = (Pergunta)super.getById(id);
+		Pergunta p = super.getById(id);
 		
 		return p;
 	}
 
 	@Override
 	public ArrayList<Pergunta> consultarPerguntaIdUsuario(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Pergunta> resultados = null;
+		
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("id", id);
+		
+		resultados = new ArrayList<Pergunta>(super.findManyResult(PerguntaImpl.JPQL_autor, parameters));
+		
+		return resultados; 
 	}
 
 	@Override
@@ -54,29 +66,51 @@ public class RepositorioPerguntasJPA extends RepositorioGenericJPA<Pergunta,Inte
 	public String alterarPergunta(Pergunta pergunta) throws SQLException {
 		String resultado = "alteracaoSucesso";
 		
-		super.merge(pergunta);
+		super.merge((PerguntaImpl) pergunta);
 		
 		return resultado;
 	}
 	
 	//TODO: Fazer metodos stress
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<String> consultaTodasAsTags() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager em = super.getEntityManager();
+		ArrayList<String> resultados = null;
+		Query query = null;
+				
+		query = em.createNamedQuery(PerguntaImpl.JPQL_tags);
+		
+		resultados = new ArrayList<String>(query.getResultList());
+		
+		return resultados;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<ResultConsultarPergunta> consultarPerguntaPorTag(String tag) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<ResultConsultarPergunta> perguntas = null;
+		EntityManager em = super.getEntityManager();
+		Query query = em.createNamedQuery(PerguntaImpl.JPQL_por_tag);
+		
+		query.setParameter("tag", tag);
+		
+		perguntas = new ArrayList<ResultConsultarPergunta>(query.getResultList());
+		
+		return perguntas;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<ResultConsultarPergunta> consultarPerguntaPorTodasTags() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<ResultConsultarPergunta> perguntas = null;
+		EntityManager em = super.getEntityManager();
+		Query query = em.createNamedQuery(PerguntaImpl.JPQL_agrupadas);
+		
+		perguntas = new ArrayList<ResultConsultarPergunta>(query.getResultList());
+		
+		return perguntas;
 	}
 
 }

@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -21,7 +23,20 @@ import asktechforum.util.Util;
 
 @Entity
 @Table(name = "pergunta")
+@NamedQueries({@NamedQuery(name="Pergunta.autor",query="select p from PerguntaImpl p where p.usuario.idUsuario = :id"),
+			  @NamedQuery(name="Pergunta.tags",query="select distinct p.tag from PerguntaImpl p"),
+			  @NamedQuery(name="Pergunta.por_tag",query="select distinct p from PerguntaImpl p where p.tag = :tag"),
+			  @NamedQuery(name="Pergunta.agrupada",query="select p from PerguntaImpl p where p.tag in ("
+			  		+ "select p2.tag from "
+			  		+ " PerguntaImpl p2 group by p2.tag)")})
 public class PerguntaImpl implements ResultConsultarPergunta{
+	
+	public static String JPQL_autor = "Pergunta.autor";
+	public static String JPQL_tags = "Pergunta.tags";
+	public static String JPQL_por_tag = "Pergunta.por_tag";
+	public static String JPQL_agrupadas = "Pergunta.agrupada";
+
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idPergunta;
@@ -30,11 +45,11 @@ public class PerguntaImpl implements ResultConsultarPergunta{
 	
 	private String descricao;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="idUsuario")
 	private Usuario usuario;
 	
-	@OneToMany(cascade=CascadeType.REMOVE)
+	@OneToMany(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="idPergunta")
 	private List<RespostaImpl> respostas;
 

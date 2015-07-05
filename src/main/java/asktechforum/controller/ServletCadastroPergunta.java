@@ -49,12 +49,14 @@ public class ServletCadastroPergunta extends HttpServlet {
 		Fachada fachada = Fachada.getInstance();
 		//this.cadastro = new CadastroPerguntaBC();
 		Pergunta pergunta = new PerguntaImpl();
+		
+		Usuario  u = fachada.fachadaConsultarUsuarioPorEmail(usuario.getEmail());
 
 		pergunta.setStrData(Util.getDataSistema());
 		pergunta.setDescricao(request.getParameter("descricao"));
 		pergunta.setStrHora(Util.getHoraSistema());
 		pergunta.setTitulo(request.getParameter("titulo"));
-		pergunta.setIdUsuario(usuario.getIdUsuario());
+		pergunta.setUsuario(u);
 		pergunta.setTag(request.getParameter("tag"));
 		String acao = request.getParameter("acao");
 		if (acao.contentEquals("cadastrar")) {

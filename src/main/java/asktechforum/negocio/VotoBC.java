@@ -10,7 +10,7 @@ public class VotoBC {
 	private RepositorioVoto votoDAO;
 	
 	public VotoBC() {
-		FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("JDBC");
+		FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("JPA");
 		this.votoDAO = fabrica.criarDaoVoto();
 	}
 	
