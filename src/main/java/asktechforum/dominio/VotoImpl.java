@@ -18,11 +18,11 @@ public class VotoImpl implements Voto {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idVoto;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="idUsuario")
 	private Usuario usuario;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="idResposta")
 	private RespostaImpl resposta;
 	
