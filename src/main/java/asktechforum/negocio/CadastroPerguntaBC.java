@@ -15,7 +15,7 @@ public class CadastroPerguntaBC implements RepositorioPergunta {
 	private RepositorioPergunta perguntaDAO;
 	private ArrayList<Pergunta> lstPergunta;
 	private ArrayList<ResultConsultarPergunta> lstQtdPergunta;
-	private TagProxy tagProxy;
+	private RepositorioPergunta tagProxy;
 
 	public CadastroPerguntaBC() {
 		FabricaDAO fabrica = FactoryDataBase.getInstancia().criarFabrica("JDBC");
@@ -100,7 +100,7 @@ public class CadastroPerguntaBC implements RepositorioPergunta {
 		try {
 			//Faz uso do padrao proxy virtual para controlar quando a consulta de 
 			// tags será realizada para popular a lista de tags.
-		   tags = this.tagProxy.consultarTag();
+		   tags = this.tagProxy.consultaTodasAsTags();
 		   
 		   tagFiltradas.add(tags.get(0));
 		   boolean ehIgual = false;

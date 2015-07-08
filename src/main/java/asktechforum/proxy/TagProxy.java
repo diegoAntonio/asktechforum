@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import asktechforum.factory.FabricaDAO;
 import asktechforum.factory.FactoryDataBase;
 import asktechforum.interfaces.RepositorioPergunta;
+import asktechforum.repositorio.jdbc.RepositorioPerguntasJDBC;
 
 /**
  * Classe que implementa o Proxy virtual para o acesso as tags do Forum
@@ -13,7 +14,7 @@ import asktechforum.interfaces.RepositorioPergunta;
  * @author Barbara
  *
  */
-public class TagProxy {
+public class TagProxy extends RepositorioPerguntasJDBC{
 
 	private static TagProxy instance;
 	private ArrayList<String> lista;
@@ -33,7 +34,8 @@ public class TagProxy {
 		return instance;
 	}
 
-	public ArrayList<String> consultarTag() throws SQLException{
+	@Override
+	public ArrayList<String> consultaTodasAsTags() throws SQLException{
 		if(this.lista != null){
 			this.lista = this.perguntaDAO.consultaTodasAsTags();
 		}
