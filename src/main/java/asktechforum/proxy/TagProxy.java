@@ -36,7 +36,7 @@ public class TagProxy extends RepositorioPerguntasJDBC{
 
 	@Override
 	public ArrayList<String> consultaTodasAsTags() throws SQLException{
-		if(this.lista != null){
+		if(this.lista == null || this.lista.isEmpty()){
 			this.lista = this.perguntaDAO.consultaTodasAsTags();
 		}
 		return this.lista;
