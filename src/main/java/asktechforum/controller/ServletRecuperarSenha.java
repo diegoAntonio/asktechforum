@@ -1,6 +1,8 @@
 package asktechforum.controller;
 
 import asktechforum.fachada.Fachada;
+import asktechforum.negocio.Email;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -8,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import asktechforum.dominio.Email;
 import asktechforum.dominio.Usuario;
 
 /**
@@ -44,8 +45,7 @@ public class ServletRecuperarSenha extends HttpServlet {
 				request.getRequestDispatcher("respostaNegativaEsqueceuSenha.jsp").forward(request, response);
 				
 			}else{
-				Email email = new Email();
-				email.sendMail(usuario.getSenha(), usuario.getNome(),usuario.getEmail());
+				fachada.sendEmailEsqueciSenha(usuario);
 				request.getRequestDispatcher("respostaPositivaEsqueceuSenha.jsp").forward(request, response);
 			}
 		}catch(Exception e){

@@ -3,7 +3,6 @@ package asktechforum.negocio;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import asktechforum.dominio.Email;
 import asktechforum.dominio.Resposta;
 import asktechforum.dominio.Usuario;
 import asktechforum.factory.FabricaDAO;

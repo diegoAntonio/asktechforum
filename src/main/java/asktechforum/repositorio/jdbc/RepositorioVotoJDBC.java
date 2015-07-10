@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import asktechforum.dataBase.ConnectionUtil;
 import asktechforum.interfaces.RepositorioVoto;
-import asktechforum.util.ConnectionUtil;
 
 public class RepositorioVotoJDBC implements RepositorioVoto{
     private ConnectionUtil conexaoUtil;

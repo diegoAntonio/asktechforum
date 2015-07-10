@@ -103,3 +103,15 @@ CREATE TABLE `asktechforum`.`voto` (
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+--ajustes asktechforum.
+
+-- Criando o usuário admin.
+insert into usuario (idUsuario,nome,dt_nasc,admin,email,localizacao,senha)
+values (1,'Admin',sysdate(),1,'admin@admin.com','BR','admin');
+
+
+-- Criando a pergunta 0;
+insert into pergunta(idPergunta,titulo,data,hora,descricao,idUsuario,tag) values
+(1,'pergunta default',sysdate(),curtime(),'Pergunta Padrao do sistema',1,'Geral');

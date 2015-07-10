@@ -1,4 +1,4 @@
-package asktechforum.dominio;
+package asktechforum.negocio;
 
 
 import java.util.Properties;

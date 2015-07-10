@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import asktechforum.dataBase.ConnectionUtil;
 import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.Resposta;
 import asktechforum.dominio.Usuario;
 import asktechforum.interfaces.RepositorioResposta;
-import asktechforum.util.ConnectionUtil;
 
 public class RepositorioRespostaJDBC implements RepositorioResposta {
 

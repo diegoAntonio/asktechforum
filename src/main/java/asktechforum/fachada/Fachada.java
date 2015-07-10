@@ -107,6 +107,10 @@ public class Fachada {
 		
 	}
 	
+	public void sendEmailEsqueciSenha(Usuario usuario) {
+		this.usuarioBC.sendEmailEsqueciSenha(usuario);
+	}
+	
 	//========================================================================================
 	//Chamadas de servicos para a classe que representa as 
 	//regras de negocio para o domain model Pergunta
@@ -185,6 +189,5 @@ public class Fachada {
 	public void fachadaDeletarUsuarioVoto(int idUsuario, int idResposta) {
 		this.votoBC.deletarUsuarioVoto(idUsuario, idResposta);
 	}
-	
 	
 }

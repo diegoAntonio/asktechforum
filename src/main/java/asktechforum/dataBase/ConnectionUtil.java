@@ -1,4 +1,4 @@
-package asktechforum.util;
+package asktechforum.dataBase;
 
 import java.sql.Connection;
 import java.sql.SQLException;

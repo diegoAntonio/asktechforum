@@ -8,9 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import asktechforum.dataBase.ConnectionUtil;
 import asktechforum.dominio.Usuario;
 import asktechforum.interfaces.RepositorioUsuario;
-import asktechforum.util.ConnectionUtil;
 import asktechforum.util.UsuarioUtil;
 
 public class RepositorioUsuarioJDBC  implements RepositorioUsuario{

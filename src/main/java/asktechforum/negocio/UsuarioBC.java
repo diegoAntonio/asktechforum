@@ -350,5 +350,15 @@ public class UsuarioBC {
 		
 		return dataString;
 	}
+
+	/**
+	 *  Realiza o procedimento de enviar email de esqueci a senha
+	 *  ao usuario.
+	 * @param usuario
+	 */
+	public void sendEmailEsqueciSenha(Usuario usuario) {
+		Email email = new Email();
+		email.sendMail(usuario.getSenha(), usuario.getNome(),usuario.getEmail());		
+	}
 		
 }

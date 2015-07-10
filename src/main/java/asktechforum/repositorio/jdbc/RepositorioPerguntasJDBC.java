@@ -7,10 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import asktechforum.dataBase.ConnectionUtil;
 import asktechforum.dominio.Pergunta;
 import asktechforum.dominio.ResultConsultarPergunta;
 import asktechforum.interfaces.RepositorioPergunta;
-import asktechforum.util.ConnectionUtil;
 
 public class RepositorioPerguntasJDBC implements RepositorioPergunta {
 
