@@ -1,8 +1,5 @@
 package asktechforum.controller;
 
-import asktechforum.fachada.Fachada;
-import asktechforum.negocio.Email;
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -11,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import asktechforum.dominio.Usuario;
+import asktechforum.fachada.Fachada;
 
 /**
  * Implementacao do Servlet de Recuperar Senha.
